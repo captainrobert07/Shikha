@@ -1,0 +1,598 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Shikha Murali — Business Intelligence Developer</title>
+    <meta name="description" content="Shikha Murali — Business Intelligence Developer & People Manager. Data visualization, advanced analytics, and operations leadership in financial services." />
+    <meta name="theme-color" content="#000000" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              inter: ["Inter", "sans-serif"],
+              barlow: ["Barlow", "sans-serif"],
+              serif: ["'Instrument Serif'", "serif"],
+              display: ["Dirtyline", "Inter", "sans-serif"],
+            },
+          },
+        },
+      };
+    </script>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script type="module" src="https://unpkg.com/lucide@latest/dist/lucide.js"></script>
+
+    <style>
+      @font-face {
+        font-family: "Dirtyline";
+        src: url("https://fonts.cdnfonts.com/s/15011/Dirtyline36DaysofType.woff") format("woff");
+        font-weight: normal;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      html,
+      body {
+        background: #000;
+        color: #fff;
+        font-family: "Barlow", sans-serif;
+      }
+
+      body {
+        overflow-x: hidden;
+      }
+
+      .font-headline {
+        font-family: "Inter", sans-serif;
+      }
+
+      .liquid-glass {
+        background: rgba(255, 255, 255, 0.01);
+        background-blend-mode: luminosity;
+        backdrop-filter: blur(4px);
+        -webkit-backdrop-filter: blur(4px);
+        border: none;
+        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+        position: relative;
+        overflow: hidden;
+      }
+      .liquid-glass::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1.4px;
+        background: linear-gradient(
+          180deg,
+          rgba(255, 255, 255, 0.45) 0%,
+          rgba(255, 255, 255, 0.15) 20%,
+          rgba(255, 255, 255, 0) 40%,
+          rgba(255, 255, 255, 0) 60%,
+          rgba(255, 255, 255, 0.15) 80%,
+          rgba(255, 255, 255, 0.45) 100%
+        );
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+        mask-composite: exclude;
+        pointer-events: none;
+      }
+
+      .video-vignette::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.65) 100%);
+        pointer-events: none;
+      }
+      .video-vignette::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.55) 100%);
+        pointer-events: none;
+        z-index: 1;
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(24px);
+        transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .reveal.in {
+        opacity: 1;
+        transform: translateY(0);
+      }
+      .delay-150 { transition-delay: 150ms; }
+      .delay-300 { transition-delay: 300ms; }
+      .delay-500 { transition-delay: 500ms; }
+
+      .cta-btn {
+        transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1);
+      }
+      .cta-btn:hover {
+        transform: scale(1.03);
+        box-shadow: 0 0 32px 4px rgba(255, 255, 255, 0.2);
+      }
+      .cta-btn:active {
+        transform: scale(0.97);
+      }
+
+      .marquee-track {
+        animation: marquee 38s linear infinite;
+      }
+      @keyframes marquee {
+        from { transform: translateX(0); }
+        to { transform: translateX(-50%); }
+      }
+
+      .grain::after {
+        content: "";
+        position: fixed;
+        inset: -50%;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        pointer-events: none;
+        z-index: 60;
+        mix-blend-mode: overlay;
+        opacity: 0.5;
+      }
+
+      .section-divider {
+        height: 1px;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+      }
+
+      .skill-card {
+        transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1), background 350ms ease;
+      }
+      .skill-card:hover {
+        transform: translateY(-4px);
+        background: rgba(255, 255, 255, 0.04);
+      }
+
+      .cert-card {
+        transition: border-color 300ms ease, background 300ms ease, transform 300ms ease;
+      }
+      .cert-card:hover {
+        border-color: rgba(255, 255, 255, 0.35);
+        background: rgba(255, 255, 255, 0.03);
+        transform: translateY(-2px);
+      }
+
+      .scrollbar-thin::-webkit-scrollbar { width: 6px; }
+      .scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 999px; }
+
+      @media (max-width: 768px) {
+        .hero-headline { top: 96px !important; }
+      }
+    </style>
+  </head>
+
+  <body class="grain">
+    <!-- ============== HERO (full viewport, fixed video) ============== -->
+    <section id="hero" class="relative min-h-screen w-full overflow-hidden">
+      <!-- Video background -->
+      <div id="video-bg" class="absolute inset-0 z-0 video-vignette" style="transform: scale(1.08); transform-origin: center;">
+        <video
+          id="bg-video"
+          class="absolute inset-0 h-full w-full object-cover"
+          autoplay
+          muted
+          loop
+          playsinline
+          preload="auto"
+          poster=""
+        >
+          <source
+            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260510_060007_60275ce7-030c-4668-a160-8f364ec537d3.mp4"
+            type="video/mp4"
+          />
+        </video>
+      </div>
+
+      <!-- Header -->
+      <header class="fixed top-0 left-0 right-0 z-50 px-6 md:px-10 py-6 md:py-8 flex justify-between items-center">
+        <a href="#hero" class="text-[17px] font-semibold tracking-tight font-headline">
+          Shikha Murali<sup class="text-[9px] ml-0.5 opacity-70">BI</sup>
+        </a>
+
+        <nav class="hidden md:flex liquid-glass rounded-full px-2 py-2 items-center gap-1">
+          <a href="#about" class="text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white px-4 py-1.5 rounded-full transition-colors duration-200">ABOUT</a>
+          <a href="#skills" class="text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white px-4 py-1.5 rounded-full transition-colors duration-200">SKILLS</a>
+          <a href="#certifications" class="text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white px-4 py-1.5 rounded-full transition-colors duration-200">CREDENTIALS</a>
+          <a href="#journal" class="text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white px-4 py-1.5 rounded-full transition-colors duration-200">JOURNAL</a>
+        </nav>
+
+        <a href="#contact" class="liquid-glass rounded-full px-5 py-2.5 text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white transition-colors">
+          GET IN TOUCH
+        </a>
+      </header>
+
+      <!-- Hero headline -->
+      <div id="hero-headline" class="hero-headline reveal fixed left-1/2 -translate-x-1/2 z-20 text-center px-6"
+           style="top: 120px;">
+        <h1 class="font-headline" style="font-size: clamp(40px, 5.4vw, 72px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 400;">
+          <span class="block text-white">Numbers, made narrative.</span>
+          <span class="block" style="color: rgba(255,255,255,0.55);">Insight at the speed of decision.</span>
+        </h1>
+      </div>
+
+      <!-- Bottom block -->
+      <div id="hero-bottom" class="reveal delay-300 fixed bottom-10 md:bottom-14 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-5 px-6 w-full">
+        <p class="max-w-[640px] text-[15px] leading-relaxed text-center">
+          <span class="text-white">A Business Intelligence Developer &amp; People Manager turning financial-services data into clear, beautiful, decision-ready stories.</span>
+          <span class="text-white/55">Microsoft Fabric Analytics Engineer Associate · Informatica CDGC Foundation.</span>
+        </p>
+        <a href="#about" class="cta-btn bg-white text-black text-[15px] font-medium rounded-full px-8 py-3.5 inline-flex items-center gap-2">
+          Explore my work
+          <i data-lucide="arrow-right" class="w-4 h-4"></i>
+        </a>
+        <div class="flex items-center gap-2 text-white/70">
+          <i data-lucide="lock" style="width:13px;height:13px;stroke-width:1.5;"></i>
+          <span class="text-[11px] font-medium tracking-[0.14em]">DATA-LED. DETAIL-OBSESSED. PEOPLE-FIRST.</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== ABOUT ============== -->
+    <section id="about" class="relative z-10 bg-black px-6 md:px-10 py-28 md:py-40">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal flex items-center gap-3 mb-10">
+          <span class="text-[11px] font-medium tracking-[0.18em] text-white/50">01 — ABOUT</span>
+          <span class="h-px flex-1 bg-white/15"></span>
+        </div>
+
+        <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
+          <div class="md:col-span-7 reveal">
+            <h2 class="font-headline text-[36px] md:text-[56px] leading-[1.05] tracking-[-0.02em] font-light">
+              I help <span class="italic font-serif">teams</span> see what
+              their <span class="italic font-serif">data</span> is really saying.
+            </h2>
+            <p class="mt-8 text-[17px] leading-relaxed text-white/70 max-w-xl">
+              Experienced business specialist with a track record across financial
+              services — building reporting platforms, surfacing insight from messy
+              operational data, and quietly raising the bar on how teams use it.
+              Equal parts engineer, analyst, and manager.
+            </p>
+            <p class="mt-5 text-[17px] leading-relaxed text-white/70 max-w-xl">
+              I lead by example, mentor by listening, and ship work that respects
+              both the spreadsheet on Monday and the boardroom on Friday.
+            </p>
+          </div>
+
+          <div class="md:col-span-5 reveal delay-150">
+            <div class="liquid-glass rounded-3xl p-8 md:p-10">
+              <div class="space-y-6">
+                <div>
+                  <div class="text-[10px] tracking-[0.18em] text-white/45 uppercase mb-2">Role</div>
+                  <div class="text-[17px] text-white">Business Intelligence Developer · People Manager</div>
+                </div>
+                <div class="section-divider"></div>
+                <div>
+                  <div class="text-[10px] tracking-[0.18em] text-white/45 uppercase mb-2">Industry</div>
+                  <div class="text-[17px] text-white">Financial Services · Property &amp; Casualty Insurance</div>
+                </div>
+                <div class="section-divider"></div>
+                <div>
+                  <div class="text-[10px] tracking-[0.18em] text-white/45 uppercase mb-2">Currently</div>
+                  <div class="text-[17px] text-white">Building reporting that informs, not just decorates.</div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== MARQUEE ============== -->
+    <section class="relative z-10 bg-black overflow-hidden border-y border-white/5 py-6">
+      <div class="marquee-track flex whitespace-nowrap">
+        <!-- duplicated for seamless loop -->
+        <div class="flex items-center gap-12 pr-12 text-[28px] md:text-[44px] font-headline font-light tracking-tight text-white/30">
+          <span>Power BI</span><span class="text-white/15">/</span>
+          <span>Microsoft Fabric</span><span class="text-white/15">/</span>
+          <span>SQL</span><span class="text-white/15">/</span>
+          <span>Tableau</span><span class="text-white/15">/</span>
+          <span>Informatica CDGC</span><span class="text-white/15">/</span>
+          <span>Advanced Excel</span><span class="text-white/15">/</span>
+          <span>Data Storytelling</span><span class="text-white/15">/</span>
+          <span>Operations Leadership</span><span class="text-white/15">/</span>
+        </div>
+        <div class="flex items-center gap-12 pr-12 text-[28px] md:text-[44px] font-headline font-light tracking-tight text-white/30" aria-hidden="true">
+          <span>Power BI</span><span class="text-white/15">/</span>
+          <span>Microsoft Fabric</span><span class="text-white/15">/</span>
+          <span>SQL</span><span class="text-white/15">/</span>
+          <span>Tableau</span><span class="text-white/15">/</span>
+          <span>Informatica CDGC</span><span class="text-white/15">/</span>
+          <span>Advanced Excel</span><span class="text-white/15">/</span>
+          <span>Data Storytelling</span><span class="text-white/15">/</span>
+          <span>Operations Leadership</span><span class="text-white/15">/</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== SKILLS ============== -->
+    <section id="skills" class="relative z-10 bg-black px-6 md:px-10 py-28 md:py-40">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal flex items-center gap-3 mb-10">
+          <span class="text-[11px] font-medium tracking-[0.18em] text-white/50">02 — SKILLS</span>
+          <span class="h-px flex-1 bg-white/15"></span>
+        </div>
+
+        <h2 class="reveal font-headline text-[36px] md:text-[56px] leading-[1.05] tracking-[-0.02em] font-light max-w-3xl mb-16">
+          A toolkit shaped by <span class="italic font-serif">decades</span> of real
+          financial-services work.
+        </h2>
+
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/8 border border-white/8 rounded-2xl overflow-hidden">
+          <!-- card -->
+          <div class="skill-card bg-black p-8">
+            <div class="flex items-center justify-center w-11 h-11 rounded-full liquid-glass mb-6">
+              <i data-lucide="bar-chart-3" class="w-5 h-5 text-white"></i>
+            </div>
+            <h3 class="font-headline text-[20px] tracking-tight">Data Visualization</h3>
+            <p class="mt-3 text-[14px] text-white/60 leading-relaxed">
+              Dashboards that earn their keep — built in Power BI, Tableau, and
+              Microsoft Fabric. Clear hierarchy, honest charts, zero fluff.
+            </p>
+          </div>
+
+          <div class="skill-card bg-black p-8">
+            <div class="flex items-center justify-center w-11 h-11 rounded-full liquid-glass mb-6">
+              <i data-lucide="shield" class="w-5 h-5 text-white"></i>
+            </div>
+            <h3 class="font-headline text-[20px] tracking-tight">P&amp;C Insurance</h3>
+            <p class="mt-3 text-[14px] text-white/60 leading-relaxed">
+              Deep familiarity with property &amp; casualty workflows — claims,
+              underwriting, premium, and the operational reality behind the KPIs.
+            </p>
+          </div>
+
+          <div class="skill-card bg-black p-8">
+            <div class="flex items-center justify-center w-11 h-11 rounded-full liquid-glass mb-6">
+              <i data-lucide="table-2" class="w-5 h-5 text-white"></i>
+            </div>
+            <h3 class="font-headline text-[20px] tracking-tight">Advanced Excel</h3>
+            <p class="mt-3 text-[14px] text-white/60 leading-relaxed">
+              Power Query, dynamic arrays, financial modelling, audit-ready
+              reporting. The kind of workbooks people actually trust.
+            </p>
+          </div>
+
+          <div class="skill-card bg-black p-8">
+            <div class="flex items-center justify-center w-11 h-11 rounded-full liquid-glass mb-6">
+              <i data-lucide="search" class="w-5 h-5 text-white"></i>
+            </div>
+            <h3 class="font-headline text-[20px] tracking-tight">Data Analysis</h3>
+            <p class="mt-3 text-[14px] text-white/60 leading-relaxed">
+              From raw extracts to a recommendation — root-cause investigation,
+              trend detection, and the right chart for the right question.
+            </p>
+          </div>
+
+          <div class="skill-card bg-black p-8">
+            <div class="flex items-center justify-center w-11 h-11 rounded-full liquid-glass mb-6">
+              <i data-lucide="users" class="w-5 h-5 text-white"></i>
+            </div>
+            <h3 class="font-headline text-[20px] tracking-tight">Operations Management</h3>
+            <p class="mt-3 text-[14px] text-white/60 leading-relaxed">
+              Running tight, calm, predictable teams. Process improvement that
+              survives quarter-end, not just the slide deck.
+            </p>
+          </div>
+
+          <div class="skill-card bg-black p-8">
+            <div class="flex items-center justify-center w-11 h-11 rounded-full liquid-glass mb-6">
+              <i data-lucide="git-branch" class="w-5 h-5 text-white"></i>
+            </div>
+            <h3 class="font-headline text-[20px] tracking-tight">Data Governance</h3>
+            <p class="mt-3 text-[14px] text-white/60 leading-relaxed">
+              Cataloguing, lineage, and stewardship — informed by the
+              Informatica Cloud Data Governance &amp; Catalog Foundation series.
+            </p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== CERTIFICATIONS ============== -->
+    <section id="certifications" class="relative z-10 bg-black px-6 md:px-10 py-28 md:py-40">
+      <div class="max-w-6xl mx-auto">
+        <div class="reveal flex items-center gap-3 mb-10">
+          <span class="text-[11px] font-medium tracking-[0.18em] text-white/50">03 — CREDENTIALS</span>
+          <span class="h-px flex-1 bg-white/15"></span>
+        </div>
+
+        <h2 class="reveal font-headline text-[36px] md:text-[56px] leading-[1.05] tracking-[-0.02em] font-light max-w-3xl mb-16">
+          Credentials that <span class="italic font-serif">keep up</span> with
+          where the work is going.
+        </h2>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <!-- Microsoft Fabric -->
+          <a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-analytics-engineer-associate/" target="_blank" rel="noopener"
+             class="cert-card reveal block rounded-3xl border border-white/10 p-8 md:p-10">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl liquid-glass flex items-center justify-center">
+                  <i data-lucide="award" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="text-[10px] tracking-[0.18em] text-white/45 uppercase">Microsoft</span>
+              </div>
+              <i data-lucide="arrow-up-right" class="w-5 h-5 text-white/40"></i>
+            </div>
+            <h3 class="mt-8 font-headline text-[26px] md:text-[30px] leading-[1.15] tracking-tight">
+              Fabric Analytics Engineer Associate
+            </h3>
+            <p class="mt-4 text-[14px] text-white/55 leading-relaxed">
+              Designs, builds, and operationalises analytics solutions across the
+              Microsoft Fabric ecosystem — lakehouses, semantic models, and the
+              storytelling layer on top.
+            </p>
+          </a>
+
+          <!-- Informatica -->
+          <a href="https://www.informatica.com/" target="_blank" rel="noopener"
+             class="cert-card reveal delay-150 block rounded-3xl border border-white/10 p-8 md:p-10">
+            <div class="flex items-start justify-between gap-4">
+              <div class="flex items-center gap-3">
+                <div class="w-10 h-10 rounded-xl liquid-glass flex items-center justify-center">
+                  <i data-lucide="badge-check" class="w-5 h-5 text-white"></i>
+                </div>
+                <span class="text-[10px] tracking-[0.18em] text-white/45 uppercase">Informatica</span>
+              </div>
+              <i data-lucide="arrow-up-right" class="w-5 h-5 text-white/40"></i>
+            </div>
+            <h3 class="mt-8 font-headline text-[26px] md:text-[30px] leading-[1.15] tracking-tight">
+              Cloud Data Governance &amp; Catalog Foundation
+            </h3>
+            <p class="mt-4 text-[14px] text-white/55 leading-relaxed">
+              The principles and platform behind modern data stewardship —
+              cataloguing, lineage, classification, and the policies that keep
+              regulated data trustworthy.
+            </p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============== JOURNAL / PHILOSOPHY ============== -->
+    <section id="journal" class="relative z-10 bg-black px-6 md:px-10 py-28 md:py-40">
+      <div class="max-w-4xl mx-auto text-center">
+        <div class="reveal flex items-center gap-3 mb-10 justify-center">
+          <span class="h-px w-16 bg-white/15"></span>
+          <span class="text-[11px] font-medium tracking-[0.18em] text-white/50">04 — JOURNAL</span>
+          <span class="h-px w-16 bg-white/15"></span>
+        </div>
+
+        <blockquote class="reveal font-headline text-[28px] md:text-[44px] leading-[1.2] tracking-[-0.01em] font-light">
+          <span class="font-serif italic text-white">"</span>
+          The best dashboards aren't dashboards. They're decisions, already made,
+          waiting for someone to recognise them.
+          <span class="font-serif italic text-white">"</span>
+        </blockquote>
+
+        <p class="reveal delay-150 mt-10 text-[12px] tracking-[0.2em] text-white/40 uppercase">
+          — A note I keep on my monitor
+        </p>
+      </div>
+    </section>
+
+    <!-- ============== CONTACT / FOOTER ============== -->
+    <section id="contact" class="relative z-10 bg-black px-6 md:px-10 py-28 md:py-32 border-t border-white/8">
+      <div class="max-w-6xl mx-auto">
+        <div class="grid md:grid-cols-12 gap-10 items-end">
+          <div class="md:col-span-8 reveal">
+            <h2 class="font-headline text-[40px] md:text-[72px] leading-[1.02] tracking-[-0.02em] font-light">
+              Let&rsquo;s build something
+              <span class="italic font-serif">measurably</span> better.
+            </h2>
+            <p class="mt-6 text-[16px] text-white/60 max-w-xl">
+              For collaboration, mentorship, or a quick chat about reporting,
+              governance, or anything in between — find me on LinkedIn.
+            </p>
+          </div>
+          <div class="md:col-span-4 reveal delay-150 flex md:justify-end">
+            <a href="https://www.linkedin.com/" target="_blank" rel="noopener"
+               class="cta-btn bg-white text-black text-[15px] font-medium rounded-full px-8 py-3.5 inline-flex items-center gap-2">
+              Connect on LinkedIn
+              <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+            </a>
+          </div>
+        </div>
+
+        <div class="section-divider mt-20"></div>
+
+        <div class="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
+          <div class="text-[12px] text-white/40 tracking-wide">
+            © <span id="year"></span> Shikha Murali. All rights reserved.
+          </div>
+          <div class="flex items-center gap-6 text-[11px] tracking-[0.14em] text-white/40 uppercase">
+            <span>Crafted with care</span>
+            <span>·</span>
+            <span>Designed for clarity</span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <script>
+      // Year stamp
+      document.getElementById("year").textContent = new Date().getFullYear();
+
+      // Init lucide once it's ready
+      window.addEventListener("load", () => {
+        if (window.lucide) window.lucide.createIcons();
+        // Fade in hero pieces
+        requestAnimationFrame(() => {
+          document.getElementById("hero-headline").classList.add("in");
+          document.getElementById("hero-bottom").classList.add("in");
+        });
+      });
+
+      // Playback rate
+      const video = document.getElementById("bg-video");
+      if (video) {
+        video.addEventListener("loadedmetadata", () => {
+          try { video.playbackRate = 1.25; } catch (e) {}
+        });
+      }
+
+      // Mouse parallax via GSAP
+      (function () {
+        const bg = document.getElementById("video-bg");
+        if (!bg || !window.gsap) return;
+        let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
+        const onMove = (e) => {
+          const cx = window.innerWidth / 2;
+          const cy = window.innerHeight / 2;
+          targetX = ((e.clientX - cx) / cx) * 20;
+          targetY = ((e.clientY - cy) / cy) * 20;
+        };
+        window.addEventListener("mousemove", onMove);
+        const tick = () => {
+          currentX += (targetX - currentX) * 0.06;
+          currentY += (targetY - currentY) * 0.06;
+          gsap.set(bg, { x: currentX, y: currentY });
+          requestAnimationFrame(tick);
+        };
+        requestAnimationFrame(tick);
+      })();
+
+      // Reveal-on-scroll
+      const io = new IntersectionObserver(
+        (entries) => {
+          entries.forEach((en) => {
+            if (en.isIntersecting) {
+              en.target.classList.add("in");
+              io.unobserve(en.target);
+            }
+          });
+        },
+        { threshold: 0.12 }
+      );
+      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+
+      // Smooth-scroll for in-page anchors
+      document.querySelectorAll('a[href^="#"]').forEach((a) => {
+        a.addEventListener("click", (e) => {
+          const id = a.getAttribute("href");
+          if (id.length > 1) {
+            const t = document.querySelector(id);
+            if (t) {
+              e.preventDefault();
+              t.scrollIntoView({ behavior: "smooth", block: "start" });
+            }
+          }
+        });
+      });
+    </script>
+  </body>
+</html>
