@@ -3,1330 +3,683 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shikha Murali — Business Intelligence, Reimagined</title>
-    <meta name="description" content="Shikha Murali — Business Intelligence Developer & People Manager. A cinematic portfolio of data, design, and decisions." />
-    <meta name="theme-color" content="#05060A" />
+    <title>Shikha Murali — New Data Era</title>
+    <meta name="description" content="Shikha Murali — Business Intelligence Developer & People Manager. A new era of data storytelling." />
+    <meta name="theme-color" content="#fd2601" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+      tailwind.config = {
+        theme: {
+          extend: {
+            fontFamily: {
+              anton: ['Anton', 'sans-serif'],
+              inter: ['Inter', 'sans-serif'],
+              serif: ['"Instrument Serif"', 'serif'],
+            },
+            colors: {
+              brand: { red: '#fd2601', orange: '#f37e1c', glow: '#F4791B' },
+            },
+          },
+        },
+      };
+    </script>
 
     <style>
       :root {
-        --ink: #05060A;
-        --ink-2: #0A0C14;
-        --paper: #F5F1EA;
-        --accent: #FF5B2E;
-        --accent-2: #6CD0FF;
-        --accent-3: #C7B8FF;
+        --brand-red: #fd2601;
+        --brand-orange: #f37e1c;
+        --brand-glow: #F4791B;
       }
 
-      * { margin: 0; padding: 0; box-sizing: border-box; }
+      * { -webkit-tap-highlight-color: transparent; }
 
       html, body {
-        background: var(--ink);
-        color: var(--paper);
+        background: linear-gradient(180deg, var(--brand-red) 0%, var(--brand-orange) 100%);
+        color: #fff;
         font-family: 'Inter', sans-serif;
-        font-weight: 300;
+        font-weight: 400;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         overflow-x: hidden;
-        cursor: none;
+        min-height: 100vh;
       }
 
-      body { min-height: 100vh; }
+      ::selection { background: #fff; color: var(--brand-red); }
+      ::-moz-selection { background: #fff; color: var(--brand-red); }
 
-      ::selection { background: var(--accent); color: var(--ink); }
+      .anton { font-family: 'Anton', sans-serif; letter-spacing: 0.02em; }
 
-      .serif { font-family: 'Instrument Serif', serif; font-weight: 400; }
-      .mono  { font-family: 'JetBrains Mono', monospace; }
-
-      /* ============== CANVAS LAYER ============== */
-      #stage {
-        position: fixed;
-        inset: 0;
-        width: 100vw;
-        height: 100vh;
-        z-index: 0;
-        pointer-events: none;
+      /* Brush-stroke mask for portrait (paint cutout). Two stacked masks build a rough edge. */
+      .brush-mask {
+        -webkit-mask-image:
+          radial-gradient(ellipse 78% 92% at 50% 52%, #000 60%, transparent 75%),
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 800'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.04' numOctaves='3' seed='5'/><feDisplacementMap in='SourceGraphic' scale='52'/></filter><rect width='100%25' height='100%25' fill='black' filter='url(%23r)'/></svg>");
+        -webkit-mask-composite: source-in;
+        -webkit-mask-size: 100% 100%, 100% 100%;
+        -webkit-mask-repeat: no-repeat, no-repeat;
+                mask-image:
+          radial-gradient(ellipse 78% 92% at 50% 52%, #000 60%, transparent 75%),
+          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 800'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.04' numOctaves='3' seed='5'/><feDisplacementMap in='SourceGraphic' scale='52'/></filter><rect width='100%25' height='100%25' fill='black' filter='url(%23r)'/></svg>");
+        mask-composite: intersect;
+        mask-size: 100% 100%, 100% 100%;
+        mask-repeat: no-repeat, no-repeat;
+        filter: drop-shadow(0 30px 60px rgba(0,0,0,0.35));
       }
 
-      /* Subtle film grain */
-      body::after {
+      /* Subtle film grain on top */
+      .grain::after {
         content: "";
         position: fixed;
         inset: -50%;
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
         pointer-events: none;
-        z-index: 100;
+        z-index: 60;
         mix-blend-mode: overlay;
-        opacity: 0.55;
+        opacity: 0.45;
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.07 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
       }
 
-      /* Vignette */
-      .vignette {
-        position: fixed;
-        inset: 0;
-        z-index: 1;
-        pointer-events: none;
-        background:
-          radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 100%),
-          linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.55) 100%);
+      /* Magnetic-button container has its own animation via JS */
+      .reveal-up {
+        opacity: 0;
+        transform: translateY(28px);
+        transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
       }
+      .reveal-up.in { opacity: 1; transform: translateY(0); }
+      .delay-150 { transition-delay: 150ms; }
+      .delay-300 { transition-delay: 300ms; }
+      .delay-500 { transition-delay: 500ms; }
+      .delay-700 { transition-delay: 700ms; }
+      .delay-900 { transition-delay: 900ms; }
 
-      /* ============== CURSOR ============== */
-      .cursor {
-        position: fixed;
-        top: 0; left: 0;
-        width: 24px; height: 24px;
-        border: 1px solid var(--paper);
+      /* HIRE ME arrow circle */
+      .arrow-circle {
+        width: 44px; height: 44px;
+        border: 1.5px solid #fff;
         border-radius: 999px;
-        pointer-events: none;
-        z-index: 9999;
-        mix-blend-mode: difference;
-        transform: translate(-50%, -50%);
-        transition: width 0.25s, height 0.25s, background 0.25s;
-      }
-      .cursor-dot {
-        position: fixed;
-        top: 0; left: 0;
-        width: 4px; height: 4px;
-        background: var(--paper);
-        border-radius: 999px;
-        pointer-events: none;
-        z-index: 9999;
-        mix-blend-mode: difference;
-        transform: translate(-50%, -50%);
-      }
-      .cursor.hover { width: 64px; height: 64px; background: var(--paper); }
-
-      @media (pointer: coarse) {
-        html, body { cursor: auto; }
-        .cursor, .cursor-dot { display: none; }
-      }
-
-      /* ============== HEADER ============== */
-      header {
-        position: fixed;
-        top: 0; left: 0; right: 0;
-        z-index: 50;
-        padding: 28px 40px;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        mix-blend-mode: difference;
-        color: var(--paper);
-      }
-
-      .wordmark {
-        font-size: 16px;
-        font-weight: 600;
-        letter-spacing: -0.02em;
-        display: flex;
-        align-items: baseline;
-        gap: 6px;
-      }
-      .wordmark .pulse {
-        width: 8px; height: 8px;
-        border-radius: 999px;
-        background: var(--accent);
-        box-shadow: 0 0 16px var(--accent);
-        animation: pulse 1.6s ease-in-out infinite;
-        align-self: center;
-      }
-      @keyframes pulse {
-        0%, 100% { opacity: 1; transform: scale(1); }
-        50% { opacity: 0.5; transform: scale(1.4); }
-      }
-
-      nav.toplinks {
-        display: flex;
-        gap: 32px;
-        font-size: 11px;
-        letter-spacing: 0.18em;
-        font-weight: 500;
-      }
-      nav.toplinks a {
-        color: inherit;
-        text-decoration: none;
-        position: relative;
-        padding: 4px 0;
-        transition: opacity 0.3s;
-      }
-      nav.toplinks a::before {
-        content: "0" counter(linkno);
-        counter-increment: linkno;
-        position: absolute;
-        top: -10px;
-        left: 0;
-        font-size: 8px;
-        opacity: 0.5;
-      }
-      nav.toplinks { counter-reset: linkno; }
-      nav.toplinks a:hover { opacity: 0.5; }
-
-      @media (max-width: 900px) {
-        header { padding: 20px; }
-        nav.toplinks { display: none; }
-      }
-
-      /* ============== SIDE RAILS ============== */
-      .rail-left, .rail-right {
-        position: fixed;
-        top: 50%;
-        transform: translateY(-50%);
-        z-index: 40;
-        font-size: 10px;
-        letter-spacing: 0.2em;
-        opacity: 0.55;
-        mix-blend-mode: difference;
-        color: var(--paper);
-      }
-      .rail-left {
-        left: 24px;
-        writing-mode: vertical-rl;
-        transform: translateY(-50%) rotate(180deg);
-      }
-      .rail-right {
-        right: 24px;
-        writing-mode: vertical-rl;
-      }
-      .rail-right .num {
-        font-family: 'Instrument Serif', serif;
-        font-style: italic;
-        font-size: 16px;
-        letter-spacing: 0;
-      }
-      @media (max-width: 900px) { .rail-left, .rail-right { display: none; } }
-
-      /* ============== SECTION SCAFFOLD ============== */
-      main {
-        position: relative;
-        z-index: 5;
-      }
-      section.panel {
-        min-height: 100vh;
-        position: relative;
-        padding: 120px 40px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-      }
-      section.panel.tall { min-height: 130vh; }
-
-      .container {
-        max-width: 1280px;
-        margin: 0 auto;
-        width: 100%;
-      }
-
-      .eyebrow {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 0.32em;
-        text-transform: uppercase;
-        opacity: 0.6;
-        margin-bottom: 24px;
-        display: flex;
-        align-items: center;
-        gap: 12px;
-      }
-      .eyebrow::before {
-        content: "";
-        width: 28px;
-        height: 1px;
-        background: var(--paper);
-        opacity: 0.5;
-      }
-
-      /* ============== HERO ============== */
-      .hero {
-        min-height: 100vh;
-        position: relative;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        justify-content: center;
-        text-align: center;
-        padding: 0 40px;
-      }
-
-      .hero h1 {
-        font-family: 'Instrument Serif', serif;
-        font-weight: 400;
-        font-size: clamp(56px, 11vw, 180px);
-        line-height: 0.92;
-        letter-spacing: -0.04em;
-      }
-      .hero h1 .word {
-        display: inline-block;
-        overflow: hidden;
-        vertical-align: top;
-      }
-      .hero h1 .word > span {
-        display: inline-block;
-        transform: translateY(110%);
-        will-change: transform;
-      }
-      .hero h1 .italic {
-        font-style: italic;
-        color: var(--accent-3);
-      }
-      .hero .accent { color: var(--accent); }
-
-      .hero .underline {
-        font-size: clamp(13px, 1.3vw, 16px);
-        letter-spacing: 0.1em;
-        opacity: 0;
-        transform: translateY(20px);
-        margin-top: 36px;
-        max-width: 580px;
-        line-height: 1.6;
-      }
-
-      .hero .scroll-cue {
-        position: absolute;
-        bottom: 40px;
-        left: 50%;
-        transform: translateX(-50%);
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 9px;
-        letter-spacing: 0.3em;
-        opacity: 0;
-        display: flex;
-        flex-direction: column;
-        align-items: center;
-        gap: 12px;
-      }
-      .scroll-cue .line {
-        width: 1px;
-        height: 40px;
-        background: var(--paper);
-        position: relative;
-        overflow: hidden;
-      }
-      .scroll-cue .line::after {
-        content: "";
-        position: absolute;
-        top: -100%;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        background: linear-gradient(180deg, transparent, var(--accent), transparent);
-        animation: scrolldot 2s ease-in-out infinite;
-      }
-      @keyframes scrolldot {
-        0% { top: -100%; } 100% { top: 200%; }
-      }
-
-      /* ============== MANIFESTO ============== */
-      .manifesto p {
-        font-family: 'Instrument Serif', serif;
-        font-size: clamp(28px, 4vw, 56px);
-        line-height: 1.2;
-        letter-spacing: -0.02em;
-        max-width: 1100px;
-      }
-      .manifesto .word-reveal {
-        display: inline-block;
-        opacity: 0.18;
-        transition: opacity 0.4s;
-      }
-      .manifesto .word-reveal.lit { opacity: 1; }
-
-      /* ============== ABOUT ============== */
-      .about-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 80px;
-        align-items: start;
-      }
-      @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
-
-      .stat-line {
-        display: flex;
-        align-items: baseline;
-        gap: 16px;
-        padding: 20px 0;
-        border-top: 1px solid rgba(245, 241, 234, 0.12);
-      }
-      .stat-line:last-child { border-bottom: 1px solid rgba(245, 241, 234, 0.12); }
-      .stat-line .num {
-        font-family: 'Instrument Serif', serif;
-        font-size: 56px;
-        font-weight: 400;
-        line-height: 1;
-        color: var(--accent);
-        min-width: 90px;
-      }
-      .stat-line .label {
-        font-size: 13px;
-        opacity: 0.7;
-        letter-spacing: 0.02em;
-        line-height: 1.5;
-      }
-
-      .about-h2 {
-        font-family: 'Instrument Serif', serif;
-        font-size: clamp(40px, 6vw, 88px);
-        line-height: 1.02;
-        letter-spacing: -0.03em;
-        font-weight: 400;
-      }
-      .about-h2 .italic {
-        font-style: italic;
-        color: var(--accent-2);
-      }
-      .about-h2 .crossed {
-        position: relative;
-        display: inline-block;
-      }
-      .about-h2 .crossed::after {
-        content: "";
-        position: absolute;
-        left: 0; right: 0;
-        top: 55%;
-        height: 2px;
-        background: var(--accent);
-        transform: scaleX(0);
-        transform-origin: left;
-        transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
-      }
-      .about-h2 .crossed.struck::after { transform: scaleX(1); }
-
-      /* ============== SKILLS ============== */
-      .skills-list {
-        list-style: none;
-        margin-top: 40px;
-      }
-      .skills-list li {
-        display: grid;
-        grid-template-columns: 60px 1fr auto;
-        align-items: baseline;
-        gap: 32px;
-        padding: 28px 0;
-        border-top: 1px solid rgba(245, 241, 234, 0.12);
-        cursor: none;
-        position: relative;
-        overflow: hidden;
-        transition: padding 0.4s cubic-bezier(0.7, 0, 0.3, 1);
-      }
-      .skills-list li:last-child { border-bottom: 1px solid rgba(245, 241, 234, 0.12); }
-      .skills-list li::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(90deg, var(--accent), transparent);
-        opacity: 0;
-        transition: opacity 0.4s;
-        z-index: -1;
-      }
-      .skills-list li:hover { padding-left: 24px; }
-      .skills-list li:hover::before { opacity: 0.08; }
-      .skills-list li:hover .skill-name { transform: translateX(8px); }
-      .skill-num {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 12px;
-        opacity: 0.5;
-      }
-      .skill-name {
-        font-family: 'Instrument Serif', serif;
-        font-size: clamp(28px, 3.6vw, 48px);
-        line-height: 1.05;
-        transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
-      }
-      .skill-name .italic { font-style: italic; color: var(--accent-3); }
-      .skill-meta {
-        font-size: 11px;
-        letter-spacing: 0.16em;
-        opacity: 0.5;
-        text-transform: uppercase;
-      }
-      @media (max-width: 700px) {
-        .skills-list li { grid-template-columns: 40px 1fr; gap: 16px; }
-        .skill-meta { display: none; }
-      }
-
-      /* ============== CERTIFICATIONS ============== */
-      .cert-grid {
-        display: grid;
-        grid-template-columns: 1fr 1fr;
-        gap: 24px;
-        margin-top: 60px;
-      }
-      @media (max-width: 900px) { .cert-grid { grid-template-columns: 1fr; } }
-
-      .cert {
-        position: relative;
-        border: 1px solid rgba(245, 241, 234, 0.12);
-        padding: 40px;
-        overflow: hidden;
-        transition: border-color 0.4s, transform 0.4s;
-        text-decoration: none;
-        color: inherit;
-        display: block;
-        cursor: none;
-      }
-      .cert::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,91,46,0.18), transparent 40%);
-        opacity: 0;
-        transition: opacity 0.4s;
-      }
-      .cert:hover { border-color: rgba(245, 241, 234, 0.35); transform: translateY(-4px); }
-      .cert:hover::before { opacity: 1; }
-
-      .cert .row {
-        display: flex;
-        justify-content: space-between;
-        align-items: flex-start;
-      }
-      .cert .badge {
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 0.2em;
-        opacity: 0.6;
-      }
-      .cert .arrow {
-        width: 16px; height: 16px;
-        border-top: 1px solid currentColor;
-        border-right: 1px solid currentColor;
-        transform: rotate(45deg);
-        opacity: 0.6;
-        transition: transform 0.3s, opacity 0.3s;
-      }
-      .cert:hover .arrow {
-        transform: rotate(45deg) translate(4px, -4px);
-        opacity: 1;
-      }
-      .cert h3 {
-        font-family: 'Instrument Serif', serif;
-        font-size: clamp(26px, 2.8vw, 38px);
-        font-weight: 400;
-        line-height: 1.1;
-        letter-spacing: -0.02em;
-        margin-top: 60px;
-      }
-      .cert p {
-        font-size: 14px;
-        line-height: 1.6;
-        opacity: 0.65;
-        margin-top: 16px;
-        max-width: 36em;
-      }
-
-      /* ============== PHILOSOPHY ============== */
-      .philosophy {
-        text-align: center;
-      }
-      .philosophy blockquote {
-        font-family: 'Instrument Serif', serif;
-        font-size: clamp(36px, 5.5vw, 80px);
-        line-height: 1.15;
-        letter-spacing: -0.02em;
-        max-width: 1000px;
-        margin: 0 auto;
-      }
-      .philosophy blockquote .italic { font-style: italic; }
-      .philosophy blockquote .accent { color: var(--accent); }
-      .philosophy .attribution {
-        margin-top: 60px;
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 11px;
-        letter-spacing: 0.3em;
-        opacity: 0.5;
-      }
-
-      /* ============== CONTACT ============== */
-      .contact-grid {
-        display: grid;
-        grid-template-columns: 1.4fr 1fr;
-        gap: 60px;
-        align-items: end;
-      }
-      @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
-
-      .big-cta {
-        font-family: 'Instrument Serif', serif;
-        font-size: clamp(48px, 8vw, 120px);
-        line-height: 0.95;
-        letter-spacing: -0.04em;
-        font-weight: 400;
-      }
-      .big-cta .italic { font-style: italic; color: var(--accent); }
-
-      .magnetic-btn {
         display: inline-flex;
         align-items: center;
-        gap: 16px;
-        background: var(--paper);
-        color: var(--ink);
-        padding: 22px 36px;
-        border-radius: 999px;
-        font-size: 14px;
-        font-weight: 500;
-        letter-spacing: 0.04em;
-        text-decoration: none;
-        cursor: none;
-        position: relative;
-        overflow: hidden;
-        transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
-        will-change: transform;
-      }
-      .magnetic-btn::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: var(--accent);
-        transform: translateY(101%);
-        transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1);
-      }
-      .magnetic-btn:hover::before { transform: translateY(0); }
-      .magnetic-btn span {
-        position: relative;
-        z-index: 1;
-        transition: color 0.4s;
-      }
-      .magnetic-btn:hover span { color: var(--paper); }
-      .magnetic-btn .icon {
-        position: relative;
-        z-index: 1;
-        width: 16px; height: 16px;
-        border-top: 1px solid currentColor;
-        border-right: 1px solid currentColor;
-        transform: rotate(45deg);
-        transition: color 0.4s;
-      }
-
-      /* ============== FOOTER ============== */
-      footer {
-        padding: 40px;
-        border-top: 1px solid rgba(245, 241, 234, 0.12);
-        font-family: 'JetBrains Mono', monospace;
-        font-size: 10px;
-        letter-spacing: 0.18em;
-        text-transform: uppercase;
-        display: flex;
-        justify-content: space-between;
-        opacity: 0.5;
-        position: relative;
-        z-index: 5;
-      }
-      @media (max-width: 700px) {
-        footer { flex-direction: column; gap: 12px; }
-      }
-
-      /* ============== LOADER ============== */
-      .loader {
-        position: fixed;
-        inset: 0;
-        z-index: 200;
-        background: var(--ink);
-        display: flex;
-        align-items: center;
         justify-content: center;
-        flex-direction: column;
-        gap: 24px;
-        transition: opacity 1s;
+        transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
       }
-      .loader.gone { opacity: 0; pointer-events: none; }
-      .loader .l-text {
-        font-family: 'Instrument Serif', serif;
-        font-style: italic;
-        font-size: 32px;
-        letter-spacing: -0.02em;
+      .arrow-circle svg { transition: transform 0.3s ease, color 0.3s ease; }
+      .hire-link:hover .arrow-circle {
+        background: #fff;
+        color: var(--brand-red);
       }
-      .loader .l-bar {
-        width: 200px;
-        height: 1px;
-        background: rgba(245,241,234,0.15);
-        position: relative;
-        overflow: hidden;
-      }
-      .loader .l-bar::after {
-        content: "";
-        position: absolute;
-        left: 0; top: 0; bottom: 0;
-        width: 0%;
-        background: var(--accent);
-        animation: loadbar 1.6s ease-out forwards;
-      }
-      @keyframes loadbar { to { width: 100%; } }
+      .hire-link:hover .arrow-circle svg { color: var(--brand-red); transform: rotate(0deg); }
 
-      /* ============== UTIL ============== */
-      a { -webkit-tap-highlight-color: transparent; }
+      /* Marquee for skills strip */
+      .marquee {
+        display: flex;
+        overflow: hidden;
+        mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+        -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
+      }
+      .marquee-track { display: flex; flex-shrink: 0; animation: scroll 38s linear infinite; }
+      @keyframes scroll {
+        from { transform: translateX(0); }
+        to { transform: translateX(-100%); }
+      }
+
+      /* Section dividers */
+      .hairline {
+        height: 1px;
+        background: rgba(255,255,255,0.25);
+      }
+
+      /* Tilted brand chip */
+      .chip {
+        border: 1px solid rgba(255,255,255,0.4);
+        padding: 8px 16px;
+        border-radius: 999px;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        backdrop-filter: blur(6px);
+      }
+
+      /* Mobile nav menu */
+      .mobile-menu {
+        position: fixed; inset: 0;
+        background: linear-gradient(180deg, var(--brand-red) 0%, var(--brand-orange) 100%);
+        z-index: 80;
+        display: none;
+        flex-direction: column;
+        padding: 80px 24px 40px;
+      }
+      .mobile-menu.open { display: flex; }
+      .mobile-menu a {
+        font-family: 'Anton', sans-serif;
+        font-size: 56px;
+        line-height: 1.05;
+        letter-spacing: 0.02em;
+        color: #fff;
+        padding: 16px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.18);
+      }
     </style>
   </head>
 
-  <body>
-    <!-- ============= LOADER ============= -->
-    <div class="loader" id="loader">
-      <div class="l-text">Initialising the universe…</div>
-      <div class="l-bar"></div>
+  <body class="grain">
+    <!-- ============= AMBIENT BACKGROUND ============= -->
+    <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
+      <!-- Massive faint name -->
+      <div class="absolute inset-0 flex items-center justify-center">
+        <span
+          class="anton text-white whitespace-nowrap"
+          style="font-size: clamp(280px, 40vw, 720px); opacity: 0.08; filter: blur(4px); letter-spacing: -0.02em;"
+        >SHIKHA</span>
+      </div>
+      <!-- Glow blobs -->
+      <div
+        class="absolute"
+        style="bottom: -80px; right: -60px; width: 300px; height: 300px; background: var(--brand-glow); filter: blur(80px); mix-blend-mode: screen; opacity: 0.6; border-radius: 999px;"
+      ></div>
+      <div
+        class="absolute"
+        style="bottom: -120px; left: -120px; width: 600px; height: 300px; background: var(--brand-glow); filter: blur(80px); mix-blend-mode: screen; opacity: 0.6; border-radius: 999px;"
+      ></div>
     </div>
 
-    <!-- ============= CURSOR ============= -->
-    <div class="cursor" id="cursor"></div>
-    <div class="cursor-dot" id="cursor-dot"></div>
-
-    <!-- ============= 3D STAGE ============= -->
-    <canvas id="stage"></canvas>
-    <div class="vignette"></div>
-
-    <!-- ============= HEADER ============= -->
-    <header>
-      <a href="#hero" class="wordmark" data-magnet>
-        <span class="pulse"></span>
-        Shikha&nbsp;Murali
+    <!-- ============= NAVIGATION ============= -->
+    <header class="absolute top-0 left-0 right-0 z-40 px-6 md:px-10 py-7 flex items-center justify-between">
+      <a href="#hero" class="flex items-center gap-2 text-white tracking-[0.18em] text-[14px] font-medium uppercase">
+        <span class="text-lg">✱</span>
+        <span>Shikha Murali</span>
       </a>
-      <nav class="toplinks">
-        <a href="#about" data-magnet>ABOUT</a>
-        <a href="#skills" data-magnet>SKILLS</a>
-        <a href="#credentials" data-magnet>CREDENTIALS</a>
-        <a href="#contact" data-magnet>CONTACT</a>
+
+      <nav class="hidden md:flex items-center gap-10 text-[12px] tracking-[0.22em] uppercase font-medium">
+        <a href="#projects" class="hover:opacity-80 transition-opacity">Projects</a>
+        <a href="#journal"  class="hover:opacity-80 transition-opacity">Journal</a>
+        <a href="#about"    class="hover:opacity-80 transition-opacity">About</a>
+        <a href="#resume"   class="hover:opacity-80 transition-opacity">Resume</a>
       </nav>
-      <a href="#contact" class="mono" style="font-size:10px; letter-spacing:0.2em;" data-magnet>
-        AVAILABLE — 2026
+
+      <a href="#contact" class="hire-link hidden md:flex items-center gap-3 text-[12px] tracking-[0.22em] uppercase font-medium">
+        <span>// Hire&nbsp;Me</span>
+        <span class="arrow-circle text-white">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" style="transform: rotate(0deg);">
+            <line x1="7" y1="17" x2="17" y2="7"></line>
+            <polyline points="7 7 17 7 17 17"></polyline>
+          </svg>
+        </span>
       </a>
+
+      <button id="menu-btn" class="md:hidden flex flex-col gap-[5px] p-2" aria-label="Open menu">
+        <span class="block w-6 h-[2px] bg-white"></span>
+        <span class="block w-6 h-[2px] bg-white"></span>
+      </button>
     </header>
 
-    <!-- ============= SIDE RAILS ============= -->
-    <div class="rail-left mono">SHIKHA / BI / 2026</div>
-    <div class="rail-right mono"><span id="rail-section">00</span> &nbsp;<span class="num">/</span>&nbsp; 06</div>
+    <!-- Mobile menu -->
+    <div class="mobile-menu" id="mobile-menu">
+      <button id="menu-close" class="absolute top-7 right-6 text-white text-3xl leading-none" aria-label="Close menu">×</button>
+      <a href="#projects" data-mobile-link>Projects</a>
+      <a href="#journal"  data-mobile-link>Journal</a>
+      <a href="#about"    data-mobile-link>About</a>
+      <a href="#resume"   data-mobile-link>Resume</a>
+      <a href="#contact"  data-mobile-link>Hire Me ↗</a>
+    </div>
 
-    <main>
-      <!-- ============= 01 — HERO ============= -->
-      <section class="panel hero" id="hero" data-section="01" data-formation="globe">
-        <div class="eyebrow" style="position:absolute; top:120px; left:50%; transform:translateX(-50%);">
-          <span>A PORTFOLIO BY KRISTOM ROBERT</span>
-        </div>
+    <!-- ============= HERO ============= -->
+    <section id="hero" class="relative z-10 min-h-screen overflow-hidden">
 
-        <h1 id="hero-title">
-          <span class="word"><span>Numbers,</span></span>
-          <br/>
-          <span class="word"><span class="italic">made</span></span>
-          <span class="word"><span class="italic">narrative.</span></span>
+      <!-- Massive headline -->
+      <div class="absolute inset-0 z-10 flex items-center justify-center px-6">
+        <h1
+          id="hero-h1"
+          class="anton text-white text-center uppercase leading-[0.85] tracking-[0.01em]"
+          style="font-size: clamp(72px, 12vw, 180px);"
+        >
+          <span class="block md:inline reveal-up">NEW</span>
+          <span class="block md:inline md:ml-6 reveal-up delay-150">DATA</span>
+          <span class="block md:inline md:ml-6 reveal-up delay-300">ERA</span>
         </h1>
+      </div>
 
-        <p class="underline" id="hero-under">
-          Shikha Murali — Business Intelligence Developer &amp; People Manager.
-          A decade of turning financial-services data into clear, beautiful,
-          decision-ready stories.
+      <!-- Portrait centered, brush-mask, overlapping text -->
+      <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
+        <div class="relative" style="width: clamp(280px, 36vw, 520px); height: clamp(380px, 50vw, 700px);">
+          <img
+            id="portrait"
+            class="brush-mask w-full h-full object-cover"
+            src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?q=80&w=1200&auto=format&fit=crop"
+            alt="Shikha Murali — portrait"
+          />
+        </div>
+      </div>
+
+      <!-- Floating intro (bottom-left) -->
+      <div class="hidden md:block absolute bottom-12 left-10 z-30 max-w-[300px] reveal-up delay-700">
+        <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-2">// Hello</div>
+        <p class="text-[15px] leading-[1.55] pl-3 border-l border-white/40">
+          <span class="font-medium">I'm Shikha</span> — a Business Intelligence Developer
+          &amp; People Manager turning financial-services data into clear,
+          beautiful, decision-ready stories.
         </p>
+      </div>
 
-        <div class="scroll-cue" id="scroll-cue">
-          <span>SCROLL TO BEGIN</span>
-          <div class="line"></div>
+      <!-- Floating tagline (right-middle) -->
+      <div class="hidden md:block absolute right-10 top-1/2 -translate-y-1/2 z-30 text-right reveal-up delay-900">
+        <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-3">// Tagline</div>
+        <h2 class="anton text-white text-[28px] leading-[1.05] uppercase tracking-[0.01em]">
+          DATA THAT<br/>SPEAKS YOUR BRAND
+        </h2>
+      </div>
+
+      <!-- Scroll cue -->
+      <div class="absolute left-1/2 -translate-x-1/2 bottom-6 z-30 text-[10px] tracking-[0.32em] uppercase opacity-80 flex flex-col items-center gap-2 reveal-up delay-700">
+        <span>scroll</span>
+        <span class="block w-px h-8 bg-white/60"></span>
+      </div>
+
+      <!-- Mobile-only floating block (after image) -->
+      <div class="md:hidden absolute bottom-10 left-0 right-0 z-30 px-6 flex flex-col gap-6 items-center text-center reveal-up delay-700">
+        <p class="text-[14px] leading-[1.55] max-w-xs">
+          <span class="font-medium">I'm Shikha</span> — a Business Intelligence Developer
+          turning financial-services data into clear, decision-ready stories.
+        </p>
+        <h2 class="anton text-white text-[26px] leading-[1.05] uppercase tracking-[0.01em]">
+          DATA THAT<br/>SPEAKS YOUR BRAND
+        </h2>
+      </div>
+    </section>
+
+    <!-- ============= BRAND STRIP ============= -->
+    <section class="relative z-10 px-6 md:px-10 pt-6 pb-10">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex flex-wrap justify-center md:justify-between items-center gap-6 md:gap-10 opacity-90">
+          <span class="anton uppercase text-2xl tracking-wider">POWER&nbsp;BI</span>
+          <span class="font-serif italic text-3xl tracking-tight">Microsoft&nbsp;Fabric</span>
+          <span class="anton uppercase text-2xl tracking-wider">SQL</span>
+          <span class="font-serif italic text-3xl tracking-tight">Tableau</span>
+          <span class="anton uppercase text-2xl tracking-wider">INFORMATICA</span>
+          <span class="font-serif italic text-3xl tracking-tight">Excel</span>
         </div>
-      </section>
+      </div>
+    </section>
 
-      <!-- ============= 02 — MANIFESTO ============= -->
-      <section class="panel manifesto tall" data-section="02" data-formation="lattice">
-        <div class="container">
-          <div class="eyebrow"><span>02 — MANIFESTO</span></div>
-          <p id="manifesto-text">
-            <span class="word-reveal">Data&nbsp;</span><span class="word-reveal">is&nbsp;</span><span class="word-reveal">a&nbsp;</span><span class="word-reveal">language.&nbsp;</span>
-            <span class="word-reveal">Most&nbsp;</span><span class="word-reveal">people&nbsp;</span><span class="word-reveal">read&nbsp;</span><span class="word-reveal">it.&nbsp;</span>
-            <span class="word-reveal" style="color:var(--accent-2);">A&nbsp;</span><span class="word-reveal" style="color:var(--accent-2);">few&nbsp;</span><span class="word-reveal" style="color:var(--accent-2);">write&nbsp;</span><span class="word-reveal" style="color:var(--accent-2);">it.&nbsp;</span>
-            <span class="word-reveal" style="font-style:italic;">The&nbsp;</span><span class="word-reveal" style="font-style:italic;">best&nbsp;</span><span class="word-reveal" style="font-style:italic;">make&nbsp;</span><span class="word-reveal" style="font-style:italic;">it&nbsp;</span><span class="word-reveal" style="font-style:italic; color:var(--accent);">sing.</span>
-          </p>
-        </div>
-      </section>
-
-      <!-- ============= 03 — ABOUT ============= -->
-      <section class="panel" id="about" data-section="03" data-formation="orbits">
-        <div class="container">
-          <div class="eyebrow"><span>03 — ABOUT</span></div>
-          <div class="about-grid">
-            <div>
-              <h2 class="about-h2">
-                I help <span class="italic">teams</span> see
-                what their <span class="crossed" data-strike>data</span>
-                <span class="italic" style="color:var(--accent);">future</span>
-                is really saying.
-              </h2>
-            </div>
-            <div>
-              <p style="font-size:17px; line-height:1.65; opacity:0.75; max-width:38em;">
-                Experienced business specialist with a track record across financial
-                services — building reporting platforms, surfacing insight from
-                messy operational data, and quietly raising the bar on how teams
-                use it. Equal parts engineer, analyst, and manager.
-              </p>
-
-              <div style="margin-top:48px;">
-                <div class="stat-line"><span class="num" data-counter="10">0</span><span class="label">Years across<br/>financial services</span></div>
-                <div class="stat-line"><span class="num" data-counter="2">0</span><span class="label">Active certifications<br/>in 2026</span></div>
-                <div class="stat-line"><span class="num">∞</span><span class="label">Dashboards<br/>that earned their keep</span></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============= 04 — SKILLS ============= -->
-      <section class="panel" id="skills" data-section="04" data-formation="crystal">
-        <div class="container">
-          <div class="eyebrow"><span>04 — DISCIPLINES</span></div>
-          <h2 class="about-h2" style="max-width:14ch;">
-            A toolkit shaped by <span class="italic">decades</span> of real work.
-          </h2>
-          <ol class="skills-list" id="skills-list">
-            <li><span class="skill-num">01</span><span class="skill-name">Data <span class="italic">Visualization</span></span><span class="skill-meta">Power BI · Tableau · Fabric</span></li>
-            <li><span class="skill-num">02</span><span class="skill-name">P&amp;C <span class="italic">Insurance</span></span><span class="skill-meta">Claims · Underwriting · Premium</span></li>
-            <li><span class="skill-num">03</span><span class="skill-name">Advanced <span class="italic">Excel</span></span><span class="skill-meta">Power Query · Modelling</span></li>
-            <li><span class="skill-num">04</span><span class="skill-name">Data <span class="italic">Analysis</span></span><span class="skill-meta">SQL · DAX · Statistics</span></li>
-            <li><span class="skill-num">05</span><span class="skill-name">Operations <span class="italic">Management</span></span><span class="skill-meta">Process · Throughput · People</span></li>
-            <li><span class="skill-num">06</span><span class="skill-name">Data <span class="italic">Governance</span></span><span class="skill-meta">Catalogue · Lineage · Stewardship</span></li>
-          </ol>
-        </div>
-      </section>
-
-      <!-- ============= 05 — CREDENTIALS ============= -->
-      <section class="panel" id="credentials" data-section="05" data-formation="cosmos">
-        <div class="container">
-          <div class="eyebrow"><span>05 — CREDENTIALS</span></div>
-          <h2 class="about-h2" style="max-width:18ch;">
-            Credentials that <span class="italic">keep up</span> with where the work is going.
-          </h2>
-
-          <div class="cert-grid">
-            <a class="cert" data-tilt href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-analytics-engineer-associate/" target="_blank" rel="noopener">
-              <div class="row">
-                <span class="badge">MICROSOFT · 2026</span>
-                <span class="arrow"></span>
-              </div>
-              <h3>Fabric Analytics<br/>Engineer Associate</h3>
-              <p>
-                Designs, builds, and operationalises analytics solutions across
-                the Microsoft Fabric ecosystem — lakehouses, semantic models,
-                and the storytelling layer on top.
-              </p>
-            </a>
-
-            <a class="cert" data-tilt href="https://www.informatica.com/" target="_blank" rel="noopener">
-              <div class="row">
-                <span class="badge">INFORMATICA · 2026</span>
-                <span class="arrow"></span>
-              </div>
-              <h3>Cloud Data Governance<br/>&amp; Catalog Foundation</h3>
-              <p>
-                The principles and platform behind modern data stewardship —
-                cataloguing, lineage, classification, and the policies that keep
-                regulated data trustworthy.
-              </p>
-            </a>
-          </div>
-        </div>
-      </section>
-
-      <!-- ============= 06 — PHILOSOPHY / CONTACT ============= -->
-      <section class="panel philosophy" data-section="06" data-formation="helix">
-        <div class="container">
-          <div class="eyebrow" style="justify-content:center;"><span>— PHILOSOPHY —</span></div>
-          <blockquote>
-            The best dashboards <span class="italic">aren't</span> dashboards.<br/>
-            They are <span class="italic accent">decisions</span>, already made,<br/>
-            waiting to be recognised.
-          </blockquote>
-          <div class="attribution">A NOTE ON SHIKHA'S MONITOR</div>
-        </div>
-      </section>
-
-      <section class="panel" id="contact" data-section="07" data-formation="helix">
-        <div class="container">
-          <div class="eyebrow"><span>— GET IN TOUCH —</span></div>
-          <div class="contact-grid">
-            <h2 class="big-cta">
-              Let&rsquo;s build<br/>
-              something <span class="italic">measurably</span><br/>
-              better.
+    <!-- ============= PROJECTS / WORK ============= -->
+    <section id="projects" class="relative z-10 px-6 md:px-10 pt-24 md:pt-40 pb-24">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex items-end justify-between mb-12 md:mb-16 reveal-up">
+          <div>
+            <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-3">// Selected Work</div>
+            <h2 class="anton uppercase leading-[0.92]" style="font-size: clamp(56px, 10vw, 140px);">
+              THE WORK
             </h2>
-            <a class="magnetic-btn" data-magnet href="https://www.linkedin.com/" target="_blank" rel="noopener">
-              <span>Connect on LinkedIn</span>
-              <span class="icon"></span>
-            </a>
+          </div>
+          <div class="hidden md:block text-[11px] tracking-[0.22em] uppercase opacity-80 max-w-xs text-right">
+            A decade of dashboards, models &amp; reporting platforms across financial services.
           </div>
         </div>
-      </section>
 
-      <footer>
-        <span>© 2026 SHIKHA MURALI · KRISTOM ROBERT</span>
-        <span>BUILT WITH THREE.JS · GSAP · LENIS</span>
-        <span>v1.0 — CINEMATIC</span>
-      </footer>
-    </main>
+        <div class="grid md:grid-cols-2 gap-6 md:gap-8">
+          <!-- card -->
+          <a class="reveal-up group block relative overflow-hidden rounded-3xl bg-white/8 backdrop-blur-md border border-white/15 p-8 md:p-10 hover:bg-white/12 transition-colors" href="#contact">
+            <div class="flex items-start justify-between">
+              <span class="chip">01 — DASHBOARDS</span>
+              <span class="arrow-circle text-white group-hover:bg-white group-hover:text-brand-red transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </div>
+            <h3 class="anton uppercase mt-12 leading-[0.95]" style="font-size: clamp(40px, 5vw, 72px);">
+              CLAIMS<br/>INTELLIGENCE
+            </h3>
+            <p class="mt-6 text-[14px] leading-[1.6] opacity-90 max-w-md">
+              End-to-end Power BI reporting suite for property &amp; casualty
+              claims — from raw operational extracts to executive-ready KPIs.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-2 text-[10px] tracking-[0.22em] uppercase opacity-90">
+              <span class="chip">Power&nbsp;BI</span>
+              <span class="chip">DAX</span>
+              <span class="chip">SQL</span>
+            </div>
+          </a>
 
-    <!-- ============= IMPORT MAP for Three.js ESM ============= -->
-    <script type="importmap">
-      {
-        "imports": {
-          "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
-          "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
-        }
-      }
-    </script>
+          <a class="reveal-up delay-150 group block relative overflow-hidden rounded-3xl bg-white/8 backdrop-blur-md border border-white/15 p-8 md:p-10 hover:bg-white/12 transition-colors" href="#contact">
+            <div class="flex items-start justify-between">
+              <span class="chip">02 — GOVERNANCE</span>
+              <span class="arrow-circle text-white group-hover:bg-white group-hover:text-brand-red transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </div>
+            <h3 class="anton uppercase mt-12 leading-[0.95]" style="font-size: clamp(40px, 5vw, 72px);">
+              DATA<br/>CATALOGUE
+            </h3>
+            <p class="mt-6 text-[14px] leading-[1.6] opacity-90 max-w-md">
+              Cataloguing &amp; lineage rollout informed by Informatica CDGC —
+              policies, stewardship, and the rituals that keep regulated data
+              trustworthy.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-2 text-[10px] tracking-[0.22em] uppercase opacity-90">
+              <span class="chip">Informatica</span>
+              <span class="chip">Lineage</span>
+              <span class="chip">Stewardship</span>
+            </div>
+          </a>
 
-    <!-- ============= GSAP + Lenis ============= -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
-    <script src="https://unpkg.com/lenis@1.0.42/dist/lenis.min.js"></script>
+          <a class="reveal-up delay-300 group block relative overflow-hidden rounded-3xl bg-white/8 backdrop-blur-md border border-white/15 p-8 md:p-10 hover:bg-white/12 transition-colors" href="#contact">
+            <div class="flex items-start justify-between">
+              <span class="chip">03 — FABRIC</span>
+              <span class="arrow-circle text-white group-hover:bg-white group-hover:text-brand-red transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </div>
+            <h3 class="anton uppercase mt-12 leading-[0.95]" style="font-size: clamp(40px, 5vw, 72px);">
+              FABRIC<br/>LAKEHOUSE
+            </h3>
+            <p class="mt-6 text-[14px] leading-[1.6] opacity-90 max-w-md">
+              Microsoft Fabric semantic models &amp; lakehouse pipelines — the
+              storytelling layer for finance teams that need answers, not raw
+              tables.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-2 text-[10px] tracking-[0.22em] uppercase opacity-90">
+              <span class="chip">Fabric</span>
+              <span class="chip">Lakehouse</span>
+              <span class="chip">Semantic</span>
+            </div>
+          </a>
 
-    <!-- ============= MAIN MODULE ============= -->
-    <script type="module">
-      import * as THREE from 'three';
+          <a class="reveal-up delay-500 group block relative overflow-hidden rounded-3xl bg-white/8 backdrop-blur-md border border-white/15 p-8 md:p-10 hover:bg-white/12 transition-colors" href="#contact">
+            <div class="flex items-start justify-between">
+              <span class="chip">04 — OPERATIONS</span>
+              <span class="arrow-circle text-white group-hover:bg-white group-hover:text-brand-red transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </div>
+            <h3 class="anton uppercase mt-12 leading-[0.95]" style="font-size: clamp(40px, 5vw, 72px);">
+              PEOPLE&nbsp;&amp;<br/>PROCESS
+            </h3>
+            <p class="mt-6 text-[14px] leading-[1.6] opacity-90 max-w-md">
+              Running tight, calm, predictable teams. Process improvement that
+              survives quarter-end, not just the slide deck.
+            </p>
+            <div class="mt-8 flex flex-wrap gap-2 text-[10px] tracking-[0.22em] uppercase opacity-90">
+              <span class="chip">Mentorship</span>
+              <span class="chip">Throughput</span>
+              <span class="chip">Quality</span>
+            </div>
+          </a>
+        </div>
+      </div>
+    </section>
 
-      gsap.registerPlugin(ScrollTrigger);
+    <!-- ============= ABOUT ============= -->
+    <section id="about" class="relative z-10 px-6 md:px-10 py-24 md:py-32">
+      <div class="max-w-7xl mx-auto grid md:grid-cols-12 gap-10 md:gap-16">
+        <div class="md:col-span-7 reveal-up">
+          <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-4">// About</div>
+          <h2 class="anton uppercase leading-[0.92]" style="font-size: clamp(48px, 8vw, 120px);">
+            BUILT FOR<br/>THE NUMBERS<br/>BEHIND THE STORY.
+          </h2>
+        </div>
+        <div class="md:col-span-5 reveal-up delay-150 flex flex-col gap-6 self-end">
+          <p class="text-[16px] leading-[1.65] opacity-95">
+            Experienced business specialist with a track record across financial
+            services — building reporting platforms, surfacing insight from
+            messy operational data, and quietly raising the bar on how teams
+            use it.
+          </p>
+          <p class="text-[16px] leading-[1.65] opacity-95">
+            Equal parts engineer, analyst, and manager. I lead by example,
+            mentor by listening, and ship work that respects both the
+            spreadsheet on Monday and the boardroom on Friday.
+          </p>
 
-      // ============= LENIS SMOOTH SCROLL =============
-      const lenis = new Lenis({
-        lerp: 0.08,
-        smoothWheel: true,
-        wheelMultiplier: 1,
-        touchMultiplier: 1.4,
+          <div class="hairline mt-4"></div>
+
+          <div class="grid grid-cols-3 gap-4">
+            <div>
+              <div class="anton text-5xl">10<span class="text-2xl">+</span></div>
+              <div class="text-[10px] tracking-[0.22em] uppercase opacity-80 mt-2">YRS · Fin Svcs</div>
+            </div>
+            <div>
+              <div class="anton text-5xl">02</div>
+              <div class="text-[10px] tracking-[0.22em] uppercase opacity-80 mt-2">2026 Certs</div>
+            </div>
+            <div>
+              <div class="anton text-5xl">∞</div>
+              <div class="text-[10px] tracking-[0.22em] uppercase opacity-80 mt-2">Dashboards</div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============= MARQUEE ============= -->
+    <section class="relative z-10 py-10 border-y border-white/15 bg-black/5">
+      <div class="marquee">
+        <div class="marquee-track">
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">DATA VIZ</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">P&amp;C INSURANCE</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">SQL · DAX</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">FABRIC ENGINEER</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">DATA GOVERNANCE</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">PEOPLE LEAD</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+        </div>
+        <div class="marquee-track" aria-hidden="true">
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">DATA VIZ</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">P&amp;C INSURANCE</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">SQL · DAX</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">FABRIC ENGINEER</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">DATA GOVERNANCE</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">PEOPLE LEAD</span>
+          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============= JOURNAL / PHILOSOPHY ============= -->
+    <section id="journal" class="relative z-10 px-6 md:px-10 py-28 md:py-40">
+      <div class="max-w-5xl mx-auto text-center reveal-up">
+        <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-6">// Philosophy</div>
+        <blockquote class="font-serif italic text-white" style="font-size: clamp(36px, 6vw, 84px); line-height: 1.1; letter-spacing: -0.02em;">
+          "The best dashboards aren't dashboards.
+          They are <span class="not-italic anton uppercase">decisions</span>,
+          already made — waiting to be recognised."
+        </blockquote>
+        <div class="mt-10 text-[10px] tracking-[0.32em] uppercase opacity-70">A NOTE ON SHIKHA'S MONITOR</div>
+      </div>
+    </section>
+
+    <!-- ============= RESUME / CREDENTIALS ============= -->
+    <section id="resume" class="relative z-10 px-6 md:px-10 py-24 md:py-32">
+      <div class="max-w-7xl mx-auto">
+        <div class="flex items-end justify-between mb-12 reveal-up">
+          <div>
+            <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-3">// Credentials</div>
+            <h2 class="anton uppercase leading-[0.92]" style="font-size: clamp(48px, 8vw, 120px);">
+              KEEPING UP.
+            </h2>
+          </div>
+        </div>
+
+        <div class="grid md:grid-cols-2 gap-6">
+          <a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-analytics-engineer-associate/" target="_blank" rel="noopener"
+             class="reveal-up group block rounded-3xl bg-white/8 backdrop-blur-md border border-white/15 p-8 md:p-10 hover:bg-white/12 transition-colors">
+            <div class="flex items-start justify-between">
+              <span class="chip">MICROSOFT · 2026</span>
+              <span class="arrow-circle text-white group-hover:bg-white group-hover:text-brand-red transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </div>
+            <h3 class="anton uppercase mt-10 leading-[0.95]" style="font-size: clamp(32px, 4vw, 56px);">
+              FABRIC ANALYTICS<br/>ENGINEER ASSOCIATE
+            </h3>
+            <p class="mt-5 text-[14px] leading-[1.65] opacity-90 max-w-md">
+              Designs, builds, and operationalises analytics solutions across
+              the Microsoft Fabric ecosystem.
+            </p>
+          </a>
+
+          <a href="https://www.informatica.com/" target="_blank" rel="noopener"
+             class="reveal-up delay-150 group block rounded-3xl bg-white/8 backdrop-blur-md border border-white/15 p-8 md:p-10 hover:bg-white/12 transition-colors">
+            <div class="flex items-start justify-between">
+              <span class="chip">INFORMATICA · 2026</span>
+              <span class="arrow-circle text-white group-hover:bg-white group-hover:text-brand-red transition-colors">
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                  <line x1="7" y1="17" x2="17" y2="7"></line>
+                  <polyline points="7 7 17 7 17 17"></polyline>
+                </svg>
+              </span>
+            </div>
+            <h3 class="anton uppercase mt-10 leading-[0.95]" style="font-size: clamp(32px, 4vw, 56px);">
+              CLOUD DATA<br/>GOVERNANCE &amp; CATALOG
+            </h3>
+            <p class="mt-5 text-[14px] leading-[1.65] opacity-90 max-w-md">
+              Foundation in cataloguing, lineage, classification, and the
+              policies that keep regulated data trustworthy.
+            </p>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============= CONTACT ============= -->
+    <section id="contact" class="relative z-10 px-6 md:px-10 py-24 md:py-40">
+      <div class="max-w-7xl mx-auto reveal-up">
+        <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-6">// Get In Touch</div>
+        <h2 class="anton uppercase leading-[0.88]" style="font-size: clamp(72px, 14vw, 220px);">
+          LET'S BUILD<br/>SOMETHING<br/>BOLD.
+        </h2>
+
+        <div class="mt-12 flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+          <a href="https://www.linkedin.com/" target="_blank" rel="noopener"
+             class="hire-link inline-flex items-center gap-4 self-start"
+             data-magnet>
+            <span class="text-[14px] tracking-[0.22em] uppercase font-medium">// Connect on LinkedIn</span>
+            <span class="arrow-circle text-white" style="width:56px; height:56px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </span>
+          </a>
+
+          <a href="mailto:hello@example.com"
+             class="hire-link inline-flex items-center gap-4 self-start"
+             data-magnet>
+            <span class="text-[14px] tracking-[0.22em] uppercase font-medium">// Email Me</span>
+            <span class="arrow-circle text-white" style="width:56px; height:56px;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+                <line x1="7" y1="17" x2="17" y2="7"></line>
+                <polyline points="7 7 17 7 17 17"></polyline>
+              </svg>
+            </span>
+          </a>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============= FOOTER ============= -->
+    <footer class="relative z-10 px-6 md:px-10 py-10 border-t border-white/15">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 justify-between text-[10px] tracking-[0.22em] uppercase opacity-80">
+        <span>© <span id="year"></span> Shikha Murali · Designed &amp; built by Kristom Robert</span>
+        <span>Bold Hero · v2.0</span>
+      </div>
+    </footer>
+
+    <script>
+      // Year stamp
+      document.getElementById('year').textContent = new Date().getFullYear();
+
+      // Mobile menu
+      const menuBtn = document.getElementById('menu-btn');
+      const menu = document.getElementById('mobile-menu');
+      const closeBtn = document.getElementById('menu-close');
+      menuBtn?.addEventListener('click', () => menu.classList.add('open'));
+      closeBtn?.addEventListener('click', () => menu.classList.remove('open'));
+      document.querySelectorAll('[data-mobile-link]').forEach(a =>
+        a.addEventListener('click', () => menu.classList.remove('open'))
+      );
+
+      // Smooth scroll for anchor links
+      document.querySelectorAll('a[href^="#"]').forEach(a => {
+        a.addEventListener('click', (e) => {
+          const id = a.getAttribute('href');
+          if (id.length > 1) {
+            const target = document.querySelector(id);
+            if (target) {
+              e.preventDefault();
+              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
+          }
+        });
       });
-      lenis.on('scroll', ScrollTrigger.update);
-      gsap.ticker.add((time) => lenis.raf(time * 1000));
-      gsap.ticker.lagSmoothing(0);
 
-      // ============= CUSTOM CURSOR =============
-      const cursor = document.getElementById('cursor');
-      const dot = document.getElementById('cursor-dot');
-      let mx = innerWidth / 2, my = innerHeight / 2;
-      let cx = mx, cy = my;
-      let dx = mx, dy = my;
-      addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
-      const tickCursor = () => {
-        cx += (mx - cx) * 0.18;
-        cy += (my - cy) * 0.18;
-        dx += (mx - dx) * 0.55;
-        dy += (my - dy) * 0.55;
-        cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
-        dot.style.transform = `translate(${dx}px, ${dy}px) translate(-50%, -50%)`;
-        requestAnimationFrame(tickCursor);
-      };
-      tickCursor();
+      // Reveal-on-scroll
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(en => {
+          if (en.isIntersecting) {
+            en.target.classList.add('in');
+            io.unobserve(en.target);
+          }
+        });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal-up').forEach(el => io.observe(el));
 
-      document.querySelectorAll('a, button, [data-magnet], [data-tilt], .skills-list li').forEach(el => {
-        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
-        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
-      });
-
-      // ============= MAGNETIC BUTTONS =============
+      // Magnetic effect for CTA buttons
       document.querySelectorAll('[data-magnet]').forEach(el => {
         el.addEventListener('mousemove', (e) => {
           const r = el.getBoundingClientRect();
           const x = e.clientX - (r.left + r.width / 2);
           const y = e.clientY - (r.top + r.height / 2);
-          gsap.to(el, { x: x * 0.25, y: y * 0.35, duration: 0.5, ease: 'power3.out' });
+          el.style.transition = 'transform 0.2s ease-out';
+          el.style.transform = `translate(${x * 0.18}px, ${y * 0.25}px)`;
         });
         el.addEventListener('mouseleave', () => {
-          gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' });
+          el.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
+          el.style.transform = 'translate(0, 0)';
         });
       });
 
-      // Cert card spotlight
-      document.querySelectorAll('.cert').forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-          const r = el.getBoundingClientRect();
-          el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
-          el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
+      // Subtle parallax on portrait
+      const portrait = document.getElementById('portrait');
+      if (portrait && matchMedia('(pointer: fine)').matches) {
+        let tx = 0, ty = 0, cx = 0, cy = 0;
+        addEventListener('mousemove', (e) => {
+          tx = ((e.clientX / innerWidth) - 0.5) * 14;
+          ty = ((e.clientY / innerHeight) - 0.5) * 14;
         });
-      });
-
-      // ============= THREE.JS STAGE =============
-      const canvas = document.getElementById('stage');
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
-      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
-      renderer.setSize(innerWidth, innerHeight);
-
-      const scene = new THREE.Scene();
-      scene.fog = new THREE.FogExp2(0x05060A, 0.02);
-
-      const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 1000);
-      camera.position.z = 26;
-
-      // ============= PARTICLE FORMATIONS =============
-      const COUNT = Math.min(28000, Math.floor(innerWidth * innerHeight / 80));
-
-      // build target arrays for each formation
-      const seed = (i) => {
-        let s = (i * 9301 + 49297) % 233280;
-        return s / 233280;
-      };
-      const rnd = (i, k = 0) => seed(i + k * 17 + 1);
-
-      const positions = {
-        globe:    new Float32Array(COUNT * 3),
-        lattice:  new Float32Array(COUNT * 3),
-        orbits:   new Float32Array(COUNT * 3),
-        crystal:  new Float32Array(COUNT * 3),
-        cosmos:   new Float32Array(COUNT * 3),
-        helix:    new Float32Array(COUNT * 3),
-      };
-
-      for (let i = 0; i < COUNT; i++) {
-        const i3 = i * 3;
-
-        // 1. GLOBE — fibonacci sphere
-        const phi = Math.acos(1 - 2 * (i + 0.5) / COUNT);
-        const theta = Math.PI * (1 + Math.sqrt(5)) * i;
-        const r = 9 + (rnd(i, 1) - 0.5) * 0.6;
-        positions.globe[i3]     = r * Math.sin(phi) * Math.cos(theta);
-        positions.globe[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
-        positions.globe[i3 + 2] = r * Math.cos(phi);
-
-        // 2. LATTICE — 3D grid with jitter (data cube)
-        const side = Math.ceil(Math.cbrt(COUNT));
-        const xi = i % side;
-        const yi = Math.floor(i / side) % side;
-        const zi = Math.floor(i / (side * side));
-        const half = (side - 1) / 2;
-        const sp = 1.0;
-        positions.lattice[i3]     = (xi - half) * sp + (rnd(i, 2) - 0.5) * 0.2;
-        positions.lattice[i3 + 1] = (yi - half) * sp + (rnd(i, 3) - 0.5) * 0.2;
-        positions.lattice[i3 + 2] = (zi - half) * sp + (rnd(i, 4) - 0.5) * 0.2;
-
-        // 3. ORBITS — multiple rings on different axes (galaxy disks)
-        const ring = i % 5;
-        const ang = rnd(i, 5) * Math.PI * 2;
-        const rad = 6 + ring * 1.6 + (rnd(i, 6) - 0.5) * 0.4;
-        const tilt = ring * 0.3;
-        positions.orbits[i3]     = Math.cos(ang) * rad;
-        positions.orbits[i3 + 1] = Math.sin(ang) * rad * Math.sin(tilt) * 0.4;
-        positions.orbits[i3 + 2] = Math.sin(ang) * rad * Math.cos(tilt);
-
-        // 4. CRYSTAL — octahedral / icosahedral cluster
-        const u = rnd(i, 7);
-        const v = rnd(i, 8);
-        const ru = Math.pow(u, 0.6) * 8;
-        const angC = v * Math.PI * 2;
-        const phiC = Math.acos(2 * rnd(i, 9) - 1);
-        // bias to faceted shape
-        const fx = Math.sin(phiC) * Math.cos(angC);
-        const fy = Math.sin(phiC) * Math.sin(angC);
-        const fz = Math.cos(phiC);
-        const facet = Math.max(Math.abs(fx), Math.abs(fy), Math.abs(fz));
-        positions.crystal[i3]     = (fx / facet) * ru;
-        positions.crystal[i3 + 1] = (fy / facet) * ru;
-        positions.crystal[i3 + 2] = (fz / facet) * ru;
-
-        // 5. COSMOS — spread starfield
-        positions.cosmos[i3]     = (rnd(i, 10) - 0.5) * 60;
-        positions.cosmos[i3 + 1] = (rnd(i, 11) - 0.5) * 40;
-        positions.cosmos[i3 + 2] = (rnd(i, 12) - 0.5) * 30 - 10;
-
-        // 6. HELIX — double helix
-        const t = (i / COUNT) * Math.PI * 14;
-        const strand = i % 2 === 0 ? 1 : -1;
-        positions.helix[i3]     = Math.cos(t) * 4 * strand;
-        positions.helix[i3 + 1] = (i / COUNT - 0.5) * 30;
-        positions.helix[i3 + 2] = Math.sin(t) * 4 * strand;
+        const tick = () => {
+          cx += (tx - cx) * 0.06;
+          cy += (ty - cy) * 0.06;
+          portrait.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
+          requestAnimationFrame(tick);
+        };
+        tick();
       }
-
-      // attribute colours per particle (subtle hue variance)
-      const colors = new Float32Array(COUNT * 3);
-      for (let i = 0; i < COUNT; i++) {
-        const i3 = i * 3;
-        const palette = rnd(i, 13);
-        let r1, g1, b1;
-        if (palette < 0.6)      { r1 = 0.96; g1 = 0.94; b1 = 0.91; } // paper
-        else if (palette < 0.8) { r1 = 1.00; g1 = 0.36; b1 = 0.18; } // accent orange
-        else if (palette < 0.92){ r1 = 0.42; g1 = 0.81; b1 = 1.00; } // sky
-        else                    { r1 = 0.78; g1 = 0.72; b1 = 1.00; } // lavender
-        colors[i3] = r1; colors[i3 + 1] = g1; colors[i3 + 2] = b1;
-      }
-
-      const geom = new THREE.BufferGeometry();
-      geom.setAttribute('position', new THREE.BufferAttribute(positions.globe, 3));
-      geom.setAttribute('aTarget', new THREE.BufferAttribute(positions.globe.slice(), 3));
-      geom.setAttribute('aPrev',   new THREE.BufferAttribute(positions.globe.slice(), 3));
-      geom.setAttribute('aColor',  new THREE.BufferAttribute(colors, 3));
-      const seeds = new Float32Array(COUNT);
-      for (let i = 0; i < COUNT; i++) seeds[i] = rnd(i, 14);
-      geom.setAttribute('aSeed', new THREE.BufferAttribute(seeds, 1));
-
-      // ============= SHADER MATERIAL =============
-      const uniforms = {
-        uTime:     { value: 0 },
-        uMix:      { value: 0 },     // 0 = prev, 1 = target
-        uSize:     { value: 1.6 },
-        uMouse:    { value: new THREE.Vector2(0, 0) },
-        uPixel:    { value: renderer.getPixelRatio() },
-        uOpacity:  { value: 1.0 },
-        uAccent:   { value: new THREE.Color(0xff5b2e) },
-      };
-
-      const mat = new THREE.ShaderMaterial({
-        uniforms,
-        transparent: true,
-        depthWrite: false,
-        blending: THREE.AdditiveBlending,
-        vertexShader: `
-          attribute vec3 aTarget;
-          attribute vec3 aPrev;
-          attribute vec3 aColor;
-          attribute float aSeed;
-
-          uniform float uTime;
-          uniform float uMix;
-          uniform float uSize;
-          uniform float uPixel;
-          uniform vec2  uMouse;
-
-          varying vec3 vColor;
-          varying float vDist;
-          varying float vDepth;
-
-          // smooth ease-in-out
-          float ease(float t) { return t * t * (3.0 - 2.0 * t); }
-
-          // hash
-          float hash(float n) { return fract(sin(n) * 43758.5453); }
-
-          void main() {
-            float t = clamp(uMix, 0.0, 1.0);
-            float et = ease(t);
-
-            vec3 pos = mix(aPrev, aTarget, et);
-
-            // arc travel — particles bow outward as they morph
-            float bowAmt = sin(et * 3.14159) * 1.5;
-            vec3 dir = normalize(aTarget - aPrev + 0.0001);
-            vec3 perp = normalize(cross(dir, vec3(0.0, 1.0, 0.0)) + 0.0001);
-            pos += perp * bowAmt * (hash(aSeed * 12.7) - 0.5);
-
-            // gentle drift
-            float w = uTime * 0.4 + aSeed * 6.28;
-            pos.x += sin(w) * 0.06;
-            pos.y += cos(w * 1.3) * 0.06;
-            pos.z += sin(w * 0.7) * 0.04;
-
-            // mouse repulsion in screen-ish space
-            vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
-            vec2 screenXY = mvPos.xy / max(-mvPos.z, 0.001);
-            vec2 mDelta = screenXY - uMouse * 18.0;
-            float mDist = length(mDelta);
-            float push = smoothstep(6.0, 0.0, mDist) * 1.6;
-            mvPos.xy += normalize(mDelta + 0.0001) * push;
-
-            gl_Position = projectionMatrix * mvPos;
-
-            vColor = aColor;
-            vDist  = mDist;
-            vDepth = -mvPos.z;
-
-            float baseSize = uSize * (1.4 + 0.8 * hash(aSeed * 4.7));
-            gl_PointSize = baseSize * uPixel * (260.0 / max(vDepth, 0.1));
-          }
-        `,
-        fragmentShader: `
-          uniform float uOpacity;
-          uniform vec3  uAccent;
-
-          varying vec3 vColor;
-          varying float vDist;
-          varying float vDepth;
-
-          void main() {
-            vec2 c = gl_PointCoord - 0.5;
-            float d = length(c);
-            float core   = smoothstep(0.5, 0.0, d);
-            float halo   = smoothstep(0.5, 0.05, d) * 0.55;
-            float alpha  = (core + halo) * uOpacity;
-
-            // tint based on proximity to mouse
-            float prox = smoothstep(8.0, 0.0, vDist);
-            vec3 col = mix(vColor, uAccent, prox * 0.6);
-
-            // depth fade
-            float depthFade = smoothstep(60.0, 5.0, vDepth);
-
-            gl_FragColor = vec4(col, alpha * depthFade);
-            if (gl_FragColor.a < 0.005) discard;
-          }
-        `,
-      });
-
-      const points = new THREE.Points(geom, mat);
-      scene.add(points);
-
-      // mouse uniform
-      addEventListener('mousemove', (e) => {
-        const x = (e.clientX / innerWidth) * 2 - 1;
-        const y = -((e.clientY / innerHeight) * 2 - 1);
-        gsap.to(uniforms.uMouse.value, { x, y, duration: 0.6, ease: 'power2.out' });
-      });
-
-      // ============= MORPHING ON SCROLL =============
-      let currentFormation = 'globe';
-
-      function setFormation(name, {duration = 1.6, ease = 'power3.inOut'} = {}) {
-        if (name === currentFormation) return;
-        // copy current display positions into aPrev (so morph starts from where we are)
-        const prevAttr = geom.attributes.aPrev;
-        // simplest: copy from current aTarget * uMix.value into aPrev — but we keep a logical model:
-        // start prev = old target buffer, target = new buffer
-        const oldTargetBuf = positions[currentFormation];
-        prevAttr.array.set(oldTargetBuf);
-        prevAttr.needsUpdate = true;
-
-        const tgtAttr = geom.attributes.aTarget;
-        tgtAttr.array.set(positions[name]);
-        tgtAttr.needsUpdate = true;
-
-        currentFormation = name;
-        uniforms.uMix.value = 0;
-        gsap.to(uniforms.uMix, { value: 1, duration, ease });
-      }
-
-      // group rotation per formation for character
-      const formationLooks = {
-        globe:   { rot: { x: 0.0,  y: 0.0,  z: 0.0  }, camZ: 26, size: 1.6, opacity: 1.0 },
-        lattice: { rot: { x: 0.4,  y: 0.4,  z: 0.0  }, camZ: 22, size: 1.4, opacity: 0.95 },
-        orbits:  { rot: { x: 0.5,  y: 0.0,  z: 0.0  }, camZ: 24, size: 1.5, opacity: 1.0 },
-        crystal: { rot: { x: 0.2,  y: 0.6,  z: 0.0  }, camZ: 18, size: 1.7, opacity: 1.0 },
-        cosmos:  { rot: { x: 0.0,  y: 0.2,  z: 0.0  }, camZ: 28, size: 1.2, opacity: 0.9 },
-        helix:   { rot: { x: 0.0,  y: 0.4,  z: 0.05 }, camZ: 22, size: 1.5, opacity: 1.0 },
-      };
-
-      // ============= SECTION TRIGGERS =============
-      document.querySelectorAll('[data-formation]').forEach(sec => {
-        const name = sec.dataset.formation;
-        ScrollTrigger.create({
-          trigger: sec,
-          start: 'top 60%',
-          end: 'bottom 40%',
-          onEnter: () => morphTo(name),
-          onEnterBack: () => morphTo(name),
-        });
-      });
-
-      function morphTo(name) {
-        const look = formationLooks[name];
-        if (!look) return;
-        setFormation(name, { duration: 1.8, ease: 'power3.inOut' });
-        gsap.to(points.rotation, { x: look.rot.x, y: look.rot.y, z: look.rot.z, duration: 2.2, ease: 'power3.inOut' });
-        gsap.to(camera.position, { z: look.camZ, duration: 2.2, ease: 'power3.inOut' });
-        gsap.to(uniforms.uSize, { value: look.size, duration: 1.5, ease: 'power2.inOut' });
-        gsap.to(uniforms.uOpacity, { value: look.opacity, duration: 1.5, ease: 'power2.inOut' });
-
-        // update side rail
-        const num = sec.dataset.section || '00';
-        document.getElementById('rail-section').textContent = num.padStart(2, '0');
-      }
-
-      // active section rail watcher
-      document.querySelectorAll('[data-section]').forEach(sec => {
-        ScrollTrigger.create({
-          trigger: sec,
-          start: 'top 60%',
-          end: 'bottom 40%',
-          onEnter: () => document.getElementById('rail-section').textContent = (sec.dataset.section || '00').padStart(2, '0'),
-          onEnterBack: () => document.getElementById('rail-section').textContent = (sec.dataset.section || '00').padStart(2, '0'),
-        });
-      });
-
-      // ============= HERO INTRO =============
-      function heroIntro() {
-        const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
-        tl.to('#hero-title .word > span', {
-          y: '0%', duration: 1.4, stagger: 0.12,
-        }, 0.2)
-        .to('#hero-under', { opacity: 1, y: 0, duration: 1.2 }, 0.9)
-        .to('#scroll-cue', { opacity: 0.7, duration: 1, ease: 'power2.out' }, 1.2);
-      }
-
-      // ============= MANIFESTO WORD-BY-WORD =============
-      const manifestoWords = document.querySelectorAll('.word-reveal');
-      ScrollTrigger.create({
-        trigger: '.manifesto',
-        start: 'top 70%',
-        end: 'bottom 60%',
-        scrub: 0.8,
-        onUpdate: (self) => {
-          const p = self.progress;
-          const lit = Math.floor(p * manifestoWords.length);
-          manifestoWords.forEach((w, i) => w.classList.toggle('lit', i <= lit));
-        }
-      });
-
-      // strike-through trigger
-      document.querySelectorAll('[data-strike]').forEach(el => {
-        ScrollTrigger.create({
-          trigger: el,
-          start: 'top 75%',
-          onEnter: () => el.classList.add('struck'),
-        });
-      });
-
-      // counters
-      document.querySelectorAll('[data-counter]').forEach(el => {
-        const target = parseInt(el.dataset.counter, 10);
-        ScrollTrigger.create({
-          trigger: el,
-          start: 'top 80%',
-          onEnter: () => {
-            const obj = { v: 0 };
-            gsap.to(obj, {
-              v: target,
-              duration: 2,
-              ease: 'power2.out',
-              onUpdate: () => el.textContent = Math.floor(obj.v),
-            });
-          }
-        });
-      });
-
-      // ============= TILT CARDS =============
-      document.querySelectorAll('[data-tilt]').forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-          const r = el.getBoundingClientRect();
-          const cx = (e.clientX - r.left) / r.width - 0.5;
-          const cy = (e.clientY - r.top) / r.height - 0.5;
-          gsap.to(el, {
-            rotateX: -cy * 6,
-            rotateY: cx * 8,
-            transformPerspective: 900,
-            duration: 0.5,
-            ease: 'power2.out',
-          });
-        });
-        el.addEventListener('mouseleave', () => {
-          gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' });
-        });
-      });
-
-      // ============= RESIZE =============
-      addEventListener('resize', () => {
-        camera.aspect = innerWidth / innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(innerWidth, innerHeight);
-        uniforms.uPixel.value = renderer.getPixelRatio();
-      });
-
-      // ============= RENDER LOOP =============
-      const clock = new THREE.Clock();
-      function loop() {
-        const t = clock.getElapsedTime();
-        uniforms.uTime.value = t;
-        // idle rotation
-        points.rotation.y += 0.0008;
-        renderer.render(scene, camera);
-        requestAnimationFrame(loop);
-      }
-      loop();
-
-      // ============= LOADER OUT =============
-      window.addEventListener('load', () => {
-        setTimeout(() => {
-          document.getElementById('loader').classList.add('gone');
-          heroIntro();
-          ScrollTrigger.refresh();
-        }, 1700);
-      });
     </script>
   </body>
 </html>
