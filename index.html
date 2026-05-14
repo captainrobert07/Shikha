@@ -7,6 +7,10 @@
     <meta name="description" content="Shikha Murali — Deputy Manager · Data Engineer · Business Intelligence." />
     <meta name="theme-color" content="#F4F6FB" />
 
+    <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
+    <link rel="apple-touch-icon" href="assets/logo.svg" />
+    <link rel="mask-icon" href="assets/logo.svg" color="#2A6CF6" />
+
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400&family=Noto+Sans+Devanagari:wght@400;500&family=Noto+Sans+JP:wght@400;500&family=Noto+Sans+KR:wght@400;500&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+Arabic:wght@400;500&display=swap" rel="stylesheet" />
@@ -279,26 +283,20 @@
         padding: 0 18px;
       }
       .nav-row { max-width: 1320px; margin: 0 auto; display: flex; align-items: center; justify-content: space-between; gap: 14px; }
-      .brandchip { display: inline-flex; align-items: center; gap: 12px; padding: 9px 18px; }
+      .brandchip { display: inline-flex; align-items: center; gap: 12px; padding: 8px 18px 8px 8px; }
       .brandchip .logo {
-        width: 26px; height: 26px; border-radius: 999px;
-        background: conic-gradient(from 200deg, var(--azure), var(--sky), var(--violet), var(--mint), var(--azure));
-        position: relative;
-        animation: spin 12s linear infinite;
+        width: 32px; height: 32px;
+        border-radius: 9px;
+        overflow: hidden;
+        flex-shrink: 0;
+        transition: transform 0.6s cubic-bezier(0.22, 1, 0.36, 1), box-shadow 0.6s;
+        box-shadow: 0 2px 6px rgba(11, 26, 51, 0.10);
       }
-      @keyframes spin { to { transform: rotate(360deg); } }
-      .brandchip .logo::after {
-        content: "";
-        position: absolute; inset: 4px;
-        border-radius: 999px;
-        background: var(--paper);
+      .brandchip:hover .logo {
+        transform: rotate(-6deg) scale(1.06);
+        box-shadow: 0 8px 20px rgba(42, 108, 246, 0.25);
       }
-      .brandchip .logo::before {
-        content: "";
-        position: absolute; inset: 7px;
-        border-radius: 999px;
-        background: linear-gradient(135deg, var(--azure), var(--violet));
-      }
+      .brandchip .logo img { width: 100%; height: 100%; display: block; }
       .pillnav { display: flex; padding: 5px; gap: 2px; align-items: center; font-family: 'Inter', sans-serif; font-size: 13px; font-weight: 500; }
       .pillnav a { padding: 9px 17px; border-radius: 999px; color: rgba(11,26,51,0.78); transition: background 0.4s, color 0.4s; }
       .pillnav a:hover { background: rgba(11,26,51,0.05); color: var(--ink); }
@@ -635,7 +633,7 @@
     <header class="topbar">
       <div class="nav-row">
         <a href="#hero" class="glass pill brandchip">
-          <span class="logo"></span>
+          <span class="logo"><img src="assets/logo.svg" alt="" /></span>
           <span class="text-[14px] tracking-tight font-medium">Shikha Murali</span>
         </a>
 
