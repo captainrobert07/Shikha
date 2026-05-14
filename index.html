@@ -64,18 +64,35 @@
       }
       ::selection { background: var(--accent); color: #fff; }
 
-      /* ============= AURORA BACKGROUND ============= */
+      /* ============= ANIMATED MESH GRADIENT ============= */
       body::before {
         content: "";
         position: fixed;
-        inset: 0;
+        inset: -10%;
         z-index: -2;
         background:
-          radial-gradient(1100px 700px at 12% 18%, rgba(79, 142, 247, 0.22) 0%, transparent 60%),
-          radial-gradient(900px 700px at 88% 14%, rgba(167, 139, 250, 0.20) 0%, transparent 60%),
-          radial-gradient(1000px 800px at 75% 75%, rgba(244, 114, 182, 0.14) 0%, transparent 60%),
-          radial-gradient(900px 700px at 20% 82%, rgba(52, 211, 153, 0.12) 0%, transparent 60%),
+          radial-gradient(1100px 700px at var(--m1, 12%) var(--m1y, 18%), rgba(79, 142, 247, 0.22) 0%, transparent 60%),
+          radial-gradient(900px 700px at var(--m2, 88%) var(--m2y, 14%), rgba(167, 139, 250, 0.20) 0%, transparent 60%),
+          radial-gradient(1000px 800px at var(--m3, 75%) var(--m3y, 75%), rgba(244, 114, 182, 0.14) 0%, transparent 60%),
+          radial-gradient(900px 700px at var(--m4, 20%) var(--m4y, 82%), rgba(52, 211, 153, 0.12) 0%, transparent 60%),
           linear-gradient(175deg, #f8faff 0%, #f0f3fb 100%);
+        animation: meshDrift 22s ease-in-out infinite alternate;
+      }
+      @keyframes meshDrift {
+        0%   { --m1: 12%;  --m1y: 18%; --m2: 88%; --m2y: 14%; --m3: 75%; --m3y: 75%; --m4: 20%; --m4y: 82%; }
+        50%  { --m1: 28%;  --m1y: 32%; --m2: 72%; --m2y: 28%; --m3: 60%; --m3y: 62%; --m4: 36%; --m4y: 70%; }
+        100% { --m1: 18%;  --m1y: 8%;  --m2: 92%; --m2y: 28%; --m3: 82%; --m3y: 88%; --m4: 12%; --m4y: 92%; }
+      }
+      @property --m1 { syntax: '<percentage>'; inherits: false; initial-value: 12%; }
+      @property --m1y { syntax: '<percentage>'; inherits: false; initial-value: 18%; }
+      @property --m2 { syntax: '<percentage>'; inherits: false; initial-value: 88%; }
+      @property --m2y { syntax: '<percentage>'; inherits: false; initial-value: 14%; }
+      @property --m3 { syntax: '<percentage>'; inherits: false; initial-value: 75%; }
+      @property --m3y { syntax: '<percentage>'; inherits: false; initial-value: 75%; }
+      @property --m4 { syntax: '<percentage>'; inherits: false; initial-value: 20%; }
+      @property --m4y { syntax: '<percentage>'; inherits: false; initial-value: 82%; }
+      @media (prefers-reduced-motion: reduce) {
+        body::before { animation: none; }
       }
       /* Noise overlay */
       body::after {
@@ -1033,6 +1050,193 @@
         .contact-channels { grid-template-columns: 1fr; }
       }
 
+      /* ============= PORTRAIT BREATH ============= */
+      .photo-card {
+        animation: breathe 6s ease-in-out infinite;
+        will-change: transform;
+      }
+      @keyframes breathe {
+        0%, 100% { transform: scale(1); }
+        50%      { transform: scale(1.012); }
+      }
+      .photo-card .frame {
+        position: relative;
+        z-index: 2;
+        aspect-ratio: 3 / 4;
+        border-radius: 28px;
+        overflow: hidden;
+        background: linear-gradient(160deg, rgba(79,142,247,0.10), rgba(167,139,250,0.08));
+      }
+      .photo-card .frame::before {
+        /* Pulse halo behind portrait */
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(60% 50% at 50% 35%, rgba(79,142,247,0.14), transparent 70%);
+        animation: haloPulse 6s ease-in-out infinite;
+        pointer-events: none;
+        z-index: 0;
+      }
+      @keyframes haloPulse {
+        0%, 100% { opacity: 0.55; transform: scale(0.96); }
+        50%      { opacity: 1;    transform: scale(1.04); }
+      }
+      @media (prefers-reduced-motion: reduce) {
+        .photo-card, .photo-card .frame::before { animation: none; }
+      }
+
+      /* ============= SECTION TITLE PARALLAX ============= */
+      .section-title {
+        will-change: transform, opacity;
+      }
+      /* The translate is set by JS as --titleY */
+      .section-title[data-parallax] {
+        transform: translateY(var(--titleY, 24px));
+        opacity: var(--titleOpacity, 1);
+        transition: none;
+      }
+
+      /* ============= PINNED ABOUT ============= */
+      .about-pinned {
+        min-height: 140vh;
+        position: relative;
+      }
+      .about-pinned-inner {
+        position: sticky;
+        top: 0;
+        height: 100vh;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0 24px;
+      }
+      .about-pinned-text {
+        max-width: 28ch;
+        text-align: center;
+        font-family: 'Sora', sans-serif;
+        font-weight: 600;
+        font-size: clamp(2rem, 5vw, 4.4rem);
+        letter-spacing: -0.045em;
+        line-height: 1.08;
+        color: var(--ink);
+      }
+      .about-pinned-text .word-pin {
+        display: inline-block;
+        opacity: 0.18;
+        transition: opacity 0.6s cubic-bezier(0.22,1,0.36,1);
+      }
+      .about-pinned-text .word-pin.lit { opacity: 1; }
+      .about-pinned-text .grad-pin {
+        background: linear-gradient(130deg, #1d4ed8 0%, #6d28d9 50%, #db2777 100%);
+        -webkit-background-clip: text;
+                background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        display: inline-block;
+        padding-bottom: 0.12em;
+      }
+      @media (max-width: 720px) {
+        .about-pinned { min-height: auto; }
+        .about-pinned-inner { position: static; height: auto; padding: 70px 20px; }
+      }
+
+      /* ============= PROJECT MODAL ============= */
+      .project-modal {
+        position: fixed;
+        inset: 0;
+        z-index: 150;
+        display: none;
+        align-items: center;
+        justify-content: center;
+        padding: 24px;
+        background: rgba(13, 17, 23, 0.55);
+        backdrop-filter: blur(14px);
+        opacity: 0;
+        transition: opacity 0.4s ease;
+      }
+      .project-modal.open {
+        display: flex;
+        opacity: 1;
+      }
+      .project-modal-card {
+        position: relative;
+        max-width: 800px;
+        width: 100%;
+        max-height: 90vh;
+        overflow-y: auto;
+        padding: 56px 56px 48px;
+        border-radius: 28px;
+        background: rgba(255, 255, 255, 0.95);
+        border: 1px solid var(--card-edge);
+        box-shadow: 0 40px 100px rgba(13,17,23,0.30);
+        transform: translateY(20px) scale(0.97);
+        transition: transform 0.5s cubic-bezier(0.22,1,0.36,1);
+      }
+      .project-modal.open .project-modal-card {
+        transform: translateY(0) scale(1);
+      }
+      .project-modal-close {
+        position: absolute;
+        top: 20px; right: 20px;
+        width: 36px; height: 36px;
+        border-radius: 999px;
+        background: rgba(13,17,23,0.06);
+        border: none;
+        color: var(--ink);
+        font-size: 22px;
+        line-height: 1;
+        cursor: pointer;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        transition: background 0.25s, transform 0.25s;
+      }
+      .project-modal-close:hover { background: rgba(13,17,23,0.12); transform: scale(1.06); }
+      .project-modal h3 {
+        font-size: clamp(1.6rem, 3vw, 2.4rem);
+        font-weight: 700;
+        letter-spacing: -0.04em;
+        line-height: 1.1;
+        margin-bottom: 8px;
+        color: var(--ink);
+      }
+      .project-modal .meta {
+        font-family: 'Sora', sans-serif;
+        font-size: 0.78rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--accent);
+        margin-bottom: 20px;
+      }
+      .project-modal p {
+        font-family: 'DM Sans', sans-serif;
+        font-size: 1rem;
+        line-height: 1.85;
+        color: var(--muted);
+        margin-bottom: 16px;
+      }
+      .project-modal h4 {
+        font-family: 'Sora', sans-serif;
+        font-size: 0.78rem;
+        font-weight: 700;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--ink);
+        margin: 28px 0 14px;
+      }
+      .project-modal ul { list-style: none; padding: 0; }
+      .project-modal ul li {
+        padding: 8px 0;
+        border-top: 1px solid var(--rule);
+        font-size: 0.95rem;
+        color: var(--muted);
+      }
+      .project-modal ul li:last-child { border-bottom: 1px solid var(--rule); }
+
+      /* Cards become clickable */
+      .project, .projects-feature { cursor: pointer; }
+
       /* ============= INTRO LOADER ============= */
       .loader {
         position: fixed;
@@ -1446,7 +1650,7 @@
         <div class="container">
           <div class="reveal">
             <div class="eyebrow">About</div>
-            <h2 class="section-title">A translator for the numbers behind the decisions.</h2>
+            <h2 class="section-title" data-parallax>A translator for the numbers behind the decisions.</h2>
             <p class="section-lede">
               Most of what gets called <em>data</em> is just numbers waiting
               for a translator. My job is to make sure the right ones reach
@@ -1493,12 +1697,33 @@
         </div>
       </section>
 
+      <!-- ============= PINNED MANIFESTO ============= -->
+      <section class="about-pinned" id="manifesto" aria-label="Manifesto">
+        <div class="about-pinned-inner">
+          <p class="about-pinned-text" id="pinned-text">
+            <span class="word-pin">Most</span>
+            <span class="word-pin">of</span>
+            <span class="word-pin">what</span>
+            <span class="word-pin">gets</span>
+            <span class="word-pin">called</span>
+            <span class="word-pin grad-pin">data</span>
+            <span class="word-pin">is</span>
+            <span class="word-pin">just</span>
+            <span class="word-pin">numbers</span>
+            <span class="word-pin">waiting</span>
+            <span class="word-pin">for</span>
+            <span class="word-pin">a</span>
+            <span class="word-pin grad-pin">translator.</span>
+          </p>
+        </div>
+      </section>
+
       <!-- ============= IMPACT ============= -->
       <section id="impact">
         <div class="container">
           <div class="reveal">
             <div class="eyebrow">Impact</div>
-            <h2 class="section-title">A decade of work in numbers.</h2>
+            <h2 class="section-title" data-parallax>A decade of work in numbers.</h2>
           </div>
 
           <div class="impact-grid">
@@ -1531,7 +1756,7 @@
         <div class="container">
           <div class="reveal">
             <div class="eyebrow">Experience</div>
-            <h2 class="section-title">A decade in financial-services data.</h2>
+            <h2 class="section-title" data-parallax>A decade in financial-services data.</h2>
             <p class="section-lede">
               Three chapters. Each one pushed the work a little further —
               from spreadsheet to platform to people.
@@ -1622,7 +1847,7 @@
         <div class="container">
           <div class="reveal">
             <div class="eyebrow">Skills</div>
-            <h2 class="section-title">Tools, not trophies.</h2>
+            <h2 class="section-title" data-parallax>Tools, not trophies.</h2>
             <p class="section-lede">
               A list isn't a personality, but people ask. Here's what I reach
               for first, grouped by what it actually does.
@@ -1693,14 +1918,14 @@
         <div class="container">
           <div class="reveal">
             <div class="eyebrow">Projects</div>
-            <h2 class="section-title">Some things I'm proud of.</h2>
+            <h2 class="section-title" data-parallax>Some things I'm proud of.</h2>
             <p class="section-lede">
               A handful of stories from the last few years — including the
               parts that didn't go to plan.
             </p>
           </div>
 
-          <article class="projects-feature reveal" data-tilt>
+          <article class="projects-feature reveal" data-tilt data-project="0">
             <span class="badge">Featured · Platform</span>
             <h3>Claims reporting, consolidated on Microsoft Fabric.</h3>
             <p>
@@ -1721,7 +1946,7 @@
           </article>
 
           <div class="projects-grid">
-            <article class="gcard project reveal" data-tilt>
+            <article class="gcard project reveal" data-tilt data-project="1">
               <h3>Warehouse → Lakehouse</h3>
               <p>
                 Lifting a decade of legacy SQL warehouses into a modern
@@ -1734,7 +1959,7 @@
                 <span class="tag">Spark</span>
               </div>
             </article>
-            <article class="gcard project reveal" data-tilt>
+            <article class="gcard project reveal" data-tilt data-project="2">
               <h3>The catalogue that got used.</h3>
               <p>
                 Most data catalogues quietly die. This one didn't, because
@@ -1748,7 +1973,7 @@
                 <span class="tag">Stewardship</span>
               </div>
             </article>
-            <article class="gcard project reveal" data-tilt>
+            <article class="gcard project reveal" data-tilt data-project="3">
               <h3>The team I grew up.</h3>
               <p>
                 The work I'm proudest of has names attached. Two analysts I
@@ -1771,7 +1996,7 @@
         <div class="container">
           <div class="reveal">
             <div class="eyebrow">Credentials</div>
-            <h2 class="section-title">Still learning, on purpose.</h2>
+            <h2 class="section-title" data-parallax>Still learning, on purpose.</h2>
           </div>
 
           <div class="ed-list">
@@ -1833,6 +2058,20 @@
         </div>
       </section>
     </main>
+
+    <!-- ============= PROJECT MODAL ============= -->
+    <div class="project-modal" id="project-modal" role="dialog" aria-modal="true" aria-hidden="true">
+      <div class="project-modal-card">
+        <button class="project-modal-close" id="project-modal-close" aria-label="Close">×</button>
+        <div class="meta" id="modal-meta"></div>
+        <h3 id="modal-title"></h3>
+        <p id="modal-body"></p>
+        <h4>Highlights</h4>
+        <ul id="modal-highlights"></ul>
+        <h4>Stack</h4>
+        <p id="modal-stack" style="margin: 0;"></p>
+      </div>
+    </div>
 
     <footer>
       <div class="footer-grid">
@@ -2039,6 +2278,138 @@
         });
       }, { threshold: 0.5 });
       document.querySelectorAll('[data-count]').forEach(el => counterIO.observe(el));
+
+      // ============= SECTION TITLE PARALLAX =============
+      const titleEls = document.querySelectorAll('.section-title[data-parallax]');
+      const onScrollParallax = () => {
+        titleEls.forEach(el => {
+          const r = el.getBoundingClientRect();
+          const vh = innerHeight;
+          // 0 when title at bottom of viewport, 1 when at top
+          const t = 1 - Math.max(0, Math.min(1, r.top / vh));
+          // translate from 24px down to -16px up as user scrolls
+          const y = (1 - t) * 24 - t * 16;
+          el.style.setProperty('--titleY', y + 'px');
+          el.style.setProperty('--titleOpacity', String(0.4 + t * 0.6));
+        });
+      };
+      let parallaxTicking = false;
+      addEventListener('scroll', () => {
+        if (!parallaxTicking) { requestAnimationFrame(() => { onScrollParallax(); parallaxTicking = false; }); parallaxTicking = true; }
+      }, { passive: true });
+      onScrollParallax();
+
+      // ============= PINNED MANIFESTO: word-by-word fade on scroll =============
+      const pinnedSection = document.getElementById('manifesto');
+      const pinnedWords = document.querySelectorAll('#pinned-text .word-pin');
+      if (pinnedSection && pinnedWords.length) {
+        const onScrollPinned = () => {
+          const r = pinnedSection.getBoundingClientRect();
+          const total = pinnedSection.offsetHeight - innerHeight;
+          if (total <= 0) {
+            pinnedWords.forEach(w => w.classList.add('lit'));
+            return;
+          }
+          const scrolled = -r.top;
+          const t = Math.max(0, Math.min(1, scrolled / total));
+          const lit = Math.floor(t * (pinnedWords.length + 1));
+          pinnedWords.forEach((w, i) => w.classList.toggle('lit', i < lit));
+        };
+        let pinTicking = false;
+        addEventListener('scroll', () => {
+          if (!pinTicking) { requestAnimationFrame(() => { onScrollPinned(); pinTicking = false; }); pinTicking = true; }
+        }, { passive: true });
+        onScrollPinned();
+      }
+
+      // ============= PROJECT MODAL =============
+      const projectsData = [
+        {
+          meta: 'Featured Project · Platform',
+          title: 'Claims reporting, consolidated on Microsoft Fabric.',
+          body: 'Eight P&C claims systems. Four reporting standards. No single source of truth. We rebuilt the entire reporting stack on Microsoft Fabric — a clean star schema with proper lineage, certified semantic models, and one executive dashboard instead of forty conflicting emails.',
+          highlights: [
+            'Migrated 8 source systems with zero analyst-facing breakage',
+            'Single star schema; certified semantic model in Power BI',
+            'End-to-end lineage tracked through Informatica CDGC',
+            'Executive scorecards replaced ad-hoc reporting threads'
+          ],
+          stack: 'Microsoft Fabric · Power BI · DAX · Star Schema · Lineage · Azure Data Factory'
+        },
+        {
+          meta: '02 · Migration',
+          title: 'Warehouse → Lakehouse.',
+          body: 'Lifting a decade of legacy SQL warehouses into a modern Fabric lakehouse. Bronze, Silver, Gold layers. Notebooks where they earned their place; Pipelines where they didn\'t.',
+          highlights: [
+            'Designed Bronze · Silver · Gold medallion architecture',
+            'Migrated reports without a single missed Monday-morning refresh',
+            'Cut nightly load time materially while improving observability',
+            'Wrote the runbooks so future migrations don\'t need me'
+          ],
+          stack: 'Lakehouse · Synapse · Spark / PySpark · Notebooks · Pipelines'
+        },
+        {
+          meta: '03 · Governance',
+          title: 'The catalogue that got used.',
+          body: 'Most data catalogues quietly die. This one didn\'t — because we wrote it for the people who actually open Power BI on a Tuesday. Plain-English glossaries, automatic lineage, certified datasets, named stewards, and a slow campaign of trust.',
+          highlights: [
+            'Plain-English glossary maintained by domain stewards, not platform team',
+            'Automatic lineage from source through semantic model',
+            'Certified datasets with clear ownership',
+            'Adoption measured in actual searches, not seat licenses'
+          ],
+          stack: 'Informatica IICS · CDGC · Lineage · Stewardship · Quality Rules'
+        },
+        {
+          meta: '04 · Team',
+          title: 'The team I grew up.',
+          body: 'The work I\'m proudest of has names attached. Two analysts I hired now run their own squads. Code reviews that became learning sessions. A culture where asking is faster than guessing.',
+          highlights: [
+            'Hired and onboarded 5+ engineers and analysts',
+            'Code review culture: reviews as teaching moments',
+            'Defended deep-work time and shipped predictably',
+            'Two reports promoted into squad-lead roles'
+          ],
+          stack: 'Hiring · Mentorship · Sprint planning · 1:1s · Stakeholder mgmt'
+        }
+      ];
+      const modal = document.getElementById('project-modal');
+      const modalClose = document.getElementById('project-modal-close');
+      const modalMeta = document.getElementById('modal-meta');
+      const modalTitle = document.getElementById('modal-title');
+      const modalBody = document.getElementById('modal-body');
+      const modalHighlights = document.getElementById('modal-highlights');
+      const modalStack = document.getElementById('modal-stack');
+      const openProject = (idx) => {
+        const p = projectsData[idx];
+        if (!p) return;
+        modalMeta.textContent = p.meta;
+        modalTitle.textContent = p.title;
+        modalBody.textContent = p.body;
+        modalHighlights.innerHTML = p.highlights.map(h => `<li>${h}</li>`).join('');
+        modalStack.textContent = p.stack;
+        modal.classList.add('open');
+        modal.setAttribute('aria-hidden', 'false');
+        document.body.style.overflow = 'hidden';
+      };
+      const closeProject = () => {
+        modal.classList.remove('open');
+        modal.setAttribute('aria-hidden', 'true');
+        document.body.style.overflow = '';
+      };
+      document.querySelectorAll('[data-project]').forEach(card => {
+        card.addEventListener('click', (e) => {
+          // Don't trigger if user clicked an inner anchor
+          if (e.target.closest('a[href]') && !e.target.closest('article[data-project]')?.matches('a')) {
+            // article is not actually an <a>, fine
+          }
+          e.preventDefault();
+          openProject(card.dataset.project);
+        });
+      });
+      modalClose.addEventListener('click', closeProject);
+      modal.addEventListener('click', (e) => { if (e.target === modal) closeProject(); });
+      addEventListener('keydown', (e) => { if (e.key === 'Escape' && modal.classList.contains('open')) closeProject(); });
 
       // ============= MARQUEE: duplicate content for seamless loop =============
       const mt = document.getElementById('marquee-track');
