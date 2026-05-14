@@ -13,24 +13,41 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;0,9..144,500;1,9..144,300;1,9..144,400&family=Inter:wght@200;300;400;500;600&family=JetBrains+Mono:wght@300;400&family=Noto+Sans+Devanagari:wght@400;500&family=Noto+Sans+JP:wght@400;500&family=Noto+Sans+KR:wght@400;500&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+Arabic:wght@400;500&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300;0,9..144,400;1,9..144,300;1,9..144,400;1,9..144,500&family=Inter+Tight:wght@200;300;400;500;600;700&family=Geist+Mono:wght@300;400;500&family=Noto+Sans+Devanagari:wght@400;500&family=Noto+Sans+JP:wght@400;500&family=Noto+Sans+KR:wght@400;500&family=Noto+Sans+SC:wght@400;500&family=Noto+Sans+Arabic:wght@400;500&display=swap" rel="stylesheet" />
 
     <style>
       :root {
-        --paper:    #F4F6FB;
-        --paper-2:  #EAF0FA;
-        --paper-3:  #DFE8F5;
-        --ink:      #0B1A33;
-        --ink-2:    #1B2747;
-        --muted:    rgba(11, 26, 51, 0.62);
-        --rule:     rgba(11, 26, 51, 0.10);
-        --rule-2:   rgba(11, 26, 51, 0.18);
-        --azure:    #2A6CF6;
-        --azure-d:  #1854D4;
-        --sky:      #6FB1FF;
-        --ice:      #DCEAFF;
-        --violet:   #8B7BFF;
-        --mint:     #5BD0B8;
+        /* Refined palette — softer, more luminous */
+        --paper:    #F7F8FC;
+        --paper-2:  #EEF2FB;
+        --paper-3:  #E2EAF7;
+        --ink:      #0A1426;
+        --ink-2:    #1F2A45;
+        --ink-3:    #404B68;
+        --muted:    rgba(10, 20, 38, 0.58);
+        --muted-2:  rgba(10, 20, 38, 0.42);
+        --rule:     rgba(10, 20, 38, 0.08);
+        --rule-2:   rgba(10, 20, 38, 0.16);
+
+        /* Brand gradient stops — borrowed energy from iOS 18 / Apple Intelligence */
+        --grad-1:   #1E63FF;   /* deep azure */
+        --grad-2:   #5B96FF;   /* sky */
+        --grad-3:   #A78BFA;   /* lavender */
+        --grad-4:   #FF7AB6;   /* blossom */
+        --grad-5:   #FFB770;   /* peach (whisper) */
+
+        --azure:    var(--grad-1);
+        --sky:      var(--grad-2);
+        --violet:   var(--grad-3);
+        --blossom:  var(--grad-4);
+
+        /* Liquid glass tokens */
+        --glass-bg:    rgba(255, 255, 255, 0.55);
+        --glass-bg-2:  rgba(255, 255, 255, 0.72);
+        --glass-edge:  rgba(255, 255, 255, 0.95);
+        --glass-shadow: 0 1px 1px rgba(10, 20, 38, 0.04),
+                        0 12px 32px rgba(10, 20, 38, 0.06),
+                        0 32px 80px rgba(10, 20, 38, 0.04);
       }
 
       * { -webkit-tap-highlight-color: transparent; box-sizing: border-box; margin: 0; padding: 0; }
@@ -38,17 +55,19 @@
       html, body {
         background: var(--paper);
         color: var(--ink);
-        font-family: 'Inter', sans-serif;
-        font-weight: 300;
+        font-family: 'Inter Tight', 'Inter', system-ui, sans-serif;
+        font-weight: 400;
+        font-feature-settings: "ss01", "ss02", "cv11";
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         overflow-x: hidden;
         cursor: none;
+        text-rendering: optimizeLegibility;
       }
       ::selection { background: var(--azure); color: #fff; }
 
-      .fr { font-family: 'Fraunces', serif; font-weight: 400; }
-      .mn { font-family: 'JetBrains Mono', monospace; font-weight: 400; }
+      .fr { font-family: 'Fraunces', 'Times New Roman', serif; font-weight: 400; }
+      .mn { font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace; font-weight: 400; }
 
       a { color: inherit; text-decoration: none; cursor: none; }
       button { cursor: none; background: none; border: none; color: inherit; font: inherit; }
@@ -141,14 +160,15 @@
         pointer-events: none;
       }
 
-      /* ============= ATMOSPHERE OVERLAY ============= */
+      /* ============= ATMOSPHERE OVERLAY (mesh gradient) ============= */
       .atmosphere {
         position: fixed; inset: 0; z-index: 1;
         pointer-events: none;
         background:
-          radial-gradient(ellipse 70% 50% at 22% 12%, rgba(42, 108, 246, 0.10) 0%, transparent 60%),
-          radial-gradient(ellipse 60% 50% at 80% 22%, rgba(139, 123, 255, 0.08) 0%, transparent 60%),
-          radial-gradient(ellipse 80% 70% at 50% 95%, rgba(91, 208, 184, 0.08) 0%, transparent 65%);
+          radial-gradient(ellipse 70% 50% at 18% 8%,  rgba(30, 99, 255, 0.10) 0%, transparent 55%),
+          radial-gradient(ellipse 60% 50% at 82% 18%, rgba(167, 139, 250, 0.10) 0%, transparent 55%),
+          radial-gradient(ellipse 65% 50% at 92% 60%, rgba(255, 122, 182, 0.06) 0%, transparent 55%),
+          radial-gradient(ellipse 80% 70% at 50% 100%, rgba(91, 150, 255, 0.08) 0%, transparent 60%);
       }
       .grain::after {
         content: "";
@@ -195,76 +215,141 @@
         .cursor-dot, .cursor-trail { display: none; }
       }
 
-      /* ============= GLASS PRIMITIVES ============= */
+      /* =============================================================
+         LIQUID GLASS SYSTEM
+         A real material: tint + blur + edge highlight + inner ambient
+         + specular sheen that shifts with cursor.
+         ============================================================= */
       .glass {
         position: relative;
-        background: rgba(255, 255, 255, 0.62);
-        backdrop-filter: blur(28px) saturate(180%);
-        -webkit-backdrop-filter: blur(28px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.85);
-        box-shadow:
-          inset 0 1px 0 rgba(255, 255, 255, 1),
-          inset 0 -1px 0 rgba(11, 26, 51, 0.04),
-          0 1px 1px rgba(11, 26, 51, 0.04),
-          0 12px 30px rgba(11, 26, 51, 0.06);
+        background: var(--glass-bg);
+        backdrop-filter: blur(30px) saturate(190%) brightness(1.04);
+        -webkit-backdrop-filter: blur(30px) saturate(190%) brightness(1.04);
+        border: 1px solid var(--glass-edge);
         border-radius: 22px;
+        box-shadow: var(--glass-shadow);
         overflow: hidden;
+        isolation: isolate;
+      }
+      /* Edge-light: half-pixel inner highlight that gives the rim a real bevel */
+      .glass::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(
+          145deg,
+          rgba(255,255,255,0.95) 0%,
+          rgba(255,255,255,0.45) 22%,
+          rgba(255,255,255,0.05) 45%,
+          rgba(255,255,255,0) 60%,
+          rgba(255,255,255,0.18) 80%,
+          rgba(255,255,255,0.55) 100%
+        );
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
+        pointer-events: none;
+        z-index: 2;
+      }
+      /* Inner ambient glow at top — like sun catching the inside of a curve */
+      .glass::after {
+        content: "";
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background: radial-gradient(120% 60% at 50% -10%, rgba(255,255,255,0.55), rgba(255,255,255,0) 60%);
+        pointer-events: none;
+        z-index: 1;
       }
       .glass.pill { border-radius: 999px; }
 
       .glass-card {
         position: relative;
         border-radius: 32px;
-        padding: 48px 44px;
-        background: rgba(255, 255, 255, 0.65);
-        backdrop-filter: blur(28px) saturate(180%);
-        -webkit-backdrop-filter: blur(28px) saturate(180%);
-        border: 1px solid rgba(255, 255, 255, 0.9);
-        box-shadow:
-          inset 0 1px 0 rgba(255,255,255,1),
-          0 1px 1px rgba(11, 26, 51, 0.05),
-          0 24px 60px rgba(11, 26, 51, 0.06);
+        padding: 52px 48px;
+        background: var(--glass-bg);
+        backdrop-filter: blur(36px) saturate(180%) brightness(1.03);
+        -webkit-backdrop-filter: blur(36px) saturate(180%) brightness(1.03);
+        border: 1px solid var(--glass-edge);
+        box-shadow: var(--glass-shadow);
         overflow: hidden;
-        transition: transform 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-                    box-shadow 0.7s cubic-bezier(0.22, 1, 0.36, 1),
-                    background 0.7s;
+        isolation: isolate;
+        transition: transform 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                    box-shadow 0.8s cubic-bezier(0.16, 1, 0.3, 1),
+                    background 0.6s ease;
       }
-      .glass-card:hover {
-        transform: translateY(-6px);
-        background: rgba(255, 255, 255, 0.82);
-        box-shadow:
-          inset 0 1px 0 rgba(255,255,255,1),
-          0 36px 80px rgba(42, 108, 246, 0.16);
-      }
-      .glass-card::after {
+      .glass-card::before {
         content: "";
         position: absolute;
         inset: 0;
-        background: radial-gradient(
-          400px circle at var(--cx, 50%) var(--cy, 50%),
-          rgba(42, 108, 246, 0.10),
-          transparent 45%
+        border-radius: inherit;
+        padding: 1px;
+        background: linear-gradient(
+          145deg,
+          rgba(255,255,255,0.95) 0%,
+          rgba(255,255,255,0.4)  22%,
+          rgba(255,255,255,0)    45%,
+          rgba(255,255,255,0)    60%,
+          rgba(255,255,255,0.18) 80%,
+          rgba(255,255,255,0.55) 100%
         );
-        opacity: 0;
-        transition: opacity 0.5s;
+        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+        -webkit-mask-composite: xor;
+                mask-composite: exclude;
         pointer-events: none;
+        z-index: 3;
       }
-      .glass-card:hover::after { opacity: 1; }
+      /* Top inner ambient */
+      .glass-card > * { position: relative; z-index: 2; }
+      .glass-card .specular {
+        position: absolute;
+        inset: 0;
+        border-radius: inherit;
+        background:
+          radial-gradient(120% 60% at 50% -10%, rgba(255,255,255,0.55), rgba(255,255,255,0) 60%),
+          radial-gradient(420px circle at var(--cx, 30%) var(--cy, 20%), rgba(167, 139, 250, 0.16), transparent 45%),
+          radial-gradient(520px circle at var(--cx, 70%) var(--cy, 80%), rgba(30, 99, 255, 0.10), transparent 45%);
+        pointer-events: none;
+        z-index: 1;
+        transition: opacity 0.6s;
+      }
+      .glass-card:hover {
+        transform: translateY(-8px);
+        background: var(--glass-bg-2);
+        box-shadow:
+          0 1px 1px rgba(10, 20, 38, 0.04),
+          0 16px 32px rgba(10, 20, 38, 0.06),
+          0 48px 100px rgba(30, 99, 255, 0.14);
+      }
 
       /* ============= TYPOGRAPHY ============= */
       .grad-text {
         background: linear-gradient(110deg,
-          var(--azure) 0%,
-          var(--violet) 50%,
-          var(--azure) 100%);
-        background-size: 200% 100%;
+          var(--grad-1) 0%,
+          var(--grad-3) 28%,
+          var(--grad-4) 55%,
+          var(--grad-2) 82%,
+          var(--grad-1) 100%);
+        background-size: 220% 100%;
         -webkit-background-clip: text;
                 background-clip: text;
         -webkit-text-fill-color: transparent;
         color: transparent;
-        animation: grad-shift 9s ease-in-out infinite;
+        animation: grad-shift 11s linear infinite;
       }
-      @keyframes grad-shift { 0%, 100% { background-position: 0% 50%; } 50% { background-position: 100% 50%; } }
+      @keyframes grad-shift {
+        0%   { background-position: 0% 50%; }
+        100% { background-position: 200% 50%; }
+      }
+      .grad-soft {
+        background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4));
+        -webkit-background-clip: text;
+                background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
 
       .word { display: inline-block; overflow: hidden; vertical-align: baseline; }
       .word > span { display: inline-block; transform: translateY(110%); transition: transform 1.4s cubic-bezier(0.22, 1, 0.36, 1); }
@@ -385,15 +470,26 @@
       @keyframes pulse { 0%, 100% { box-shadow: 0 0 0 4px rgba(45,195,106,0.15); } 50% { box-shadow: 0 0 0 9px rgba(45,195,106,0.04); } }
 
       .hero-h1 {
-        font-family: 'Fraunces', serif;
-        font-weight: 300;
-        font-variation-settings: "opsz" 144;
-        font-size: clamp(58px, 7.6vw, 134px);
+        font-family: 'Inter Tight', sans-serif;
+        font-weight: 500;
+        font-size: clamp(60px, 8vw, 148px);
         line-height: 0.92;
-        letter-spacing: -0.035em;
+        letter-spacing: -0.045em;
+        color: var(--ink);
       }
-      .hero-h1 .italic { font-style: italic; }
-      .hero-h1 .light { color: rgba(11,26,51,0.5); }
+      .hero-h1 .italic {
+        font-family: 'Fraunces', serif;
+        font-weight: 400;
+        font-style: italic;
+        font-variation-settings: "opsz" 144;
+        letter-spacing: -0.035em;
+        background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 50%, var(--grad-4));
+        -webkit-background-clip: text;
+                background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
+      .hero-h1 .light { color: var(--muted); }
 
       .hero-sub {
         margin-top: 38px;
@@ -469,31 +565,60 @@
 
       /* ============= EYEBROW ============= */
       .eyebrow {
-        font-family: 'JetBrains Mono', monospace;
+        font-family: 'Geist Mono', 'JetBrains Mono', ui-monospace, monospace;
         font-size: 11px;
-        letter-spacing: 0.28em;
+        font-weight: 400;
+        letter-spacing: 0.16em;
         text-transform: uppercase;
         color: var(--muted);
         display: inline-flex;
         align-items: center;
-        gap: 12px;
+        gap: 14px;
       }
       .eyebrow::before {
         content: "";
-        width: 32px; height: 1px;
-        background: linear-gradient(90deg, transparent, var(--azure));
+        width: 36px; height: 1px;
+        background: linear-gradient(90deg, transparent, var(--ink-3));
+      }
+      .eyebrow .num {
+        font-family: 'Fraunces', serif;
+        font-style: italic;
+        font-weight: 400;
+        font-variation-settings: "opsz" 144;
+        font-size: 14px;
+        letter-spacing: -0.01em;
+        text-transform: none;
+        color: var(--ink-2);
+        margin-right: 4px;
       }
 
       .display-h2 {
-        font-family: 'Fraunces', serif;
-        font-weight: 300;
-        font-variation-settings: "opsz" 100;
-        font-size: clamp(44px, 6.8vw, 100px);
-        line-height: 0.98;
-        letter-spacing: -0.025em;
+        font-family: 'Inter Tight', sans-serif;
+        font-weight: 500;
+        font-size: clamp(46px, 7vw, 108px);
+        line-height: 0.96;
+        letter-spacing: -0.04em;
+        color: var(--ink);
       }
-      .display-h2 .italic { font-style: italic; color: var(--ink-2); }
-      .display-h2 .azure { color: var(--azure); font-style: italic; }
+      .display-h2 .italic {
+        font-family: 'Fraunces', serif;
+        font-weight: 400;
+        font-style: italic;
+        font-variation-settings: "opsz" 144;
+        letter-spacing: -0.025em;
+        color: var(--ink-2);
+      }
+      .display-h2 .azure {
+        font-family: 'Fraunces', serif;
+        font-weight: 400;
+        font-style: italic;
+        font-variation-settings: "opsz" 144;
+        background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4));
+        -webkit-background-clip: text;
+                background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
 
       /* ============= ROW LINKS ============= */
       .rowlink {
@@ -518,16 +643,30 @@
       .rowlink:hover::after { opacity: 1; }
       .rowlink:hover .name { color: var(--azure); }
       .rowlink .name {
-        font-family: 'Fraunces', serif;
-        font-weight: 400;
-        font-size: clamp(28px, 3.6vw, 52px);
+        font-family: 'Inter Tight', sans-serif;
+        font-weight: 500;
+        font-size: clamp(28px, 3.8vw, 56px);
         line-height: 1;
-        letter-spacing: -0.025em;
+        letter-spacing: -0.04em;
         z-index: 1; position: relative;
         transition: color 0.5s;
       }
-      .rowlink .name .italic { font-style: italic; color: var(--muted); transition: color 0.5s; }
-      .rowlink:hover .name .italic { color: var(--azure); }
+      .rowlink .name .italic {
+        font-family: 'Fraunces', serif;
+        font-weight: 400;
+        font-style: italic;
+        font-variation-settings: "opsz" 144;
+        letter-spacing: -0.02em;
+        color: var(--muted-2);
+        transition: color 0.5s;
+      }
+      .rowlink:hover .name .italic {
+        background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4));
+        -webkit-background-clip: text;
+                background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+      }
       .rowlink .num { font-family: 'JetBrains Mono', monospace; font-size: 11px; color: var(--muted); }
       .rowlink .meta { font-family: 'JetBrains Mono', monospace; font-size: 11px; letter-spacing: 0.18em; text-transform: uppercase; color: var(--muted); }
       @media (max-width: 700px) { .rowlink { grid-template-columns: 36px 1fr; gap: 14px; } .rowlink .meta { display: none; } }
@@ -585,9 +724,16 @@
         font-family: 'Fraunces', serif;
         font-style: italic;
         font-weight: 400;
-        font-size: 28px;
+        font-variation-settings: "opsz" 144;
+        font-size: 30px;
+        letter-spacing: -0.02em;
         margin-bottom: 22px;
-        color: var(--azure);
+        background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4));
+        -webkit-background-clip: text;
+                background-clip: text;
+        -webkit-text-fill-color: transparent;
+        color: transparent;
+        display: inline-block;
       }
       .cluster ul { list-style: none; padding: 0; margin: 0; }
       .cluster li {
@@ -616,7 +762,7 @@
       <div class="lang-tag" id="lang-tag">— · —</div>
       <div class="greeting" id="greeting"></div>
       <div class="bar"></div>
-      <div class="meta">Crafted by Kristom Robert</div>
+      <div class="meta" id="loader-name">Shikha Murali</div>
     </div>
 
     <!-- ============= COMET CURSOR ============= -->
@@ -846,8 +992,8 @@
                 </svg>
               </span>
             </div>
-            <h3 class="fr font-light" style="font-size: clamp(28px, 3.4vw, 46px); line-height: 1.05; letter-spacing: -0.022em; margin-top: 60px;">
-              Claims, <span class="italic" style="color: var(--azure);">consolidated.</span>
+            <h3 style="font-family: 'Inter Tight', sans-serif; font-weight: 500; font-size: clamp(28px, 3.4vw, 46px); line-height: 1.05; letter-spacing: -0.04em; margin-top: 60px; color: var(--ink);">
+              Claims, <span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144; background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">consolidated.</span>
             </h3>
             <p class="fr font-light text-[16px] md:text-[17px] leading-[1.7] max-w-md" style="color: var(--muted); margin-top: 24px;">
               Eight P&amp;C claims systems, four reporting standards, no single
@@ -866,8 +1012,8 @@
                 </svg>
               </span>
             </div>
-            <h3 class="fr font-light" style="font-size: clamp(28px, 3.4vw, 46px); line-height: 1.05; letter-spacing: -0.022em; margin-top: 60px;">
-              Warehouse to <span class="italic" style="color: var(--azure);">lakehouse.</span>
+            <h3 style="font-family: 'Inter Tight', sans-serif; font-weight: 500; font-size: clamp(28px, 3.4vw, 46px); line-height: 1.05; letter-spacing: -0.04em; margin-top: 60px; color: var(--ink);">
+              Warehouse to <span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144; background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">lakehouse.</span>
             </h3>
             <p class="fr font-light text-[16px] md:text-[17px] leading-[1.7] max-w-md" style="color: var(--muted); margin-top: 24px;">
               Lifting a decade of legacy SQL warehouses into a modern Fabric
@@ -885,8 +1031,8 @@
                 </svg>
               </span>
             </div>
-            <h3 class="fr font-light" style="font-size: clamp(28px, 3.4vw, 46px); line-height: 1.05; letter-spacing: -0.022em; margin-top: 60px;">
-              The catalogue <span class="italic" style="color: var(--azure);">that got used.</span>
+            <h3 style="font-family: 'Inter Tight', sans-serif; font-weight: 500; font-size: clamp(28px, 3.4vw, 46px); line-height: 1.05; letter-spacing: -0.04em; margin-top: 60px; color: var(--ink);">
+              The catalogue <span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144; background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">that got used.</span>
             </h3>
             <p class="fr font-light text-[16px] md:text-[17px] leading-[1.7] max-w-md" style="color: var(--muted); margin-top: 24px;">
               Most data catalogues quietly die. This one didn't, because we
@@ -904,8 +1050,8 @@
                 </svg>
               </span>
             </div>
-            <h3 class="fr font-light" style="font-size: clamp(28px, 3.4vw, 46px); line-height: 1.05; letter-spacing: -0.022em; margin-top: 60px;">
-              The team <span class="italic" style="color: var(--azure);">I grew up.</span>
+            <h3 style="font-family: 'Inter Tight', sans-serif; font-weight: 500; font-size: clamp(28px, 3.4vw, 46px); line-height: 1.05; letter-spacing: -0.04em; margin-top: 60px; color: var(--ink);">
+              The team <span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144; background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">I grew up.</span>
             </h3>
             <p class="fr font-light text-[16px] md:text-[17px] leading-[1.7] max-w-md" style="color: var(--muted); margin-top: 24px;">
               The work I'm proudest of has names attached. Two analysts I hired
@@ -989,8 +1135,8 @@
         <div style="display: grid; grid-template-columns: 1fr 1fr; column-gap: 80px; row-gap: 64px;" class="method-grid">
           <div class="reveal">
             <div class="mn text-[11px] tracking-[0.28em] uppercase mb-4" style="color: var(--azure);">i.</div>
-            <h4 class="fr font-light" style="font-size: clamp(26px, 3vw, 40px); line-height: 1.1; letter-spacing: -0.015em;">
-              Start with the <span class="italic" style="color: var(--azure);">question</span>, not the data.
+            <h4 style="font-family: 'Inter Tight', sans-serif; font-weight: 500; font-size: clamp(26px, 3vw, 40px); line-height: 1.1; letter-spacing: -0.035em; color: var(--ink);">
+              Start with the <span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144; background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">question</span>, not the data.
             </h4>
             <p class="fr font-light text-[17px] leading-[1.7] max-w-md" style="color: var(--muted); margin-top: 20px;">
               Every good dashboard begins with someone trying to make a
@@ -1000,8 +1146,8 @@
           </div>
           <div class="reveal d-200">
             <div class="mn text-[11px] tracking-[0.28em] uppercase mb-4" style="color: var(--azure);">ii.</div>
-            <h4 class="fr font-light" style="font-size: clamp(26px, 3vw, 40px); line-height: 1.1; letter-spacing: -0.015em;">
-              If it needs <span class="italic" style="color: var(--azure);">explaining</span>, it isn't done.
+            <h4 style="font-family: 'Inter Tight', sans-serif; font-weight: 500; font-size: clamp(26px, 3vw, 40px); line-height: 1.1; letter-spacing: -0.035em; color: var(--ink);">
+              If it needs <span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144; background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">explaining</span>, it isn't done.
             </h4>
             <p class="fr font-light text-[17px] leading-[1.7] max-w-md" style="color: var(--muted); margin-top: 20px;">
               A report that comes with a footnote, a caveat, and a 20-minute
@@ -1011,8 +1157,8 @@
           </div>
           <div class="reveal d-300">
             <div class="mn text-[11px] tracking-[0.28em] uppercase mb-4" style="color: var(--azure);">iii.</div>
-            <h4 class="fr font-light" style="font-size: clamp(26px, 3vw, 40px); line-height: 1.1; letter-spacing: -0.015em;">
-              Default to <span class="italic" style="color: var(--azure);">teaching.</span>
+            <h4 style="font-family: 'Inter Tight', sans-serif; font-weight: 500; font-size: clamp(26px, 3vw, 40px); line-height: 1.1; letter-spacing: -0.035em; color: var(--ink);">
+              Default to <span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144; background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">teaching.</span>
             </h4>
             <p class="fr font-light text-[17px] leading-[1.7] max-w-md" style="color: var(--muted); margin-top: 20px;">
               Every shortcut I take alone is one my team can't take tomorrow.
@@ -1022,8 +1168,8 @@
           </div>
           <div class="reveal d-500">
             <div class="mn text-[11px] tracking-[0.28em] uppercase mb-4" style="color: var(--azure);">iv.</div>
-            <h4 class="fr font-light" style="font-size: clamp(26px, 3vw, 40px); line-height: 1.1; letter-spacing: -0.015em;">
-              <span class="italic" style="color: var(--azure);">Boring</span> is a feature.
+            <h4 style="font-family: 'Inter Tight', sans-serif; font-weight: 500; font-size: clamp(26px, 3vw, 40px); line-height: 1.1; letter-spacing: -0.035em; color: var(--ink);">
+              <span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144; background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">Boring</span> is a feature.
             </h4>
             <p class="fr font-light text-[17px] leading-[1.7] max-w-md" style="color: var(--muted); margin-top: 20px;">
               Production data work shouldn't be exciting. Surprises mean
@@ -1055,8 +1201,8 @@
                 </svg>
               </span>
             </div>
-            <h3 class="fr font-light" style="font-size: clamp(28px, 3.2vw, 40px); line-height: 1.05; letter-spacing: -0.02em; margin-top: 50px;">
-              Fabric Analytics<br/><span class="italic" style="color: var(--azure);">Engineer Associate</span>
+            <h3 style="font-family: 'Inter Tight', sans-serif; font-weight: 500; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.05; letter-spacing: -0.04em; margin-top: 50px; color: var(--ink);">
+              Fabric Analytics<br/><span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144; letter-spacing: -0.025em; background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">Engineer Associate</span>
             </h3>
             <p class="fr font-light text-[16px] leading-[1.7] max-w-md" style="color: var(--muted); margin-top: 20px;">
               The end-to-end of Fabric — lakehouses, warehouses, semantic
@@ -1074,8 +1220,8 @@
                 </svg>
               </span>
             </div>
-            <h3 class="fr font-light" style="font-size: clamp(28px, 3.2vw, 40px); line-height: 1.05; letter-spacing: -0.02em; margin-top: 50px;">
-              Cloud Data Governance<br/>&amp; <span class="italic" style="color: var(--azure);">Catalog</span> Foundation
+            <h3 style="font-family: 'Inter Tight', sans-serif; font-weight: 500; font-size: clamp(28px, 3.2vw, 40px); line-height: 1.05; letter-spacing: -0.04em; margin-top: 50px; color: var(--ink);">
+              Cloud Data Governance<br/>&amp; <span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144; letter-spacing: -0.025em; background: linear-gradient(135deg, var(--grad-1), var(--grad-3) 60%, var(--grad-4)); -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; color: transparent;">Catalog</span> Foundation
             </h3>
             <p class="fr font-light text-[16px] leading-[1.7] max-w-md" style="color: var(--muted); margin-top: 20px;">
               Foundation in the principles and platform behind serious data
@@ -1090,9 +1236,9 @@
     <section id="contact" class="section">
       <div class="container reveal">
         <span class="eyebrow">08 — Hello</span>
-        <h2 class="fr font-light" style="font-size: clamp(64px, 12vw, 200px); line-height: 0.9; letter-spacing: -0.035em; margin-top: 50px;">
-          Got a data <span class="italic grad-text">problem</span><br/>
-          worth <span class="italic" style="color: var(--ink-2);">solving?</span>
+        <h2 style="font-family: 'Inter Tight', sans-serif; font-weight: 500; font-size: clamp(64px, 12vw, 200px); line-height: 0.9; letter-spacing: -0.05em; margin-top: 50px; color: var(--ink);">
+          Got a data <span class="grad-text" style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144; letter-spacing: -0.03em;">problem</span><br/>
+          worth <span style="font-family: 'Fraunces', serif; font-style: italic; font-weight: 400; font-variation-settings: 'opsz' 144; letter-spacing: -0.03em; color: var(--ink-3);">solving?</span>
         </h2>
         <p class="fr font-light text-[19px] md:text-[21px] leading-[1.65]" style="color: var(--muted); margin-top: 60px; max-width: 36em;">
           I'm not always looking for the next thing — but I'm always up for a
@@ -1119,17 +1265,10 @@
       </div>
     </section>
 
-    <footer style="position: relative; z-index: 5; padding: 50px 26px; border-top: 1px solid var(--rule);">
-      <div class="container" style="display: flex; flex-direction: column; gap: 12px;">
-        <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; color: var(--muted);" class="mn text-[10px] tracking-[0.22em] uppercase">
-          <span>© <span id="year"></span> Shikha Murali</span>
-          <span>Bengaluru · India</span>
-        </div>
-        <div style="text-align: center; margin-top: 30px;">
-          <span class="fr italic" style="font-size: 18px; color: var(--ink-2);">
-            Crafted with affection by <a href="#" style="color: var(--azure);">Kristom Robert</a>.
-          </span>
-        </div>
+    <footer style="position: relative; z-index: 5; padding: 60px 26px; border-top: 1px solid var(--rule);">
+      <div class="container" style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 20px; color: var(--muted);" class="mn">
+        <span class="mn" style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;">© <span id="year"></span> Shikha Murali</span>
+        <span class="mn" style="font-size: 10px; letter-spacing: 0.22em; text-transform: uppercase;">Bengaluru · India</span>
       </div>
     </footer>
 
@@ -1450,12 +1589,23 @@
         el.addEventListener('mouseleave', () => dot?.classList.remove('hover'));
       });
 
-      // Card spotlight
+      // Inject specular layer for the liquid-glass shine
+      document.querySelectorAll('.glass-card').forEach(card => {
+        if (!card.querySelector('.specular')) {
+          const spec = document.createElement('div');
+          spec.className = 'specular';
+          card.prepend(spec);
+        }
+      });
+
+      // Card spotlight (drives both --cx/cy on card and on its specular)
       document.querySelectorAll('.glass-card').forEach(card => {
         card.addEventListener('mousemove', (e) => {
           const r = card.getBoundingClientRect();
-          card.style.setProperty('--cx', ((e.clientX - r.left) / r.width * 100) + '%');
-          card.style.setProperty('--cy', ((e.clientY - r.top) / r.height * 100) + '%');
+          const x = ((e.clientX - r.left) / r.width * 100) + '%';
+          const y = ((e.clientY - r.top) / r.height * 100) + '%';
+          card.style.setProperty('--cx', x);
+          card.style.setProperty('--cy', y);
         });
       });
 
