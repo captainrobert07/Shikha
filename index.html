@@ -54,24 +54,12 @@
 
       .anton { font-family: 'Anton', sans-serif; letter-spacing: 0.02em; }
 
-      /* ---------- PORTRAIT: SVG filter knocks out black bg, brush-mask softens edges ---------- */
-      .portrait-shadow { filter: drop-shadow(0 30px 60px rgba(0,0,0,0.35)); }
-
-      .portrait-img {
-        filter: url(#knockout-black);
-        -webkit-mask-image:
-          radial-gradient(ellipse 78% 92% at 50% 52%, #000 62%, transparent 78%),
-          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 800'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.04' numOctaves='3' seed='5'/><feDisplacementMap in='SourceGraphic' scale='40'/></filter><rect width='100%25' height='100%25' fill='black' filter='url(%23r)'/></svg>");
-        -webkit-mask-composite: source-in;
-        -webkit-mask-size: 100% 100%, 100% 100%;
-        -webkit-mask-repeat: no-repeat, no-repeat;
-                mask-image:
-          radial-gradient(ellipse 78% 92% at 50% 52%, #000 62%, transparent 78%),
-          url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 600 800'><filter id='r'><feTurbulence type='fractalNoise' baseFrequency='0.012 0.04' numOctaves='3' seed='5'/><feDisplacementMap in='SourceGraphic' scale='40'/></filter><rect width='100%25' height='100%25' fill='black' filter='url(%23r)'/></svg>");
-        mask-composite: intersect;
-        mask-size: 100% 100%, 100% 100%;
-        mask-repeat: no-repeat, no-repeat;
+      /* Portrait already has transparent background — soft shadow only */
+      .portrait-shadow {
+        filter: drop-shadow(0 24px 48px rgba(0,0,0,0.32))
+                drop-shadow(0 6px 14px rgba(0,0,0,0.22));
       }
+      .portrait-img { display: block; }
 
       /* Subtle film grain on top */
       .grain::after {
@@ -253,24 +241,6 @@
 
   <body class="grain">
 
-    <!-- ============= INVISIBLE SVG FILTER for background knockout ============= -->
-    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
-      <defs>
-        <filter id="knockout-black" color-interpolation-filters="sRGB">
-          <!-- Compute alpha = average luminance of RGB -->
-          <feColorMatrix type="matrix" values="
-            1 0 0 0 0
-            0 1 0 0 0
-            0 0 1 0 0
-            0.34 0.34 0.34 0 0"/>
-          <!-- Push midtones up, blacks to zero -->
-          <feComponentTransfer>
-            <feFuncA type="linear" slope="11" intercept="-0.45"/>
-          </feComponentTransfer>
-        </filter>
-      </defs>
-    </svg>
-
     <!-- ============= AMBIENT BACKGROUND ============= -->
     <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
       <div class="absolute inset-0 flex items-center justify-center">
@@ -335,8 +305,8 @@
       <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
         <div class="portrait-shadow relative" style="width: clamp(280px, 36vw, 520px); height: clamp(380px, 50vw, 700px);">
           <img id="portrait"
-               class="portrait-img w-full h-full object-cover"
-               style="object-position: 50% 18%;"
+               class="portrait-img w-full h-full object-contain"
+               style="object-position: 50% 100%;"
                src="assets/shikha.png"
                alt="Shikha Murali — portrait" />
         </div>
