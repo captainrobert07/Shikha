@@ -3,595 +3,1329 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Shikha Murali — Business Intelligence Developer</title>
-    <meta name="description" content="Shikha Murali — Business Intelligence Developer & People Manager. Data visualization, advanced analytics, and operations leadership in financial services." />
-    <meta name="theme-color" content="#000000" />
+    <title>Shikha Murali — Business Intelligence, Reimagined</title>
+    <meta name="description" content="Shikha Murali — Business Intelligence Developer & People Manager. A cinematic portfolio of data, design, and decisions." />
+    <meta name="theme-color" content="#05060A" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Barlow:wght@300;400;500;600&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
-
-    <script src="https://cdn.tailwindcss.com"></script>
-    <script>
-      tailwind.config = {
-        theme: {
-          extend: {
-            fontFamily: {
-              inter: ["Inter", "sans-serif"],
-              barlow: ["Barlow", "sans-serif"],
-              serif: ["'Instrument Serif'", "serif"],
-              display: ["Dirtyline", "Inter", "sans-serif"],
-            },
-          },
-        },
-      };
-    </script>
-
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
-    <script type="module" src="https://unpkg.com/lucide@latest/dist/lucide.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@200;300;400;500;600;700;800&family=JetBrains+Mono:wght@300;400;500&display=swap" rel="stylesheet" />
 
     <style>
-      @font-face {
-        font-family: "Dirtyline";
-        src: url("https://fonts.cdnfonts.com/s/15011/Dirtyline36DaysofType.woff") format("woff");
-        font-weight: normal;
-        font-style: normal;
-        font-display: swap;
+      :root {
+        --ink: #05060A;
+        --ink-2: #0A0C14;
+        --paper: #F5F1EA;
+        --accent: #FF5B2E;
+        --accent-2: #6CD0FF;
+        --accent-3: #C7B8FF;
       }
 
-      html,
-      body {
-        background: #000;
-        color: #fff;
-        font-family: "Barlow", sans-serif;
-      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
 
-      body {
+      html, body {
+        background: var(--ink);
+        color: var(--paper);
+        font-family: 'Inter', sans-serif;
+        font-weight: 300;
+        -webkit-font-smoothing: antialiased;
+        -moz-osx-font-smoothing: grayscale;
         overflow-x: hidden;
+        cursor: none;
       }
 
-      .font-headline {
-        font-family: "Inter", sans-serif;
-      }
+      body { min-height: 100vh; }
 
-      .liquid-glass {
-        background: rgba(255, 255, 255, 0.01);
-        background-blend-mode: luminosity;
-        backdrop-filter: blur(4px);
-        -webkit-backdrop-filter: blur(4px);
-        border: none;
-        box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
-        position: relative;
-        overflow: hidden;
-      }
-      .liquid-glass::before {
-        content: "";
-        position: absolute;
+      ::selection { background: var(--accent); color: var(--ink); }
+
+      .serif { font-family: 'Instrument Serif', serif; font-weight: 400; }
+      .mono  { font-family: 'JetBrains Mono', monospace; }
+
+      /* ============== CANVAS LAYER ============== */
+      #stage {
+        position: fixed;
         inset: 0;
-        border-radius: inherit;
-        padding: 1.4px;
-        background: linear-gradient(
-          180deg,
-          rgba(255, 255, 255, 0.45) 0%,
-          rgba(255, 255, 255, 0.15) 20%,
-          rgba(255, 255, 255, 0) 40%,
-          rgba(255, 255, 255, 0) 60%,
-          rgba(255, 255, 255, 0.15) 80%,
-          rgba(255, 255, 255, 0.45) 100%
-        );
-        -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
-        -webkit-mask-composite: xor;
-        mask-composite: exclude;
+        width: 100vw;
+        height: 100vh;
+        z-index: 0;
         pointer-events: none;
       }
 
-      .video-vignette::after {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: radial-gradient(ellipse at center, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0.65) 100%);
-        pointer-events: none;
-      }
-      .video-vignette::before {
-        content: "";
-        position: absolute;
-        inset: 0;
-        background: linear-gradient(180deg, rgba(0, 0, 0, 0.35) 0%, rgba(0, 0, 0, 0) 30%, rgba(0, 0, 0, 0) 60%, rgba(0, 0, 0, 0.55) 100%);
-        pointer-events: none;
-        z-index: 1;
-      }
-
-      .reveal {
-        opacity: 0;
-        transform: translateY(24px);
-        transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-      }
-      .reveal.in {
-        opacity: 1;
-        transform: translateY(0);
-      }
-      .delay-150 { transition-delay: 150ms; }
-      .delay-300 { transition-delay: 300ms; }
-      .delay-500 { transition-delay: 500ms; }
-
-      .cta-btn {
-        transition: transform 200ms cubic-bezier(0.22, 1, 0.36, 1), box-shadow 200ms cubic-bezier(0.22, 1, 0.36, 1);
-      }
-      .cta-btn:hover {
-        transform: scale(1.03);
-        box-shadow: 0 0 32px 4px rgba(255, 255, 255, 0.2);
-      }
-      .cta-btn:active {
-        transform: scale(0.97);
-      }
-
-      .marquee-track {
-        animation: marquee 38s linear infinite;
-      }
-      @keyframes marquee {
-        from { transform: translateX(0); }
-        to { transform: translateX(-50%); }
-      }
-
-      .grain::after {
+      /* Subtle film grain */
+      body::after {
         content: "";
         position: fixed;
         inset: -50%;
-        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='160' height='160'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.06 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
+        background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.05 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
         pointer-events: none;
-        z-index: 60;
+        z-index: 100;
         mix-blend-mode: overlay;
+        opacity: 0.55;
+      }
+
+      /* Vignette */
+      .vignette {
+        position: fixed;
+        inset: 0;
+        z-index: 1;
+        pointer-events: none;
+        background:
+          radial-gradient(ellipse at center, transparent 35%, rgba(0,0,0,0.55) 100%),
+          linear-gradient(180deg, rgba(0,0,0,0.4) 0%, transparent 25%, transparent 75%, rgba(0,0,0,0.55) 100%);
+      }
+
+      /* ============== CURSOR ============== */
+      .cursor {
+        position: fixed;
+        top: 0; left: 0;
+        width: 24px; height: 24px;
+        border: 1px solid var(--paper);
+        border-radius: 999px;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: difference;
+        transform: translate(-50%, -50%);
+        transition: width 0.25s, height 0.25s, background 0.25s;
+      }
+      .cursor-dot {
+        position: fixed;
+        top: 0; left: 0;
+        width: 4px; height: 4px;
+        background: var(--paper);
+        border-radius: 999px;
+        pointer-events: none;
+        z-index: 9999;
+        mix-blend-mode: difference;
+        transform: translate(-50%, -50%);
+      }
+      .cursor.hover { width: 64px; height: 64px; background: var(--paper); }
+
+      @media (pointer: coarse) {
+        html, body { cursor: auto; }
+        .cursor, .cursor-dot { display: none; }
+      }
+
+      /* ============== HEADER ============== */
+      header {
+        position: fixed;
+        top: 0; left: 0; right: 0;
+        z-index: 50;
+        padding: 28px 40px;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        mix-blend-mode: difference;
+        color: var(--paper);
+      }
+
+      .wordmark {
+        font-size: 16px;
+        font-weight: 600;
+        letter-spacing: -0.02em;
+        display: flex;
+        align-items: baseline;
+        gap: 6px;
+      }
+      .wordmark .pulse {
+        width: 8px; height: 8px;
+        border-radius: 999px;
+        background: var(--accent);
+        box-shadow: 0 0 16px var(--accent);
+        animation: pulse 1.6s ease-in-out infinite;
+        align-self: center;
+      }
+      @keyframes pulse {
+        0%, 100% { opacity: 1; transform: scale(1); }
+        50% { opacity: 0.5; transform: scale(1.4); }
+      }
+
+      nav.toplinks {
+        display: flex;
+        gap: 32px;
+        font-size: 11px;
+        letter-spacing: 0.18em;
+        font-weight: 500;
+      }
+      nav.toplinks a {
+        color: inherit;
+        text-decoration: none;
+        position: relative;
+        padding: 4px 0;
+        transition: opacity 0.3s;
+      }
+      nav.toplinks a::before {
+        content: "0" counter(linkno);
+        counter-increment: linkno;
+        position: absolute;
+        top: -10px;
+        left: 0;
+        font-size: 8px;
+        opacity: 0.5;
+      }
+      nav.toplinks { counter-reset: linkno; }
+      nav.toplinks a:hover { opacity: 0.5; }
+
+      @media (max-width: 900px) {
+        header { padding: 20px; }
+        nav.toplinks { display: none; }
+      }
+
+      /* ============== SIDE RAILS ============== */
+      .rail-left, .rail-right {
+        position: fixed;
+        top: 50%;
+        transform: translateY(-50%);
+        z-index: 40;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        opacity: 0.55;
+        mix-blend-mode: difference;
+        color: var(--paper);
+      }
+      .rail-left {
+        left: 24px;
+        writing-mode: vertical-rl;
+        transform: translateY(-50%) rotate(180deg);
+      }
+      .rail-right {
+        right: 24px;
+        writing-mode: vertical-rl;
+      }
+      .rail-right .num {
+        font-family: 'Instrument Serif', serif;
+        font-style: italic;
+        font-size: 16px;
+        letter-spacing: 0;
+      }
+      @media (max-width: 900px) { .rail-left, .rail-right { display: none; } }
+
+      /* ============== SECTION SCAFFOLD ============== */
+      main {
+        position: relative;
+        z-index: 5;
+      }
+      section.panel {
+        min-height: 100vh;
+        position: relative;
+        padding: 120px 40px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+      section.panel.tall { min-height: 130vh; }
+
+      .container {
+        max-width: 1280px;
+        margin: 0 auto;
+        width: 100%;
+      }
+
+      .eyebrow {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.32em;
+        text-transform: uppercase;
+        opacity: 0.6;
+        margin-bottom: 24px;
+        display: flex;
+        align-items: center;
+        gap: 12px;
+      }
+      .eyebrow::before {
+        content: "";
+        width: 28px;
+        height: 1px;
+        background: var(--paper);
         opacity: 0.5;
       }
 
-      .section-divider {
+      /* ============== HERO ============== */
+      .hero {
+        min-height: 100vh;
+        position: relative;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 0 40px;
+      }
+
+      .hero h1 {
+        font-family: 'Instrument Serif', serif;
+        font-weight: 400;
+        font-size: clamp(56px, 11vw, 180px);
+        line-height: 0.92;
+        letter-spacing: -0.04em;
+      }
+      .hero h1 .word {
+        display: inline-block;
+        overflow: hidden;
+        vertical-align: top;
+      }
+      .hero h1 .word > span {
+        display: inline-block;
+        transform: translateY(110%);
+        will-change: transform;
+      }
+      .hero h1 .italic {
+        font-style: italic;
+        color: var(--accent-3);
+      }
+      .hero .accent { color: var(--accent); }
+
+      .hero .underline {
+        font-size: clamp(13px, 1.3vw, 16px);
+        letter-spacing: 0.1em;
+        opacity: 0;
+        transform: translateY(20px);
+        margin-top: 36px;
+        max-width: 580px;
+        line-height: 1.6;
+      }
+
+      .hero .scroll-cue {
+        position: absolute;
+        bottom: 40px;
+        left: 50%;
+        transform: translateX(-50%);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 9px;
+        letter-spacing: 0.3em;
+        opacity: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 12px;
+      }
+      .scroll-cue .line {
+        width: 1px;
+        height: 40px;
+        background: var(--paper);
+        position: relative;
+        overflow: hidden;
+      }
+      .scroll-cue .line::after {
+        content: "";
+        position: absolute;
+        top: -100%;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(180deg, transparent, var(--accent), transparent);
+        animation: scrolldot 2s ease-in-out infinite;
+      }
+      @keyframes scrolldot {
+        0% { top: -100%; } 100% { top: 200%; }
+      }
+
+      /* ============== MANIFESTO ============== */
+      .manifesto p {
+        font-family: 'Instrument Serif', serif;
+        font-size: clamp(28px, 4vw, 56px);
+        line-height: 1.2;
+        letter-spacing: -0.02em;
+        max-width: 1100px;
+      }
+      .manifesto .word-reveal {
+        display: inline-block;
+        opacity: 0.18;
+        transition: opacity 0.4s;
+      }
+      .manifesto .word-reveal.lit { opacity: 1; }
+
+      /* ============== ABOUT ============== */
+      .about-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: start;
+      }
+      @media (max-width: 900px) { .about-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+      .stat-line {
+        display: flex;
+        align-items: baseline;
+        gap: 16px;
+        padding: 20px 0;
+        border-top: 1px solid rgba(245, 241, 234, 0.12);
+      }
+      .stat-line:last-child { border-bottom: 1px solid rgba(245, 241, 234, 0.12); }
+      .stat-line .num {
+        font-family: 'Instrument Serif', serif;
+        font-size: 56px;
+        font-weight: 400;
+        line-height: 1;
+        color: var(--accent);
+        min-width: 90px;
+      }
+      .stat-line .label {
+        font-size: 13px;
+        opacity: 0.7;
+        letter-spacing: 0.02em;
+        line-height: 1.5;
+      }
+
+      .about-h2 {
+        font-family: 'Instrument Serif', serif;
+        font-size: clamp(40px, 6vw, 88px);
+        line-height: 1.02;
+        letter-spacing: -0.03em;
+        font-weight: 400;
+      }
+      .about-h2 .italic {
+        font-style: italic;
+        color: var(--accent-2);
+      }
+      .about-h2 .crossed {
+        position: relative;
+        display: inline-block;
+      }
+      .about-h2 .crossed::after {
+        content: "";
+        position: absolute;
+        left: 0; right: 0;
+        top: 55%;
+        height: 2px;
+        background: var(--accent);
+        transform: scaleX(0);
+        transform-origin: left;
+        transition: transform 0.8s cubic-bezier(0.7, 0, 0.3, 1);
+      }
+      .about-h2 .crossed.struck::after { transform: scaleX(1); }
+
+      /* ============== SKILLS ============== */
+      .skills-list {
+        list-style: none;
+        margin-top: 40px;
+      }
+      .skills-list li {
+        display: grid;
+        grid-template-columns: 60px 1fr auto;
+        align-items: baseline;
+        gap: 32px;
+        padding: 28px 0;
+        border-top: 1px solid rgba(245, 241, 234, 0.12);
+        cursor: none;
+        position: relative;
+        overflow: hidden;
+        transition: padding 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+      }
+      .skills-list li:last-child { border-bottom: 1px solid rgba(245, 241, 234, 0.12); }
+      .skills-list li::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(90deg, var(--accent), transparent);
+        opacity: 0;
+        transition: opacity 0.4s;
+        z-index: -1;
+      }
+      .skills-list li:hover { padding-left: 24px; }
+      .skills-list li:hover::before { opacity: 0.08; }
+      .skills-list li:hover .skill-name { transform: translateX(8px); }
+      .skill-num {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 12px;
+        opacity: 0.5;
+      }
+      .skill-name {
+        font-family: 'Instrument Serif', serif;
+        font-size: clamp(28px, 3.6vw, 48px);
+        line-height: 1.05;
+        transition: transform 0.4s cubic-bezier(0.7, 0, 0.3, 1);
+      }
+      .skill-name .italic { font-style: italic; color: var(--accent-3); }
+      .skill-meta {
+        font-size: 11px;
+        letter-spacing: 0.16em;
+        opacity: 0.5;
+        text-transform: uppercase;
+      }
+      @media (max-width: 700px) {
+        .skills-list li { grid-template-columns: 40px 1fr; gap: 16px; }
+        .skill-meta { display: none; }
+      }
+
+      /* ============== CERTIFICATIONS ============== */
+      .cert-grid {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 24px;
+        margin-top: 60px;
+      }
+      @media (max-width: 900px) { .cert-grid { grid-template-columns: 1fr; } }
+
+      .cert {
+        position: relative;
+        border: 1px solid rgba(245, 241, 234, 0.12);
+        padding: 40px;
+        overflow: hidden;
+        transition: border-color 0.4s, transform 0.4s;
+        text-decoration: none;
+        color: inherit;
+        display: block;
+        cursor: none;
+      }
+      .cert::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: radial-gradient(circle at var(--mx,50%) var(--my,50%), rgba(255,91,46,0.18), transparent 40%);
+        opacity: 0;
+        transition: opacity 0.4s;
+      }
+      .cert:hover { border-color: rgba(245, 241, 234, 0.35); transform: translateY(-4px); }
+      .cert:hover::before { opacity: 1; }
+
+      .cert .row {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+      }
+      .cert .badge {
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.2em;
+        opacity: 0.6;
+      }
+      .cert .arrow {
+        width: 16px; height: 16px;
+        border-top: 1px solid currentColor;
+        border-right: 1px solid currentColor;
+        transform: rotate(45deg);
+        opacity: 0.6;
+        transition: transform 0.3s, opacity 0.3s;
+      }
+      .cert:hover .arrow {
+        transform: rotate(45deg) translate(4px, -4px);
+        opacity: 1;
+      }
+      .cert h3 {
+        font-family: 'Instrument Serif', serif;
+        font-size: clamp(26px, 2.8vw, 38px);
+        font-weight: 400;
+        line-height: 1.1;
+        letter-spacing: -0.02em;
+        margin-top: 60px;
+      }
+      .cert p {
+        font-size: 14px;
+        line-height: 1.6;
+        opacity: 0.65;
+        margin-top: 16px;
+        max-width: 36em;
+      }
+
+      /* ============== PHILOSOPHY ============== */
+      .philosophy {
+        text-align: center;
+      }
+      .philosophy blockquote {
+        font-family: 'Instrument Serif', serif;
+        font-size: clamp(36px, 5.5vw, 80px);
+        line-height: 1.15;
+        letter-spacing: -0.02em;
+        max-width: 1000px;
+        margin: 0 auto;
+      }
+      .philosophy blockquote .italic { font-style: italic; }
+      .philosophy blockquote .accent { color: var(--accent); }
+      .philosophy .attribution {
+        margin-top: 60px;
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 11px;
+        letter-spacing: 0.3em;
+        opacity: 0.5;
+      }
+
+      /* ============== CONTACT ============== */
+      .contact-grid {
+        display: grid;
+        grid-template-columns: 1.4fr 1fr;
+        gap: 60px;
+        align-items: end;
+      }
+      @media (max-width: 900px) { .contact-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+      .big-cta {
+        font-family: 'Instrument Serif', serif;
+        font-size: clamp(48px, 8vw, 120px);
+        line-height: 0.95;
+        letter-spacing: -0.04em;
+        font-weight: 400;
+      }
+      .big-cta .italic { font-style: italic; color: var(--accent); }
+
+      .magnetic-btn {
+        display: inline-flex;
+        align-items: center;
+        gap: 16px;
+        background: var(--paper);
+        color: var(--ink);
+        padding: 22px 36px;
+        border-radius: 999px;
+        font-size: 14px;
+        font-weight: 500;
+        letter-spacing: 0.04em;
+        text-decoration: none;
+        cursor: none;
+        position: relative;
+        overflow: hidden;
+        transition: transform 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
+        will-change: transform;
+      }
+      .magnetic-btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: var(--accent);
+        transform: translateY(101%);
+        transition: transform 0.5s cubic-bezier(0.7, 0, 0.3, 1);
+      }
+      .magnetic-btn:hover::before { transform: translateY(0); }
+      .magnetic-btn span {
+        position: relative;
+        z-index: 1;
+        transition: color 0.4s;
+      }
+      .magnetic-btn:hover span { color: var(--paper); }
+      .magnetic-btn .icon {
+        position: relative;
+        z-index: 1;
+        width: 16px; height: 16px;
+        border-top: 1px solid currentColor;
+        border-right: 1px solid currentColor;
+        transform: rotate(45deg);
+        transition: color 0.4s;
+      }
+
+      /* ============== FOOTER ============== */
+      footer {
+        padding: 40px;
+        border-top: 1px solid rgba(245, 241, 234, 0.12);
+        font-family: 'JetBrains Mono', monospace;
+        font-size: 10px;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        display: flex;
+        justify-content: space-between;
+        opacity: 0.5;
+        position: relative;
+        z-index: 5;
+      }
+      @media (max-width: 700px) {
+        footer { flex-direction: column; gap: 12px; }
+      }
+
+      /* ============== LOADER ============== */
+      .loader {
+        position: fixed;
+        inset: 0;
+        z-index: 200;
+        background: var(--ink);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        flex-direction: column;
+        gap: 24px;
+        transition: opacity 1s;
+      }
+      .loader.gone { opacity: 0; pointer-events: none; }
+      .loader .l-text {
+        font-family: 'Instrument Serif', serif;
+        font-style: italic;
+        font-size: 32px;
+        letter-spacing: -0.02em;
+      }
+      .loader .l-bar {
+        width: 200px;
         height: 1px;
-        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.18), transparent);
+        background: rgba(245,241,234,0.15);
+        position: relative;
+        overflow: hidden;
       }
+      .loader .l-bar::after {
+        content: "";
+        position: absolute;
+        left: 0; top: 0; bottom: 0;
+        width: 0%;
+        background: var(--accent);
+        animation: loadbar 1.6s ease-out forwards;
+      }
+      @keyframes loadbar { to { width: 100%; } }
 
-      .skill-card {
-        transition: transform 350ms cubic-bezier(0.22, 1, 0.36, 1), background 350ms ease;
-      }
-      .skill-card:hover {
-        transform: translateY(-4px);
-        background: rgba(255, 255, 255, 0.04);
-      }
-
-      .cert-card {
-        transition: border-color 300ms ease, background 300ms ease, transform 300ms ease;
-      }
-      .cert-card:hover {
-        border-color: rgba(255, 255, 255, 0.35);
-        background: rgba(255, 255, 255, 0.03);
-        transform: translateY(-2px);
-      }
-
-      .scrollbar-thin::-webkit-scrollbar { width: 6px; }
-      .scrollbar-thin::-webkit-scrollbar-thumb { background: rgba(255,255,255,0.15); border-radius: 999px; }
-
-      @media (max-width: 768px) {
-        .hero-headline { top: 96px !important; }
-      }
+      /* ============== UTIL ============== */
+      a { -webkit-tap-highlight-color: transparent; }
     </style>
   </head>
 
-  <body class="grain">
-    <!-- ============== HERO (full viewport, fixed video) ============== -->
-    <section id="hero" class="relative min-h-screen w-full overflow-hidden">
-      <!-- Video background -->
-      <div id="video-bg" class="absolute inset-0 z-0 video-vignette" style="transform: scale(1.08); transform-origin: center;">
-        <video
-          id="bg-video"
-          class="absolute inset-0 h-full w-full object-cover"
-          autoplay
-          muted
-          loop
-          playsinline
-          preload="auto"
-          poster=""
-        >
-          <source
-            src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260510_060007_60275ce7-030c-4668-a160-8f364ec537d3.mp4"
-            type="video/mp4"
-          />
-        </video>
-      </div>
+  <body>
+    <!-- ============= LOADER ============= -->
+    <div class="loader" id="loader">
+      <div class="l-text">Initialising the universe…</div>
+      <div class="l-bar"></div>
+    </div>
 
-      <!-- Header -->
-      <header class="fixed top-0 left-0 right-0 z-50 px-6 md:px-10 py-6 md:py-8 flex justify-between items-center">
-        <a href="#hero" class="text-[17px] font-semibold tracking-tight font-headline">
-          Shikha Murali<sup class="text-[9px] ml-0.5 opacity-70">BI</sup>
-        </a>
+    <!-- ============= CURSOR ============= -->
+    <div class="cursor" id="cursor"></div>
+    <div class="cursor-dot" id="cursor-dot"></div>
 
-        <nav class="hidden md:flex liquid-glass rounded-full px-2 py-2 items-center gap-1">
-          <a href="#about" class="text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white px-4 py-1.5 rounded-full transition-colors duration-200">ABOUT</a>
-          <a href="#skills" class="text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white px-4 py-1.5 rounded-full transition-colors duration-200">SKILLS</a>
-          <a href="#certifications" class="text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white px-4 py-1.5 rounded-full transition-colors duration-200">CREDENTIALS</a>
-          <a href="#journal" class="text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white px-4 py-1.5 rounded-full transition-colors duration-200">JOURNAL</a>
-        </nav>
+    <!-- ============= 3D STAGE ============= -->
+    <canvas id="stage"></canvas>
+    <div class="vignette"></div>
 
-        <a href="#contact" class="liquid-glass rounded-full px-5 py-2.5 text-[11px] font-medium tracking-[0.12em] text-white/90 hover:text-white transition-colors">
-          GET IN TOUCH
-        </a>
-      </header>
+    <!-- ============= HEADER ============= -->
+    <header>
+      <a href="#hero" class="wordmark" data-magnet>
+        <span class="pulse"></span>
+        Shikha&nbsp;Murali
+      </a>
+      <nav class="toplinks">
+        <a href="#about" data-magnet>ABOUT</a>
+        <a href="#skills" data-magnet>SKILLS</a>
+        <a href="#credentials" data-magnet>CREDENTIALS</a>
+        <a href="#contact" data-magnet>CONTACT</a>
+      </nav>
+      <a href="#contact" class="mono" style="font-size:10px; letter-spacing:0.2em;" data-magnet>
+        AVAILABLE — 2026
+      </a>
+    </header>
 
-      <!-- Hero headline -->
-      <div id="hero-headline" class="hero-headline reveal fixed left-1/2 -translate-x-1/2 z-20 text-center px-6"
-           style="top: 120px;">
-        <h1 class="font-headline" style="font-size: clamp(40px, 5.4vw, 72px); line-height: 1.1; letter-spacing: -0.02em; font-weight: 400;">
-          <span class="block text-white">Numbers, made narrative.</span>
-          <span class="block" style="color: rgba(255,255,255,0.55);">Insight at the speed of decision.</span>
+    <!-- ============= SIDE RAILS ============= -->
+    <div class="rail-left mono">SHIKHA / BI / 2026</div>
+    <div class="rail-right mono"><span id="rail-section">00</span> &nbsp;<span class="num">/</span>&nbsp; 06</div>
+
+    <main>
+      <!-- ============= 01 — HERO ============= -->
+      <section class="panel hero" id="hero" data-section="01" data-formation="globe">
+        <div class="eyebrow" style="position:absolute; top:120px; left:50%; transform:translateX(-50%);">
+          <span>A PORTFOLIO BY KRISTOM ROBERT</span>
+        </div>
+
+        <h1 id="hero-title">
+          <span class="word"><span>Numbers,</span></span>
+          <br/>
+          <span class="word"><span class="italic">made</span></span>
+          <span class="word"><span class="italic">narrative.</span></span>
         </h1>
-      </div>
 
-      <!-- Bottom block -->
-      <div id="hero-bottom" class="reveal delay-300 fixed bottom-10 md:bottom-14 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-5 px-6 w-full">
-        <p class="max-w-[640px] text-[15px] leading-relaxed text-center">
-          <span class="text-white">A Business Intelligence Developer &amp; People Manager turning financial-services data into clear, beautiful, decision-ready stories.</span>
-          <span class="text-white/55">Microsoft Fabric Analytics Engineer Associate · Informatica CDGC Foundation.</span>
+        <p class="underline" id="hero-under">
+          Shikha Murali — Business Intelligence Developer &amp; People Manager.
+          A decade of turning financial-services data into clear, beautiful,
+          decision-ready stories.
         </p>
-        <a href="#about" class="cta-btn bg-white text-black text-[15px] font-medium rounded-full px-8 py-3.5 inline-flex items-center gap-2">
-          Explore my work
-          <i data-lucide="arrow-right" class="w-4 h-4"></i>
-        </a>
-        <div class="flex items-center gap-2 text-white/70">
-          <i data-lucide="lock" style="width:13px;height:13px;stroke-width:1.5;"></i>
-          <span class="text-[11px] font-medium tracking-[0.14em]">DATA-LED. DETAIL-OBSESSED. PEOPLE-FIRST.</span>
+
+        <div class="scroll-cue" id="scroll-cue">
+          <span>SCROLL TO BEGIN</span>
+          <div class="line"></div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ============== ABOUT ============== -->
-    <section id="about" class="relative z-10 bg-black px-6 md:px-10 py-28 md:py-40">
-      <div class="max-w-6xl mx-auto">
-        <div class="reveal flex items-center gap-3 mb-10">
-          <span class="text-[11px] font-medium tracking-[0.18em] text-white/50">01 — ABOUT</span>
-          <span class="h-px flex-1 bg-white/15"></span>
+      <!-- ============= 02 — MANIFESTO ============= -->
+      <section class="panel manifesto tall" data-section="02" data-formation="lattice">
+        <div class="container">
+          <div class="eyebrow"><span>02 — MANIFESTO</span></div>
+          <p id="manifesto-text">
+            <span class="word-reveal">Data&nbsp;</span><span class="word-reveal">is&nbsp;</span><span class="word-reveal">a&nbsp;</span><span class="word-reveal">language.&nbsp;</span>
+            <span class="word-reveal">Most&nbsp;</span><span class="word-reveal">people&nbsp;</span><span class="word-reveal">read&nbsp;</span><span class="word-reveal">it.&nbsp;</span>
+            <span class="word-reveal" style="color:var(--accent-2);">A&nbsp;</span><span class="word-reveal" style="color:var(--accent-2);">few&nbsp;</span><span class="word-reveal" style="color:var(--accent-2);">write&nbsp;</span><span class="word-reveal" style="color:var(--accent-2);">it.&nbsp;</span>
+            <span class="word-reveal" style="font-style:italic;">The&nbsp;</span><span class="word-reveal" style="font-style:italic;">best&nbsp;</span><span class="word-reveal" style="font-style:italic;">make&nbsp;</span><span class="word-reveal" style="font-style:italic;">it&nbsp;</span><span class="word-reveal" style="font-style:italic; color:var(--accent);">sing.</span>
+          </p>
         </div>
+      </section>
 
-        <div class="grid md:grid-cols-12 gap-10 md:gap-16 items-start">
-          <div class="md:col-span-7 reveal">
-            <h2 class="font-headline text-[36px] md:text-[56px] leading-[1.05] tracking-[-0.02em] font-light">
-              I help <span class="italic font-serif">teams</span> see what
-              their <span class="italic font-serif">data</span> is really saying.
-            </h2>
-            <p class="mt-8 text-[17px] leading-relaxed text-white/70 max-w-xl">
-              Experienced business specialist with a track record across financial
-              services — building reporting platforms, surfacing insight from messy
-              operational data, and quietly raising the bar on how teams use it.
-              Equal parts engineer, analyst, and manager.
-            </p>
-            <p class="mt-5 text-[17px] leading-relaxed text-white/70 max-w-xl">
-              I lead by example, mentor by listening, and ship work that respects
-              both the spreadsheet on Monday and the boardroom on Friday.
-            </p>
-          </div>
+      <!-- ============= 03 — ABOUT ============= -->
+      <section class="panel" id="about" data-section="03" data-formation="orbits">
+        <div class="container">
+          <div class="eyebrow"><span>03 — ABOUT</span></div>
+          <div class="about-grid">
+            <div>
+              <h2 class="about-h2">
+                I help <span class="italic">teams</span> see
+                what their <span class="crossed" data-strike>data</span>
+                <span class="italic" style="color:var(--accent);">future</span>
+                is really saying.
+              </h2>
+            </div>
+            <div>
+              <p style="font-size:17px; line-height:1.65; opacity:0.75; max-width:38em;">
+                Experienced business specialist with a track record across financial
+                services — building reporting platforms, surfacing insight from
+                messy operational data, and quietly raising the bar on how teams
+                use it. Equal parts engineer, analyst, and manager.
+              </p>
 
-          <div class="md:col-span-5 reveal delay-150">
-            <div class="liquid-glass rounded-3xl p-8 md:p-10">
-              <div class="space-y-6">
-                <div>
-                  <div class="text-[10px] tracking-[0.18em] text-white/45 uppercase mb-2">Role</div>
-                  <div class="text-[17px] text-white">Business Intelligence Developer · People Manager</div>
-                </div>
-                <div class="section-divider"></div>
-                <div>
-                  <div class="text-[10px] tracking-[0.18em] text-white/45 uppercase mb-2">Industry</div>
-                  <div class="text-[17px] text-white">Financial Services · Property &amp; Casualty Insurance</div>
-                </div>
-                <div class="section-divider"></div>
-                <div>
-                  <div class="text-[10px] tracking-[0.18em] text-white/45 uppercase mb-2">Currently</div>
-                  <div class="text-[17px] text-white">Building reporting that informs, not just decorates.</div>
-                </div>
+              <div style="margin-top:48px;">
+                <div class="stat-line"><span class="num" data-counter="10">0</span><span class="label">Years across<br/>financial services</span></div>
+                <div class="stat-line"><span class="num" data-counter="2">0</span><span class="label">Active certifications<br/>in 2026</span></div>
+                <div class="stat-line"><span class="num">∞</span><span class="label">Dashboards<br/>that earned their keep</span></div>
               </div>
             </div>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ============== MARQUEE ============== -->
-    <section class="relative z-10 bg-black overflow-hidden border-y border-white/5 py-6">
-      <div class="marquee-track flex whitespace-nowrap">
-        <!-- duplicated for seamless loop -->
-        <div class="flex items-center gap-12 pr-12 text-[28px] md:text-[44px] font-headline font-light tracking-tight text-white/30">
-          <span>Power BI</span><span class="text-white/15">/</span>
-          <span>Microsoft Fabric</span><span class="text-white/15">/</span>
-          <span>SQL</span><span class="text-white/15">/</span>
-          <span>Tableau</span><span class="text-white/15">/</span>
-          <span>Informatica CDGC</span><span class="text-white/15">/</span>
-          <span>Advanced Excel</span><span class="text-white/15">/</span>
-          <span>Data Storytelling</span><span class="text-white/15">/</span>
-          <span>Operations Leadership</span><span class="text-white/15">/</span>
+      <!-- ============= 04 — SKILLS ============= -->
+      <section class="panel" id="skills" data-section="04" data-formation="crystal">
+        <div class="container">
+          <div class="eyebrow"><span>04 — DISCIPLINES</span></div>
+          <h2 class="about-h2" style="max-width:14ch;">
+            A toolkit shaped by <span class="italic">decades</span> of real work.
+          </h2>
+          <ol class="skills-list" id="skills-list">
+            <li><span class="skill-num">01</span><span class="skill-name">Data <span class="italic">Visualization</span></span><span class="skill-meta">Power BI · Tableau · Fabric</span></li>
+            <li><span class="skill-num">02</span><span class="skill-name">P&amp;C <span class="italic">Insurance</span></span><span class="skill-meta">Claims · Underwriting · Premium</span></li>
+            <li><span class="skill-num">03</span><span class="skill-name">Advanced <span class="italic">Excel</span></span><span class="skill-meta">Power Query · Modelling</span></li>
+            <li><span class="skill-num">04</span><span class="skill-name">Data <span class="italic">Analysis</span></span><span class="skill-meta">SQL · DAX · Statistics</span></li>
+            <li><span class="skill-num">05</span><span class="skill-name">Operations <span class="italic">Management</span></span><span class="skill-meta">Process · Throughput · People</span></li>
+            <li><span class="skill-num">06</span><span class="skill-name">Data <span class="italic">Governance</span></span><span class="skill-meta">Catalogue · Lineage · Stewardship</span></li>
+          </ol>
         </div>
-        <div class="flex items-center gap-12 pr-12 text-[28px] md:text-[44px] font-headline font-light tracking-tight text-white/30" aria-hidden="true">
-          <span>Power BI</span><span class="text-white/15">/</span>
-          <span>Microsoft Fabric</span><span class="text-white/15">/</span>
-          <span>SQL</span><span class="text-white/15">/</span>
-          <span>Tableau</span><span class="text-white/15">/</span>
-          <span>Informatica CDGC</span><span class="text-white/15">/</span>
-          <span>Advanced Excel</span><span class="text-white/15">/</span>
-          <span>Data Storytelling</span><span class="text-white/15">/</span>
-          <span>Operations Leadership</span><span class="text-white/15">/</span>
-        </div>
-      </div>
-    </section>
+      </section>
 
-    <!-- ============== SKILLS ============== -->
-    <section id="skills" class="relative z-10 bg-black px-6 md:px-10 py-28 md:py-40">
-      <div class="max-w-6xl mx-auto">
-        <div class="reveal flex items-center gap-3 mb-10">
-          <span class="text-[11px] font-medium tracking-[0.18em] text-white/50">02 — SKILLS</span>
-          <span class="h-px flex-1 bg-white/15"></span>
-        </div>
+      <!-- ============= 05 — CREDENTIALS ============= -->
+      <section class="panel" id="credentials" data-section="05" data-formation="cosmos">
+        <div class="container">
+          <div class="eyebrow"><span>05 — CREDENTIALS</span></div>
+          <h2 class="about-h2" style="max-width:18ch;">
+            Credentials that <span class="italic">keep up</span> with where the work is going.
+          </h2>
 
-        <h2 class="reveal font-headline text-[36px] md:text-[56px] leading-[1.05] tracking-[-0.02em] font-light max-w-3xl mb-16">
-          A toolkit shaped by <span class="italic font-serif">decades</span> of real
-          financial-services work.
-        </h2>
-
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-px bg-white/8 border border-white/8 rounded-2xl overflow-hidden">
-          <!-- card -->
-          <div class="skill-card bg-black p-8">
-            <div class="flex items-center justify-center w-11 h-11 rounded-full liquid-glass mb-6">
-              <i data-lucide="bar-chart-3" class="w-5 h-5 text-white"></i>
-            </div>
-            <h3 class="font-headline text-[20px] tracking-tight">Data Visualization</h3>
-            <p class="mt-3 text-[14px] text-white/60 leading-relaxed">
-              Dashboards that earn their keep — built in Power BI, Tableau, and
-              Microsoft Fabric. Clear hierarchy, honest charts, zero fluff.
-            </p>
-          </div>
-
-          <div class="skill-card bg-black p-8">
-            <div class="flex items-center justify-center w-11 h-11 rounded-full liquid-glass mb-6">
-              <i data-lucide="shield" class="w-5 h-5 text-white"></i>
-            </div>
-            <h3 class="font-headline text-[20px] tracking-tight">P&amp;C Insurance</h3>
-            <p class="mt-3 text-[14px] text-white/60 leading-relaxed">
-              Deep familiarity with property &amp; casualty workflows — claims,
-              underwriting, premium, and the operational reality behind the KPIs.
-            </p>
-          </div>
-
-          <div class="skill-card bg-black p-8">
-            <div class="flex items-center justify-center w-11 h-11 rounded-full liquid-glass mb-6">
-              <i data-lucide="table-2" class="w-5 h-5 text-white"></i>
-            </div>
-            <h3 class="font-headline text-[20px] tracking-tight">Advanced Excel</h3>
-            <p class="mt-3 text-[14px] text-white/60 leading-relaxed">
-              Power Query, dynamic arrays, financial modelling, audit-ready
-              reporting. The kind of workbooks people actually trust.
-            </p>
-          </div>
-
-          <div class="skill-card bg-black p-8">
-            <div class="flex items-center justify-center w-11 h-11 rounded-full liquid-glass mb-6">
-              <i data-lucide="search" class="w-5 h-5 text-white"></i>
-            </div>
-            <h3 class="font-headline text-[20px] tracking-tight">Data Analysis</h3>
-            <p class="mt-3 text-[14px] text-white/60 leading-relaxed">
-              From raw extracts to a recommendation — root-cause investigation,
-              trend detection, and the right chart for the right question.
-            </p>
-          </div>
-
-          <div class="skill-card bg-black p-8">
-            <div class="flex items-center justify-center w-11 h-11 rounded-full liquid-glass mb-6">
-              <i data-lucide="users" class="w-5 h-5 text-white"></i>
-            </div>
-            <h3 class="font-headline text-[20px] tracking-tight">Operations Management</h3>
-            <p class="mt-3 text-[14px] text-white/60 leading-relaxed">
-              Running tight, calm, predictable teams. Process improvement that
-              survives quarter-end, not just the slide deck.
-            </p>
-          </div>
-
-          <div class="skill-card bg-black p-8">
-            <div class="flex items-center justify-center w-11 h-11 rounded-full liquid-glass mb-6">
-              <i data-lucide="git-branch" class="w-5 h-5 text-white"></i>
-            </div>
-            <h3 class="font-headline text-[20px] tracking-tight">Data Governance</h3>
-            <p class="mt-3 text-[14px] text-white/60 leading-relaxed">
-              Cataloguing, lineage, and stewardship — informed by the
-              Informatica Cloud Data Governance &amp; Catalog Foundation series.
-            </p>
-          </div>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============== CERTIFICATIONS ============== -->
-    <section id="certifications" class="relative z-10 bg-black px-6 md:px-10 py-28 md:py-40">
-      <div class="max-w-6xl mx-auto">
-        <div class="reveal flex items-center gap-3 mb-10">
-          <span class="text-[11px] font-medium tracking-[0.18em] text-white/50">03 — CREDENTIALS</span>
-          <span class="h-px flex-1 bg-white/15"></span>
-        </div>
-
-        <h2 class="reveal font-headline text-[36px] md:text-[56px] leading-[1.05] tracking-[-0.02em] font-light max-w-3xl mb-16">
-          Credentials that <span class="italic font-serif">keep up</span> with
-          where the work is going.
-        </h2>
-
-        <div class="grid md:grid-cols-2 gap-6">
-          <!-- Microsoft Fabric -->
-          <a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-analytics-engineer-associate/" target="_blank" rel="noopener"
-             class="cert-card reveal block rounded-3xl border border-white/10 p-8 md:p-10">
-            <div class="flex items-start justify-between gap-4">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl liquid-glass flex items-center justify-center">
-                  <i data-lucide="award" class="w-5 h-5 text-white"></i>
-                </div>
-                <span class="text-[10px] tracking-[0.18em] text-white/45 uppercase">Microsoft</span>
+          <div class="cert-grid">
+            <a class="cert" data-tilt href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-analytics-engineer-associate/" target="_blank" rel="noopener">
+              <div class="row">
+                <span class="badge">MICROSOFT · 2026</span>
+                <span class="arrow"></span>
               </div>
-              <i data-lucide="arrow-up-right" class="w-5 h-5 text-white/40"></i>
-            </div>
-            <h3 class="mt-8 font-headline text-[26px] md:text-[30px] leading-[1.15] tracking-tight">
-              Fabric Analytics Engineer Associate
-            </h3>
-            <p class="mt-4 text-[14px] text-white/55 leading-relaxed">
-              Designs, builds, and operationalises analytics solutions across the
-              Microsoft Fabric ecosystem — lakehouses, semantic models, and the
-              storytelling layer on top.
-            </p>
-          </a>
+              <h3>Fabric Analytics<br/>Engineer Associate</h3>
+              <p>
+                Designs, builds, and operationalises analytics solutions across
+                the Microsoft Fabric ecosystem — lakehouses, semantic models,
+                and the storytelling layer on top.
+              </p>
+            </a>
 
-          <!-- Informatica -->
-          <a href="https://www.informatica.com/" target="_blank" rel="noopener"
-             class="cert-card reveal delay-150 block rounded-3xl border border-white/10 p-8 md:p-10">
-            <div class="flex items-start justify-between gap-4">
-              <div class="flex items-center gap-3">
-                <div class="w-10 h-10 rounded-xl liquid-glass flex items-center justify-center">
-                  <i data-lucide="badge-check" class="w-5 h-5 text-white"></i>
-                </div>
-                <span class="text-[10px] tracking-[0.18em] text-white/45 uppercase">Informatica</span>
+            <a class="cert" data-tilt href="https://www.informatica.com/" target="_blank" rel="noopener">
+              <div class="row">
+                <span class="badge">INFORMATICA · 2026</span>
+                <span class="arrow"></span>
               </div>
-              <i data-lucide="arrow-up-right" class="w-5 h-5 text-white/40"></i>
-            </div>
-            <h3 class="mt-8 font-headline text-[26px] md:text-[30px] leading-[1.15] tracking-tight">
-              Cloud Data Governance &amp; Catalog Foundation
-            </h3>
-            <p class="mt-4 text-[14px] text-white/55 leading-relaxed">
-              The principles and platform behind modern data stewardship —
-              cataloguing, lineage, classification, and the policies that keep
-              regulated data trustworthy.
-            </p>
-          </a>
-        </div>
-      </div>
-    </section>
-
-    <!-- ============== JOURNAL / PHILOSOPHY ============== -->
-    <section id="journal" class="relative z-10 bg-black px-6 md:px-10 py-28 md:py-40">
-      <div class="max-w-4xl mx-auto text-center">
-        <div class="reveal flex items-center gap-3 mb-10 justify-center">
-          <span class="h-px w-16 bg-white/15"></span>
-          <span class="text-[11px] font-medium tracking-[0.18em] text-white/50">04 — JOURNAL</span>
-          <span class="h-px w-16 bg-white/15"></span>
-        </div>
-
-        <blockquote class="reveal font-headline text-[28px] md:text-[44px] leading-[1.2] tracking-[-0.01em] font-light">
-          <span class="font-serif italic text-white">"</span>
-          The best dashboards aren't dashboards. They're decisions, already made,
-          waiting for someone to recognise them.
-          <span class="font-serif italic text-white">"</span>
-        </blockquote>
-
-        <p class="reveal delay-150 mt-10 text-[12px] tracking-[0.2em] text-white/40 uppercase">
-          — A note I keep on my monitor
-        </p>
-      </div>
-    </section>
-
-    <!-- ============== CONTACT / FOOTER ============== -->
-    <section id="contact" class="relative z-10 bg-black px-6 md:px-10 py-28 md:py-32 border-t border-white/8">
-      <div class="max-w-6xl mx-auto">
-        <div class="grid md:grid-cols-12 gap-10 items-end">
-          <div class="md:col-span-8 reveal">
-            <h2 class="font-headline text-[40px] md:text-[72px] leading-[1.02] tracking-[-0.02em] font-light">
-              Let&rsquo;s build something
-              <span class="italic font-serif">measurably</span> better.
-            </h2>
-            <p class="mt-6 text-[16px] text-white/60 max-w-xl">
-              For collaboration, mentorship, or a quick chat about reporting,
-              governance, or anything in between — find me on LinkedIn.
-            </p>
-          </div>
-          <div class="md:col-span-4 reveal delay-150 flex md:justify-end">
-            <a href="https://www.linkedin.com/" target="_blank" rel="noopener"
-               class="cta-btn bg-white text-black text-[15px] font-medium rounded-full px-8 py-3.5 inline-flex items-center gap-2">
-              Connect on LinkedIn
-              <i data-lucide="arrow-up-right" class="w-4 h-4"></i>
+              <h3>Cloud Data Governance<br/>&amp; Catalog Foundation</h3>
+              <p>
+                The principles and platform behind modern data stewardship —
+                cataloguing, lineage, classification, and the policies that keep
+                regulated data trustworthy.
+              </p>
             </a>
           </div>
         </div>
+      </section>
 
-        <div class="section-divider mt-20"></div>
+      <!-- ============= 06 — PHILOSOPHY / CONTACT ============= -->
+      <section class="panel philosophy" data-section="06" data-formation="helix">
+        <div class="container">
+          <div class="eyebrow" style="justify-content:center;"><span>— PHILOSOPHY —</span></div>
+          <blockquote>
+            The best dashboards <span class="italic">aren't</span> dashboards.<br/>
+            They are <span class="italic accent">decisions</span>, already made,<br/>
+            waiting to be recognised.
+          </blockquote>
+          <div class="attribution">A NOTE ON SHIKHA'S MONITOR</div>
+        </div>
+      </section>
 
-        <div class="mt-8 flex flex-col md:flex-row items-start md:items-center justify-between gap-4">
-          <div class="text-[12px] text-white/40 tracking-wide">
-            © <span id="year"></span> Shikha Murali. All rights reserved.
-          </div>
-          <div class="flex items-center gap-6 text-[11px] tracking-[0.14em] text-white/40 uppercase">
-            <span>Crafted with care</span>
-            <span>·</span>
-            <span>Designed for clarity</span>
+      <section class="panel" id="contact" data-section="07" data-formation="helix">
+        <div class="container">
+          <div class="eyebrow"><span>— GET IN TOUCH —</span></div>
+          <div class="contact-grid">
+            <h2 class="big-cta">
+              Let&rsquo;s build<br/>
+              something <span class="italic">measurably</span><br/>
+              better.
+            </h2>
+            <a class="magnetic-btn" data-magnet href="https://www.linkedin.com/" target="_blank" rel="noopener">
+              <span>Connect on LinkedIn</span>
+              <span class="icon"></span>
+            </a>
           </div>
         </div>
-      </div>
-    </section>
+      </section>
 
-    <script>
-      // Year stamp
-      document.getElementById("year").textContent = new Date().getFullYear();
+      <footer>
+        <span>© 2026 SHIKHA MURALI · KRISTOM ROBERT</span>
+        <span>BUILT WITH THREE.JS · GSAP · LENIS</span>
+        <span>v1.0 — CINEMATIC</span>
+      </footer>
+    </main>
 
-      // Init lucide once it's ready
-      window.addEventListener("load", () => {
-        if (window.lucide) window.lucide.createIcons();
-        // Fade in hero pieces
-        requestAnimationFrame(() => {
-          document.getElementById("hero-headline").classList.add("in");
-          document.getElementById("hero-bottom").classList.add("in");
+    <!-- ============= IMPORT MAP for Three.js ESM ============= -->
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://unpkg.com/three@0.161.0/build/three.module.js",
+          "three/addons/": "https://unpkg.com/three@0.161.0/examples/jsm/"
+        }
+      }
+    </script>
+
+    <!-- ============= GSAP + Lenis ============= -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js"></script>
+    <script src="https://unpkg.com/lenis@1.0.42/dist/lenis.min.js"></script>
+
+    <!-- ============= MAIN MODULE ============= -->
+    <script type="module">
+      import * as THREE from 'three';
+
+      gsap.registerPlugin(ScrollTrigger);
+
+      // ============= LENIS SMOOTH SCROLL =============
+      const lenis = new Lenis({
+        lerp: 0.08,
+        smoothWheel: true,
+        wheelMultiplier: 1,
+        touchMultiplier: 1.4,
+      });
+      lenis.on('scroll', ScrollTrigger.update);
+      gsap.ticker.add((time) => lenis.raf(time * 1000));
+      gsap.ticker.lagSmoothing(0);
+
+      // ============= CUSTOM CURSOR =============
+      const cursor = document.getElementById('cursor');
+      const dot = document.getElementById('cursor-dot');
+      let mx = innerWidth / 2, my = innerHeight / 2;
+      let cx = mx, cy = my;
+      let dx = mx, dy = my;
+      addEventListener('mousemove', (e) => { mx = e.clientX; my = e.clientY; });
+      const tickCursor = () => {
+        cx += (mx - cx) * 0.18;
+        cy += (my - cy) * 0.18;
+        dx += (mx - dx) * 0.55;
+        dy += (my - dy) * 0.55;
+        cursor.style.transform = `translate(${cx}px, ${cy}px) translate(-50%, -50%)`;
+        dot.style.transform = `translate(${dx}px, ${dy}px) translate(-50%, -50%)`;
+        requestAnimationFrame(tickCursor);
+      };
+      tickCursor();
+
+      document.querySelectorAll('a, button, [data-magnet], [data-tilt], .skills-list li').forEach(el => {
+        el.addEventListener('mouseenter', () => cursor.classList.add('hover'));
+        el.addEventListener('mouseleave', () => cursor.classList.remove('hover'));
+      });
+
+      // ============= MAGNETIC BUTTONS =============
+      document.querySelectorAll('[data-magnet]').forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          const x = e.clientX - (r.left + r.width / 2);
+          const y = e.clientY - (r.top + r.height / 2);
+          gsap.to(el, { x: x * 0.25, y: y * 0.35, duration: 0.5, ease: 'power3.out' });
+        });
+        el.addEventListener('mouseleave', () => {
+          gsap.to(el, { x: 0, y: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' });
         });
       });
 
-      // Playback rate
-      const video = document.getElementById("bg-video");
-      if (video) {
-        video.addEventListener("loadedmetadata", () => {
-          try { video.playbackRate = 1.25; } catch (e) {}
+      // Cert card spotlight
+      document.querySelectorAll('.cert').forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          el.style.setProperty('--mx', ((e.clientX - r.left) / r.width * 100) + '%');
+          el.style.setProperty('--my', ((e.clientY - r.top) / r.height * 100) + '%');
         });
+      });
+
+      // ============= THREE.JS STAGE =============
+      const canvas = document.getElementById('stage');
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+      renderer.setPixelRatio(Math.min(devicePixelRatio, 2));
+      renderer.setSize(innerWidth, innerHeight);
+
+      const scene = new THREE.Scene();
+      scene.fog = new THREE.FogExp2(0x05060A, 0.02);
+
+      const camera = new THREE.PerspectiveCamera(55, innerWidth / innerHeight, 0.1, 1000);
+      camera.position.z = 26;
+
+      // ============= PARTICLE FORMATIONS =============
+      const COUNT = Math.min(28000, Math.floor(innerWidth * innerHeight / 80));
+
+      // build target arrays for each formation
+      const seed = (i) => {
+        let s = (i * 9301 + 49297) % 233280;
+        return s / 233280;
+      };
+      const rnd = (i, k = 0) => seed(i + k * 17 + 1);
+
+      const positions = {
+        globe:    new Float32Array(COUNT * 3),
+        lattice:  new Float32Array(COUNT * 3),
+        orbits:   new Float32Array(COUNT * 3),
+        crystal:  new Float32Array(COUNT * 3),
+        cosmos:   new Float32Array(COUNT * 3),
+        helix:    new Float32Array(COUNT * 3),
+      };
+
+      for (let i = 0; i < COUNT; i++) {
+        const i3 = i * 3;
+
+        // 1. GLOBE — fibonacci sphere
+        const phi = Math.acos(1 - 2 * (i + 0.5) / COUNT);
+        const theta = Math.PI * (1 + Math.sqrt(5)) * i;
+        const r = 9 + (rnd(i, 1) - 0.5) * 0.6;
+        positions.globe[i3]     = r * Math.sin(phi) * Math.cos(theta);
+        positions.globe[i3 + 1] = r * Math.sin(phi) * Math.sin(theta);
+        positions.globe[i3 + 2] = r * Math.cos(phi);
+
+        // 2. LATTICE — 3D grid with jitter (data cube)
+        const side = Math.ceil(Math.cbrt(COUNT));
+        const xi = i % side;
+        const yi = Math.floor(i / side) % side;
+        const zi = Math.floor(i / (side * side));
+        const half = (side - 1) / 2;
+        const sp = 1.0;
+        positions.lattice[i3]     = (xi - half) * sp + (rnd(i, 2) - 0.5) * 0.2;
+        positions.lattice[i3 + 1] = (yi - half) * sp + (rnd(i, 3) - 0.5) * 0.2;
+        positions.lattice[i3 + 2] = (zi - half) * sp + (rnd(i, 4) - 0.5) * 0.2;
+
+        // 3. ORBITS — multiple rings on different axes (galaxy disks)
+        const ring = i % 5;
+        const ang = rnd(i, 5) * Math.PI * 2;
+        const rad = 6 + ring * 1.6 + (rnd(i, 6) - 0.5) * 0.4;
+        const tilt = ring * 0.3;
+        positions.orbits[i3]     = Math.cos(ang) * rad;
+        positions.orbits[i3 + 1] = Math.sin(ang) * rad * Math.sin(tilt) * 0.4;
+        positions.orbits[i3 + 2] = Math.sin(ang) * rad * Math.cos(tilt);
+
+        // 4. CRYSTAL — octahedral / icosahedral cluster
+        const u = rnd(i, 7);
+        const v = rnd(i, 8);
+        const ru = Math.pow(u, 0.6) * 8;
+        const angC = v * Math.PI * 2;
+        const phiC = Math.acos(2 * rnd(i, 9) - 1);
+        // bias to faceted shape
+        const fx = Math.sin(phiC) * Math.cos(angC);
+        const fy = Math.sin(phiC) * Math.sin(angC);
+        const fz = Math.cos(phiC);
+        const facet = Math.max(Math.abs(fx), Math.abs(fy), Math.abs(fz));
+        positions.crystal[i3]     = (fx / facet) * ru;
+        positions.crystal[i3 + 1] = (fy / facet) * ru;
+        positions.crystal[i3 + 2] = (fz / facet) * ru;
+
+        // 5. COSMOS — spread starfield
+        positions.cosmos[i3]     = (rnd(i, 10) - 0.5) * 60;
+        positions.cosmos[i3 + 1] = (rnd(i, 11) - 0.5) * 40;
+        positions.cosmos[i3 + 2] = (rnd(i, 12) - 0.5) * 30 - 10;
+
+        // 6. HELIX — double helix
+        const t = (i / COUNT) * Math.PI * 14;
+        const strand = i % 2 === 0 ? 1 : -1;
+        positions.helix[i3]     = Math.cos(t) * 4 * strand;
+        positions.helix[i3 + 1] = (i / COUNT - 0.5) * 30;
+        positions.helix[i3 + 2] = Math.sin(t) * 4 * strand;
       }
 
-      // Mouse parallax via GSAP
-      (function () {
-        const bg = document.getElementById("video-bg");
-        if (!bg || !window.gsap) return;
-        let targetX = 0, targetY = 0, currentX = 0, currentY = 0;
-        const onMove = (e) => {
-          const cx = window.innerWidth / 2;
-          const cy = window.innerHeight / 2;
-          targetX = ((e.clientX - cx) / cx) * 20;
-          targetY = ((e.clientY - cy) / cy) * 20;
-        };
-        window.addEventListener("mousemove", onMove);
-        const tick = () => {
-          currentX += (targetX - currentX) * 0.06;
-          currentY += (targetY - currentY) * 0.06;
-          gsap.set(bg, { x: currentX, y: currentY });
-          requestAnimationFrame(tick);
-        };
-        requestAnimationFrame(tick);
-      })();
+      // attribute colours per particle (subtle hue variance)
+      const colors = new Float32Array(COUNT * 3);
+      for (let i = 0; i < COUNT; i++) {
+        const i3 = i * 3;
+        const palette = rnd(i, 13);
+        let r1, g1, b1;
+        if (palette < 0.6)      { r1 = 0.96; g1 = 0.94; b1 = 0.91; } // paper
+        else if (palette < 0.8) { r1 = 1.00; g1 = 0.36; b1 = 0.18; } // accent orange
+        else if (palette < 0.92){ r1 = 0.42; g1 = 0.81; b1 = 1.00; } // sky
+        else                    { r1 = 0.78; g1 = 0.72; b1 = 1.00; } // lavender
+        colors[i3] = r1; colors[i3 + 1] = g1; colors[i3 + 2] = b1;
+      }
 
-      // Reveal-on-scroll
-      const io = new IntersectionObserver(
-        (entries) => {
-          entries.forEach((en) => {
-            if (en.isIntersecting) {
-              en.target.classList.add("in");
-              io.unobserve(en.target);
-            }
-          });
-        },
-        { threshold: 0.12 }
-      );
-      document.querySelectorAll(".reveal").forEach((el) => io.observe(el));
+      const geom = new THREE.BufferGeometry();
+      geom.setAttribute('position', new THREE.BufferAttribute(positions.globe, 3));
+      geom.setAttribute('aTarget', new THREE.BufferAttribute(positions.globe.slice(), 3));
+      geom.setAttribute('aPrev',   new THREE.BufferAttribute(positions.globe.slice(), 3));
+      geom.setAttribute('aColor',  new THREE.BufferAttribute(colors, 3));
+      const seeds = new Float32Array(COUNT);
+      for (let i = 0; i < COUNT; i++) seeds[i] = rnd(i, 14);
+      geom.setAttribute('aSeed', new THREE.BufferAttribute(seeds, 1));
 
-      // Smooth-scroll for in-page anchors
-      document.querySelectorAll('a[href^="#"]').forEach((a) => {
-        a.addEventListener("click", (e) => {
-          const id = a.getAttribute("href");
-          if (id.length > 1) {
-            const t = document.querySelector(id);
-            if (t) {
-              e.preventDefault();
-              t.scrollIntoView({ behavior: "smooth", block: "start" });
-            }
+      // ============= SHADER MATERIAL =============
+      const uniforms = {
+        uTime:     { value: 0 },
+        uMix:      { value: 0 },     // 0 = prev, 1 = target
+        uSize:     { value: 1.6 },
+        uMouse:    { value: new THREE.Vector2(0, 0) },
+        uPixel:    { value: renderer.getPixelRatio() },
+        uOpacity:  { value: 1.0 },
+        uAccent:   { value: new THREE.Color(0xff5b2e) },
+      };
+
+      const mat = new THREE.ShaderMaterial({
+        uniforms,
+        transparent: true,
+        depthWrite: false,
+        blending: THREE.AdditiveBlending,
+        vertexShader: `
+          attribute vec3 aTarget;
+          attribute vec3 aPrev;
+          attribute vec3 aColor;
+          attribute float aSeed;
+
+          uniform float uTime;
+          uniform float uMix;
+          uniform float uSize;
+          uniform float uPixel;
+          uniform vec2  uMouse;
+
+          varying vec3 vColor;
+          varying float vDist;
+          varying float vDepth;
+
+          // smooth ease-in-out
+          float ease(float t) { return t * t * (3.0 - 2.0 * t); }
+
+          // hash
+          float hash(float n) { return fract(sin(n) * 43758.5453); }
+
+          void main() {
+            float t = clamp(uMix, 0.0, 1.0);
+            float et = ease(t);
+
+            vec3 pos = mix(aPrev, aTarget, et);
+
+            // arc travel — particles bow outward as they morph
+            float bowAmt = sin(et * 3.14159) * 1.5;
+            vec3 dir = normalize(aTarget - aPrev + 0.0001);
+            vec3 perp = normalize(cross(dir, vec3(0.0, 1.0, 0.0)) + 0.0001);
+            pos += perp * bowAmt * (hash(aSeed * 12.7) - 0.5);
+
+            // gentle drift
+            float w = uTime * 0.4 + aSeed * 6.28;
+            pos.x += sin(w) * 0.06;
+            pos.y += cos(w * 1.3) * 0.06;
+            pos.z += sin(w * 0.7) * 0.04;
+
+            // mouse repulsion in screen-ish space
+            vec4 mvPos = modelViewMatrix * vec4(pos, 1.0);
+            vec2 screenXY = mvPos.xy / max(-mvPos.z, 0.001);
+            vec2 mDelta = screenXY - uMouse * 18.0;
+            float mDist = length(mDelta);
+            float push = smoothstep(6.0, 0.0, mDist) * 1.6;
+            mvPos.xy += normalize(mDelta + 0.0001) * push;
+
+            gl_Position = projectionMatrix * mvPos;
+
+            vColor = aColor;
+            vDist  = mDist;
+            vDepth = -mvPos.z;
+
+            float baseSize = uSize * (1.4 + 0.8 * hash(aSeed * 4.7));
+            gl_PointSize = baseSize * uPixel * (260.0 / max(vDepth, 0.1));
+          }
+        `,
+        fragmentShader: `
+          uniform float uOpacity;
+          uniform vec3  uAccent;
+
+          varying vec3 vColor;
+          varying float vDist;
+          varying float vDepth;
+
+          void main() {
+            vec2 c = gl_PointCoord - 0.5;
+            float d = length(c);
+            float core   = smoothstep(0.5, 0.0, d);
+            float halo   = smoothstep(0.5, 0.05, d) * 0.55;
+            float alpha  = (core + halo) * uOpacity;
+
+            // tint based on proximity to mouse
+            float prox = smoothstep(8.0, 0.0, vDist);
+            vec3 col = mix(vColor, uAccent, prox * 0.6);
+
+            // depth fade
+            float depthFade = smoothstep(60.0, 5.0, vDepth);
+
+            gl_FragColor = vec4(col, alpha * depthFade);
+            if (gl_FragColor.a < 0.005) discard;
+          }
+        `,
+      });
+
+      const points = new THREE.Points(geom, mat);
+      scene.add(points);
+
+      // mouse uniform
+      addEventListener('mousemove', (e) => {
+        const x = (e.clientX / innerWidth) * 2 - 1;
+        const y = -((e.clientY / innerHeight) * 2 - 1);
+        gsap.to(uniforms.uMouse.value, { x, y, duration: 0.6, ease: 'power2.out' });
+      });
+
+      // ============= MORPHING ON SCROLL =============
+      let currentFormation = 'globe';
+
+      function setFormation(name, {duration = 1.6, ease = 'power3.inOut'} = {}) {
+        if (name === currentFormation) return;
+        // copy current display positions into aPrev (so morph starts from where we are)
+        const prevAttr = geom.attributes.aPrev;
+        // simplest: copy from current aTarget * uMix.value into aPrev — but we keep a logical model:
+        // start prev = old target buffer, target = new buffer
+        const oldTargetBuf = positions[currentFormation];
+        prevAttr.array.set(oldTargetBuf);
+        prevAttr.needsUpdate = true;
+
+        const tgtAttr = geom.attributes.aTarget;
+        tgtAttr.array.set(positions[name]);
+        tgtAttr.needsUpdate = true;
+
+        currentFormation = name;
+        uniforms.uMix.value = 0;
+        gsap.to(uniforms.uMix, { value: 1, duration, ease });
+      }
+
+      // group rotation per formation for character
+      const formationLooks = {
+        globe:   { rot: { x: 0.0,  y: 0.0,  z: 0.0  }, camZ: 26, size: 1.6, opacity: 1.0 },
+        lattice: { rot: { x: 0.4,  y: 0.4,  z: 0.0  }, camZ: 22, size: 1.4, opacity: 0.95 },
+        orbits:  { rot: { x: 0.5,  y: 0.0,  z: 0.0  }, camZ: 24, size: 1.5, opacity: 1.0 },
+        crystal: { rot: { x: 0.2,  y: 0.6,  z: 0.0  }, camZ: 18, size: 1.7, opacity: 1.0 },
+        cosmos:  { rot: { x: 0.0,  y: 0.2,  z: 0.0  }, camZ: 28, size: 1.2, opacity: 0.9 },
+        helix:   { rot: { x: 0.0,  y: 0.4,  z: 0.05 }, camZ: 22, size: 1.5, opacity: 1.0 },
+      };
+
+      // ============= SECTION TRIGGERS =============
+      document.querySelectorAll('[data-formation]').forEach(sec => {
+        const name = sec.dataset.formation;
+        ScrollTrigger.create({
+          trigger: sec,
+          start: 'top 60%',
+          end: 'bottom 40%',
+          onEnter: () => morphTo(name),
+          onEnterBack: () => morphTo(name),
+        });
+      });
+
+      function morphTo(name) {
+        const look = formationLooks[name];
+        if (!look) return;
+        setFormation(name, { duration: 1.8, ease: 'power3.inOut' });
+        gsap.to(points.rotation, { x: look.rot.x, y: look.rot.y, z: look.rot.z, duration: 2.2, ease: 'power3.inOut' });
+        gsap.to(camera.position, { z: look.camZ, duration: 2.2, ease: 'power3.inOut' });
+        gsap.to(uniforms.uSize, { value: look.size, duration: 1.5, ease: 'power2.inOut' });
+        gsap.to(uniforms.uOpacity, { value: look.opacity, duration: 1.5, ease: 'power2.inOut' });
+
+        // update side rail
+        const num = sec.dataset.section || '00';
+        document.getElementById('rail-section').textContent = num.padStart(2, '0');
+      }
+
+      // active section rail watcher
+      document.querySelectorAll('[data-section]').forEach(sec => {
+        ScrollTrigger.create({
+          trigger: sec,
+          start: 'top 60%',
+          end: 'bottom 40%',
+          onEnter: () => document.getElementById('rail-section').textContent = (sec.dataset.section || '00').padStart(2, '0'),
+          onEnterBack: () => document.getElementById('rail-section').textContent = (sec.dataset.section || '00').padStart(2, '0'),
+        });
+      });
+
+      // ============= HERO INTRO =============
+      function heroIntro() {
+        const tl = gsap.timeline({ defaults: { ease: 'power4.out' } });
+        tl.to('#hero-title .word > span', {
+          y: '0%', duration: 1.4, stagger: 0.12,
+        }, 0.2)
+        .to('#hero-under', { opacity: 1, y: 0, duration: 1.2 }, 0.9)
+        .to('#scroll-cue', { opacity: 0.7, duration: 1, ease: 'power2.out' }, 1.2);
+      }
+
+      // ============= MANIFESTO WORD-BY-WORD =============
+      const manifestoWords = document.querySelectorAll('.word-reveal');
+      ScrollTrigger.create({
+        trigger: '.manifesto',
+        start: 'top 70%',
+        end: 'bottom 60%',
+        scrub: 0.8,
+        onUpdate: (self) => {
+          const p = self.progress;
+          const lit = Math.floor(p * manifestoWords.length);
+          manifestoWords.forEach((w, i) => w.classList.toggle('lit', i <= lit));
+        }
+      });
+
+      // strike-through trigger
+      document.querySelectorAll('[data-strike]').forEach(el => {
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 75%',
+          onEnter: () => el.classList.add('struck'),
+        });
+      });
+
+      // counters
+      document.querySelectorAll('[data-counter]').forEach(el => {
+        const target = parseInt(el.dataset.counter, 10);
+        ScrollTrigger.create({
+          trigger: el,
+          start: 'top 80%',
+          onEnter: () => {
+            const obj = { v: 0 };
+            gsap.to(obj, {
+              v: target,
+              duration: 2,
+              ease: 'power2.out',
+              onUpdate: () => el.textContent = Math.floor(obj.v),
+            });
           }
         });
+      });
+
+      // ============= TILT CARDS =============
+      document.querySelectorAll('[data-tilt]').forEach(el => {
+        el.addEventListener('mousemove', (e) => {
+          const r = el.getBoundingClientRect();
+          const cx = (e.clientX - r.left) / r.width - 0.5;
+          const cy = (e.clientY - r.top) / r.height - 0.5;
+          gsap.to(el, {
+            rotateX: -cy * 6,
+            rotateY: cx * 8,
+            transformPerspective: 900,
+            duration: 0.5,
+            ease: 'power2.out',
+          });
+        });
+        el.addEventListener('mouseleave', () => {
+          gsap.to(el, { rotateX: 0, rotateY: 0, duration: 0.7, ease: 'elastic.out(1, 0.4)' });
+        });
+      });
+
+      // ============= RESIZE =============
+      addEventListener('resize', () => {
+        camera.aspect = innerWidth / innerHeight;
+        camera.updateProjectionMatrix();
+        renderer.setSize(innerWidth, innerHeight);
+        uniforms.uPixel.value = renderer.getPixelRatio();
+      });
+
+      // ============= RENDER LOOP =============
+      const clock = new THREE.Clock();
+      function loop() {
+        const t = clock.getElapsedTime();
+        uniforms.uTime.value = t;
+        // idle rotation
+        points.rotation.y += 0.0008;
+        renderer.render(scene, camera);
+        requestAnimationFrame(loop);
+      }
+      loop();
+
+      // ============= LOADER OUT =============
+      window.addEventListener('load', () => {
+        setTimeout(() => {
+          document.getElementById('loader').classList.add('gone');
+          heroIntro();
+          ScrollTrigger.refresh();
+        }, 1700);
       });
     </script>
   </body>

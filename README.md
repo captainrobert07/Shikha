@@ -1,42 +1,42 @@
-# Shikha Murali — Personal Site
+# Shikha Murali — Cinematic Portfolio
 
-A single-file, dependency-free landing page for Shikha Murali (Business Intelligence
-Developer & People Manager). Cinematic video hero, liquid-glass nav, and sections
-covering about, skills, and certifications.
+A single-file, dependency-free portfolio site with a 3D particle universe that
+morphs through six formations as you scroll. Designed and built by
+[Kristom Robert](https://github.com/captainrobert07).
+
+**Live:** https://shikha-vert.vercel.app
+
+## What's in here
+
+- A 28,000-particle GPU system in **Three.js** (custom GLSL vertex + fragment
+  shaders, additive blending, depth fade, mouse repulsion).
+- Six formations: globe, lattice, orbits, crystal, cosmos, helix — each
+  triggered by `ScrollTrigger` as you scroll past a section.
+- **Lenis** smooth scrolling so the morphs feel filmic, not jittery.
+- **GSAP** timelines for character-level hero reveals, magnetic buttons,
+  card tilts, animated counters, and word-by-word manifesto scrub.
+- Custom blend-mode cursor with hover-state inflation.
+- No framework, no bundler, no build step. Open `index.html` and you're in.
 
 ## Stack
 
-- Plain HTML + CSS + JS
-- Tailwind CSS via CDN
-- GSAP (CDN) for the mouse-parallax video background
-- Lucide icons (CDN)
-- Google Fonts: Inter, Instrument Serif, Barlow
-
-No build step. Open `index.html` directly in a browser, or deploy as static.
+| Layer                 | Choice                                             |
+|-----------------------|----------------------------------------------------|
+| Rendering             | Three.js 0.161 (ESM via importmap)                 |
+| Smooth scroll         | Lenis 1.0                                          |
+| Animation             | GSAP 3.12 + ScrollTrigger                          |
+| Type                  | Instrument Serif · Inter · JetBrains Mono          |
+| Hosting               | Vercel (static, auto-deploy from `main`)           |
 
 ## Local preview
 
-Just open the file:
-
-```
+```bash
 start index.html
-```
-
-Or serve it with any static server (Python comes bundled with one):
-
-```
+# or
 python -m http.server 5173
 ```
 
-Then visit http://localhost:5173.
+## Deploy
 
-## Deploy to Vercel
-
-This repo is a static site — Vercel needs no build settings.
-
-1. Push this folder to a GitHub repository.
-2. On https://vercel.com/new, import the repository.
-3. Framework preset: **Other**. Build command: leave blank. Output directory: leave blank.
-4. Deploy.
-
-`vercel.json` already sets sensible security headers.
+Vercel is wired to this repo's `main` branch. Push and it deploys —
+no build settings needed (`vercel.json` only sets security headers).
