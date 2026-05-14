@@ -1043,7 +1043,7 @@
         flex-direction: column;
         align-items: center;
         justify-content: center;
-        gap: 28px;
+        gap: 0;
         transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
       }
       .loader.gone {
@@ -1053,30 +1053,35 @@
       }
       .loader-stage {
         position: relative;
-        height: 1.1em;
+        /* Generous height so CJK ascenders don't crash into the bar */
+        height: 1.4em;
         min-width: 6ch;
         font-family: 'Sora', sans-serif;
         font-weight: 700;
         font-size: clamp(2.6rem, 7vw, 5rem);
         letter-spacing: -0.05em;
-        line-height: 1.1;
+        line-height: 1.2;
         color: var(--ink);
         text-align: center;
+        margin-bottom: 64px;     /* push the bar + name lower */
       }
+      .loader-bar { margin-bottom: 28px; }
       .loader-stage span {
         position: absolute;
-        inset: 0;
+        left: 0; right: 0;
+        top: 50%;
+        transform: translateY(calc(-50% + 20px));
         opacity: 0;
-        transform: translateY(20px);
+        white-space: nowrap;
       }
       .loader-stage span.in {
         opacity: 1;
-        transform: translateY(0);
+        transform: translateY(-50%);
         transition: opacity 0.45s, transform 0.5s cubic-bezier(0.22,1,0.36,1);
       }
       .loader-stage span.out {
         opacity: 0;
-        transform: translateY(-22px);
+        transform: translateY(calc(-50% - 22px));
         transition: opacity 0.4s, transform 0.45s cubic-bezier(0.7,0,0.3,1);
       }
       .loader-bar {
