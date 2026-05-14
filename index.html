@@ -59,6 +59,9 @@
         position: relative;
         min-height: 100vh;
       }
+      @media (pointer: fine) {
+        html, body, a, button { cursor: none; }
+      }
       ::selection { background: var(--accent); color: #fff; }
 
       /* ============= AURORA BACKGROUND ============= */
@@ -970,6 +973,94 @@
       }
       @media (max-width: 720px) { .footer-grid { grid-template-columns: 1fr; } }
 
+      /* ============= CONTACT CHANNELS ============= */
+      .contact-channels {
+        margin-top: 32px;
+        display: grid;
+        grid-template-columns: repeat(3, 1fr);
+        gap: 14px;
+      }
+      .channel {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 10px;
+        padding: 22px 18px;
+        border-radius: 22px;
+        background: rgba(255, 255, 255, 0.62);
+        border: 1px solid var(--card-edge);
+        backdrop-filter: blur(18px);
+        text-decoration: none;
+        color: var(--ink);
+        transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), box-shadow 0.4s, background 0.4s;
+      }
+      .channel:hover {
+        transform: translateY(-4px);
+        background: #fff;
+        box-shadow: 0 18px 40px rgba(37, 99, 235, 0.16);
+        text-decoration: none;
+      }
+      .channel .ch-icon {
+        width: 44px; height: 44px;
+        border-radius: 12px;
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        background: linear-gradient(135deg, rgba(79,142,247,0.18), rgba(167,139,250,0.10));
+        color: var(--blue);
+        transition: background 0.4s, color 0.4s;
+      }
+      .channel:hover .ch-icon {
+        background: linear-gradient(135deg, var(--blue), var(--violet));
+        color: #fff;
+      }
+      .channel .ch-label {
+        font-family: 'Sora', sans-serif;
+        font-size: 0.72rem;
+        font-weight: 600;
+        letter-spacing: 0.16em;
+        text-transform: uppercase;
+        color: var(--muted-2);
+      }
+      .channel .ch-value {
+        font-family: 'Sora', sans-serif;
+        font-weight: 600;
+        font-size: 0.95rem;
+        letter-spacing: -0.022em;
+        color: var(--ink);
+      }
+      @media (max-width: 720px) {
+        .contact-channels { grid-template-columns: 1fr; }
+      }
+
+      /* ============= COMET CURSOR ============= */
+      .cursor-dot {
+        position: fixed;
+        top: 0; left: 0;
+        width: 8px; height: 8px;
+        border-radius: 999px;
+        background: var(--ink);
+        pointer-events: none;
+        z-index: 9999;
+        transform: translate(-50%, -50%);
+        transition: width 0.25s, height 0.25s, background 0.25s, opacity 0.3s;
+        will-change: transform;
+        mix-blend-mode: difference;
+      }
+      .cursor-dot.hover {
+        width: 56px; height: 56px;
+        background: rgba(37, 99, 235, 0.85);
+        mix-blend-mode: normal;
+      }
+      #cursor-canvas {
+        position: fixed; inset: 0;
+        pointer-events: none;
+        z-index: 9998;
+      }
+      @media (pointer: coarse) {
+        .cursor-dot, #cursor-canvas { display: none; }
+      }
+
       /* ============= REVEAL ============= */
       .reveal {
         opacity: 0;
@@ -1028,6 +1119,8 @@
 
   <body>
     <div class="scroll-progress" id="scroll-progress"></div>
+    <canvas id="cursor-canvas"></canvas>
+    <div class="cursor-dot" id="cursor-dot"></div>
 
     <!-- ============= NAV ============= -->
     <nav class="nav" id="nav">
@@ -1489,15 +1582,28 @@
               Open to good conversations — reporting, governance, hiring,
               or that one report nobody trusts.
             </p>
-            <div class="cta-actions">
-              <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="btn btn-primary">
-                Connect on LinkedIn
-                <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
-                  <line x1="7" y1="17" x2="17" y2="7"></line>
-                  <polyline points="7 7 17 7 17 17"></polyline>
-                </svg>
+            <div class="contact-channels">
+              <a href="mailto:#" class="channel" data-channel="email">
+                <span class="ch-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>
+                </span>
+                <span class="ch-label">Email</span>
+                <span class="ch-value">Add your email</span>
               </a>
-              <a href="mailto:hello@example.com" class="btn btn-ghost">Email me</a>
+              <a href="tel:#" class="channel" data-channel="phone">
+                <span class="ch-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.68 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.32 1.85.55 2.81.68A2 2 0 0 1 22 16.92z"/></svg>
+                </span>
+                <span class="ch-label">Mobile</span>
+                <span class="ch-value">Add your number</span>
+              </a>
+              <a href="https://www.linkedin.com/" target="_blank" rel="noopener" class="channel" data-channel="linkedin">
+                <span class="ch-icon">
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M20.5 2h-17A1.5 1.5 0 0 0 2 3.5v17A1.5 1.5 0 0 0 3.5 22h17a1.5 1.5 0 0 0 1.5-1.5v-17A1.5 1.5 0 0 0 20.5 2zM8 19H5v-9h3zM6.5 8.25A1.75 1.75 0 1 1 8.25 6.5 1.75 1.75 0 0 1 6.5 8.25zM19 19h-3v-4.74c0-1.42-.6-1.93-1.38-1.93s-1.62.59-1.62 2v4.67h-3v-9h2.9v1.3a3.11 3.11 0 0 1 2.7-1.4c1.55 0 3.36.86 3.36 3.66z"/></svg>
+                </span>
+                <span class="ch-label">LinkedIn</span>
+                <span class="ch-value">Connect with me</span>
+              </a>
             </div>
           </div>
         </div>
@@ -1518,7 +1624,6 @@
           <ul>
             <li><a href="mailto:hello@example.com">hello@example.com</a></li>
             <li>Bengaluru · India</li>
-            <li>Open for 2026</li>
           </ul>
         </div>
         <div>
@@ -1592,6 +1697,62 @@
         });
       }, { threshold: 0.3 });
       sections.forEach(s => ao.observe(s));
+
+      // ============= COMET CURSOR =============
+      if (matchMedia('(pointer: fine)').matches) {
+        const dot = document.getElementById('cursor-dot');
+        const canvas = document.getElementById('cursor-canvas');
+        const ctx = canvas.getContext('2d');
+        const sizeCanvas = () => {
+          canvas.width = innerWidth * devicePixelRatio;
+          canvas.height = innerHeight * devicePixelRatio;
+          canvas.style.width = innerWidth + 'px';
+          canvas.style.height = innerHeight + 'px';
+          ctx.scale(devicePixelRatio, devicePixelRatio);
+        };
+        sizeCanvas();
+        addEventListener('resize', sizeCanvas);
+
+        let mx = innerWidth/2, my = innerHeight/2;
+        let dx = mx, dy = my;
+        const trail = [];
+        const TRAIL_MAX = 28;
+
+        addEventListener('mousemove', (e) => {
+          mx = e.clientX; my = e.clientY;
+          trail.push({ x: mx, y: my, t: performance.now() });
+          if (trail.length > TRAIL_MAX) trail.shift();
+        });
+
+        const tickC = () => {
+          dx += (mx - dx) * 0.22;
+          dy += (my - dy) * 0.22;
+          dot.style.transform = `translate(${dx}px, ${dy}px) translate(-50%, -50%)`;
+
+          ctx.clearRect(0, 0, innerWidth, innerHeight);
+          const now = performance.now();
+          for (let i = 0; i < trail.length - 1; i++) {
+            const p = trail[i], np = trail[i + 1];
+            const age = (now - p.t) / 600;
+            if (age > 1) continue;
+            const fade = (1 - age) * (i / trail.length);
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(37, 99, 235, ${fade * 0.7})`;
+            ctx.lineWidth = (1 - age) * 5;
+            ctx.lineCap = 'round';
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(np.x, np.y);
+            ctx.stroke();
+          }
+          requestAnimationFrame(tickC);
+        };
+        requestAnimationFrame(tickC);
+
+        document.querySelectorAll('a, button, .channel, .gcard, [data-tilt]').forEach(el => {
+          el.addEventListener('mouseenter', () => dot.classList.add('hover'));
+          el.addEventListener('mouseleave', () => dot.classList.remove('hover'));
+        });
+      }
 
       // Hero parallax: floating cards/blobs follow mouse (desktop only)
       if (matchMedia('(min-width: 769px) and (pointer: fine)').matches) {

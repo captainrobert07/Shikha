@@ -1,44 +1,61 @@
 <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1024 1024" role="img" aria-label="Shikha Murali">
   <defs>
-    <!-- Apple-style gradient: deep blue → indigo → violet -->
     <linearGradient id="tile" x1="0%" y1="0%" x2="0%" y2="100%">
       <stop offset="0%"  stop-color="#3B82F6"/>
       <stop offset="55%" stop-color="#2563EB"/>
       <stop offset="100%" stop-color="#5E5CE6"/>
     </linearGradient>
-    <!-- Inner light catch (top edge) -->
     <linearGradient id="sheen" x1="50%" y1="0%" x2="50%" y2="60%">
-      <stop offset="0%"  stop-color="#FFFFFF" stop-opacity="0.32"/>
+      <stop offset="0%"  stop-color="#FFFFFF" stop-opacity="0.34"/>
       <stop offset="100%" stop-color="#FFFFFF" stop-opacity="0"/>
     </linearGradient>
-    <!-- Soft drop shadow for the mark -->
     <filter id="markShadow" x="-20%" y="-20%" width="140%" height="140%">
       <feGaussianBlur stdDeviation="6" result="b"/>
       <feOffset dy="8" in="b" result="bo"/>
-      <feComponentTransfer in="bo" result="bot"><feFuncA type="linear" slope="0.22"/></feComponentTransfer>
+      <feComponentTransfer in="bo" result="bot"><feFuncA type="linear" slope="0.20"/></feComponentTransfer>
       <feMerge><feMergeNode in="bot"/><feMergeNode in="SourceGraphic"/></feMerge>
     </filter>
   </defs>
 
-  <!-- Squircle tile (Apple icon corner radius is ~22.37% of side) -->
+  <!-- Squircle tile (iOS icon corner radius ~22.37%) -->
   <rect x="0" y="0" width="1024" height="1024" rx="229" ry="229" fill="url(#tile)"/>
   <!-- Top sheen -->
   <rect x="0" y="0" width="1024" height="1024" rx="229" ry="229" fill="url(#sheen)"/>
 
-  <!-- Single S mark, modern geometric, optical-balanced -->
   <g filter="url(#markShadow)">
-    <path d="
-        M 712 348
-        C 690 280, 612 248, 528 248
-        C 432 248, 360 304, 360 388
-        C 360 460, 416 496, 504 522
-        L 568 540
-        C 624 556, 656 580, 656 620
-        C 656 668, 612 700, 540 700
-        C 460 700, 408 668, 388 612"
-      fill="none" stroke="#FFFFFF" stroke-width="76"
-      stroke-linecap="round" stroke-linejoin="round"/>
-    <!-- accent dot top-right of S, like Shikha's signature spark -->
-    <circle cx="744" cy="320" r="22" fill="#FFFFFF"/>
+    <!--
+      Combined SM mark.
+      M draws first (bigger, slightly behind), S sits on top in a
+      brighter weight so the eye reads "S over M" at small sizes.
+    -->
+
+    <!-- M: two diagonals that meet at a center valley -->
+    <path
+      d="M 280 760 L 280 280 L 512 596 L 744 280 L 744 760"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="84"
+      stroke-linecap="round"
+      stroke-linejoin="round"
+      opacity="0.55"/>
+
+    <!-- S: bold, sits on top, smaller bounding box, optically centered -->
+    <path
+      d="M 660 380
+         C 638 322, 580 296, 512 296
+         C 444 296, 388 332, 388 392
+         C 388 444, 432 472, 504 490
+         L 540 502
+         C 612 522, 656 552, 656 612
+         C 656 672, 600 704, 524 704
+         C 452 704, 408 678, 388 632"
+      fill="none"
+      stroke="#FFFFFF"
+      stroke-width="76"
+      stroke-linecap="round"
+      stroke-linejoin="round"/>
+
+    <!-- accent dot — Shikha's signature spark -->
+    <circle cx="752" cy="320" r="22" fill="#FFFFFF"/>
   </g>
 </svg>
