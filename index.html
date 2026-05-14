@@ -4,12 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Shikha Murali — Speaks Fluent Data</title>
-    <meta name="description" content="Shikha Murali is a Deputy Manager in Business Intelligence and a data engineer. She builds the pipes, shapes the models, and leads the team that turns financial-services data into clear decisions." />
-    <meta name="theme-color" content="#fd2601" />
+    <meta name="description" content="Shikha Murali — Deputy Manager · Data Engineer · Business Intelligence. Builds the pipes, shapes the models, leads the team behind the dashboard." />
+    <meta name="theme-color" content="#000000" />
 
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <link href="https://fonts.googleapis.com/css2?family=Anton&family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=Instrument+Serif:ital@0;1&display=swap" rel="stylesheet" />
 
     <script src="https://cdn.tailwindcss.com"></script>
     <script>
@@ -17,12 +17,11 @@
         theme: {
           extend: {
             fontFamily: {
-              anton: ['Anton', 'sans-serif'],
               inter: ['Inter', 'sans-serif'],
               serif: ['"Instrument Serif"', 'serif'],
             },
             colors: {
-              brand: { red: '#fd2601', orange: '#f37e1c', glow: '#F4791B' },
+              shiny: { base: '#64CEFB' },
             },
           },
         },
@@ -30,107 +29,78 @@
     </script>
 
     <style>
-      :root {
-        --brand-red: #fd2601;
-        --brand-orange: #f37e1c;
-        --brand-glow: #F4791B;
-      }
+      :root { --shiny-base: #64CEFB; --shiny-shine: #ffffff; }
 
       * { -webkit-tap-highlight-color: transparent; }
 
       html, body {
-        background: linear-gradient(180deg, var(--brand-red) 0%, var(--brand-orange) 100%);
+        background: #000;
         color: #fff;
         font-family: 'Inter', sans-serif;
         font-weight: 400;
         -webkit-font-smoothing: antialiased;
         -moz-osx-font-smoothing: grayscale;
         overflow-x: hidden;
-        min-height: 100vh;
       }
 
-      ::selection { background: #fff; color: var(--brand-red); }
-      ::-moz-selection { background: #fff; color: var(--brand-red); }
+      ::selection { background: #fff; color: #000; }
 
-      .anton { font-family: 'Anton', sans-serif; letter-spacing: 0.02em; }
+      .serif { font-family: 'Instrument Serif', serif; }
 
-      /* Portrait already has transparent background — soft shadow only */
-      .portrait-shadow {
-        filter: drop-shadow(0 24px 48px rgba(0,0,0,0.32))
-                drop-shadow(0 6px 14px rgba(0,0,0,0.22));
+      /* ---------- ShinyText (CSS implementation, mirrors framer-motion spec) ---------- */
+      .shiny-text {
+        background: linear-gradient(
+          100deg,
+          var(--shiny-base) 0%,
+          var(--shiny-base) 35%,
+          var(--shiny-shine) 50%,
+          var(--shiny-base) 65%,
+          var(--shiny-base) 100%
+        );
+        background-size: 220% 100%;
+        background-position: 0% 50%;
+        -webkit-background-clip: text;
+                background-clip: text;
+        -webkit-text-fill-color: transparent;
+                text-fill-color: transparent;
+        color: transparent;
+        animation: shiny-sweep 3s linear infinite;
       }
-      .portrait-img { display: block; }
+      @keyframes shiny-sweep {
+        0%   { background-position: 100% 50%; }
+        100% { background-position: -100% 50%; }
+      }
 
-      /* Subtle film grain on top */
+      /* ---------- Pill nav border refinement ---------- */
+      .pill-nav {
+        border: 1px solid rgb(55 65 81); /* gray-700 */
+        border-radius: 9999px;
+        backdrop-filter: blur(12px);
+        background: rgba(0, 0, 0, 0.4);
+      }
+
+      /* ---------- Subtle film grain ---------- */
       .grain::after {
         content: "";
         position: fixed;
         inset: -50%;
         pointer-events: none;
-        z-index: 60;
+        z-index: 70;
         mix-blend-mode: overlay;
-        opacity: 0.45;
+        opacity: 0.35;
         background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='200' height='200'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 1  0 0 0 0 1  0 0 0 0.07 0'/></filter><rect width='100%25' height='100%25' filter='url(%23n)'/></svg>");
       }
 
-      .reveal-up {
-        opacity: 0;
-        transform: translateY(28px);
-        transition: opacity 1s cubic-bezier(0.22, 1, 0.36, 1), transform 1s cubic-bezier(0.22, 1, 0.36, 1);
-      }
+      .reveal-up { opacity: 0; transform: translateY(28px); transition: opacity 1s cubic-bezier(0.22,1,0.36,1), transform 1s cubic-bezier(0.22,1,0.36,1); }
       .reveal-up.in { opacity: 1; transform: translateY(0); }
       .delay-150 { transition-delay: 150ms; }
       .delay-300 { transition-delay: 300ms; }
       .delay-500 { transition-delay: 500ms; }
-      .delay-700 { transition-delay: 700ms; }
-      .delay-900 { transition-delay: 900ms; }
 
-      /* HIRE ME / CTA arrow circle */
-      .arrow-circle {
-        width: 44px; height: 44px;
-        border: 1.5px solid #fff;
-        border-radius: 999px;
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        transition: background-color 0.3s ease, color 0.3s ease, transform 0.3s ease;
-      }
-      .arrow-circle svg { transition: transform 0.3s ease, color 0.3s ease; }
-      .hire-link:hover .arrow-circle {
-        background: #fff;
-        color: var(--brand-red);
-      }
-      .hire-link:hover .arrow-circle svg { color: var(--brand-red); }
-
-      /* Marquee */
-      .marquee {
-        display: flex;
-        overflow: hidden;
-        mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-        -webkit-mask-image: linear-gradient(90deg, transparent, #000 8%, #000 92%, transparent);
-      }
-      .marquee-track { display: flex; flex-shrink: 0; animation: scroll 38s linear infinite; }
-      @keyframes scroll {
-        from { transform: translateX(0); }
-        to { transform: translateX(-100%); }
-      }
-
-      .hairline { height: 1px; background: rgba(255,255,255,0.25); }
-
-      .chip {
-        border: 1px solid rgba(255,255,255,0.4);
-        padding: 8px 16px;
-        border-radius: 999px;
-        font-size: 11px;
-        letter-spacing: 0.18em;
-        backdrop-filter: blur(6px);
-        white-space: nowrap;
-      }
-
-      /* Mobile menu */
+      /* ---------- Mobile menu ---------- */
       .mobile-menu {
         position: fixed; inset: 0;
-        background: linear-gradient(180deg, var(--brand-red) 0%, var(--brand-orange) 100%);
+        background: #000;
         z-index: 80;
         display: none;
         flex-direction: column;
@@ -138,454 +108,478 @@
       }
       .mobile-menu.open { display: flex; }
       .mobile-menu a {
-        font-family: 'Anton', sans-serif;
-        font-size: 56px;
-        line-height: 1.05;
-        letter-spacing: 0.02em;
+        font-size: 28px;
+        font-weight: 500;
         color: #fff;
-        padding: 16px 0;
-        border-bottom: 1px solid rgba(255,255,255,0.18);
+        padding: 14px 0;
+        border-bottom: 1px solid rgba(255,255,255,0.10);
       }
 
-      /* Discipline cards */
-      .discipline {
-        position: relative;
-        border: 1px solid rgba(255,255,255,0.18);
-        border-radius: 24px;
-        padding: 32px 28px;
-        background: rgba(255,255,255,0.05);
-        backdrop-filter: blur(8px);
-        transition: border-color 0.4s, background 0.4s, transform 0.4s;
-        overflow: hidden;
-      }
-      .discipline:hover {
-        border-color: rgba(255,255,255,0.45);
-        background: rgba(255,255,255,0.10);
-        transform: translateY(-4px);
-      }
-      .discipline .num {
-        font-family: 'Instrument Serif', serif;
-        font-style: italic;
-        font-size: 14px;
-        opacity: 0.7;
-        margin-bottom: 24px;
-      }
-      .discipline h3 {
-        font-family: 'Anton', sans-serif;
+      /* ---------- Group-hover arrow translate ---------- */
+      .cta-btn .arrow { transition: transform 0.3s ease; }
+      .cta-btn:hover .arrow { transform: translateX(4px); }
+
+      /* ---------- Card hover lift ---------- */
+      .card { transition: transform 0.4s cubic-bezier(0.22,1,0.36,1), background 0.4s, border-color 0.4s; }
+      .card:hover { transform: translateY(-4px); background: rgba(255,255,255,0.05); border-color: rgba(255,255,255,0.25); }
+
+      /* ---------- Marquee ---------- */
+      .marquee { display: flex; overflow: hidden; mask-image: linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); -webkit-mask-image: linear-gradient(90deg,transparent,#000 8%,#000 92%,transparent); }
+      .marquee-track { display: flex; flex-shrink: 0; animation: scroll 38s linear infinite; }
+      @keyframes scroll { from { transform: translateX(0); } to { transform: translateX(-100%); } }
+
+      /* ---------- Section eyebrows ---------- */
+      .eyebrow {
+        font-size: 11px;
+        letter-spacing: 0.22em;
         text-transform: uppercase;
-        font-size: clamp(28px, 3.5vw, 40px);
-        line-height: 0.95;
-        letter-spacing: 0.01em;
+        color: rgba(255,255,255,0.6);
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
       }
-      .discipline p {
-        margin-top: 14px;
-        font-size: 14px;
-        line-height: 1.65;
-        opacity: 0.92;
+      .eyebrow::before {
+        content: "";
+        width: 24px; height: 1px;
+        background: rgba(255,255,255,0.6);
       }
 
-      /* Stack cluster */
-      .cluster-title {
+      /* ---------- Section divider ---------- */
+      .hairline { height: 1px; background: rgba(255,255,255,0.10); }
+
+      /* ---------- Number counter style ---------- */
+      .stat-num {
         font-family: 'Instrument Serif', serif;
-        font-style: italic;
-        font-size: 22px;
-        opacity: 0.95;
-        margin-bottom: 14px;
+        font-size: clamp(56px, 8vw, 110px);
+        line-height: 0.95;
+        letter-spacing: -0.03em;
+        color: #fff;
       }
-      .cluster ul { list-style: none; }
+
+      /* ---------- Discipline / principle styling ---------- */
+      .principle h4 {
+        font-size: clamp(22px, 2.6vw, 32px);
+        line-height: 1.1;
+        font-weight: 500;
+        letter-spacing: -0.01em;
+      }
+      .principle p { color: rgba(255,255,255,0.65); }
+
+      /* ---------- Stack list ---------- */
+      .cluster ul { list-style: none; padding: 0; margin: 0; }
       .cluster li {
-        display: flex;
-        gap: 10px;
-        align-items: baseline;
-        padding: 9px 0;
-        border-bottom: 1px dashed rgba(255,255,255,0.18);
+        padding: 11px 0;
         font-size: 14px;
-      }
-      .cluster li::before {
-        content: "→";
-        opacity: 0.6;
+        color: rgba(255,255,255,0.78);
+        border-bottom: 1px solid rgba(255,255,255,0.08);
       }
       .cluster li:last-child { border-bottom: none; }
 
-      /* Principle blockquotes */
-      .principle {
-        position: relative;
-        padding: 28px 0 28px 32px;
-        border-left: 2px solid rgba(255,255,255,0.45);
-      }
-      .principle .pnum {
-        position: absolute;
-        left: -3px;
-        top: 28px;
-        background: var(--brand-red);
-        color: #fff;
-        width: 5px;
-        height: 24px;
-      }
-      .principle h4 {
-        font-family: 'Anton', sans-serif;
-        font-size: clamp(28px, 3.6vw, 44px);
-        line-height: 1;
-        text-transform: uppercase;
-        letter-spacing: 0.01em;
-      }
-      .principle p {
-        margin-top: 10px;
-        font-size: 15px;
-        line-height: 1.65;
-        opacity: 0.95;
-        max-width: 38em;
+      /* ---------- Portrait soft shadow ---------- */
+      .portrait-shadow {
+        filter: drop-shadow(0 30px 60px rgba(0,0,0,0.5))
+                drop-shadow(0 8px 18px rgba(100,206,251,0.15));
       }
     </style>
   </head>
 
   <body class="grain">
 
-    <!-- ============= AMBIENT BACKGROUND ============= -->
-    <div class="pointer-events-none fixed inset-0 z-0 overflow-hidden">
-      <div class="absolute inset-0 flex items-center justify-center">
-        <span class="anton text-white whitespace-nowrap"
-          style="font-size: clamp(280px, 40vw, 720px); opacity: 0.08; filter: blur(4px); letter-spacing: -0.02em;">SHIKHA</span>
-      </div>
-      <div class="absolute" style="bottom:-80px; right:-60px; width:300px; height:300px; background:var(--brand-glow); filter:blur(80px); mix-blend-mode:screen; opacity:0.6; border-radius:999px;"></div>
-      <div class="absolute" style="bottom:-120px; left:-120px; width:600px; height:300px; background:var(--brand-glow); filter:blur(80px); mix-blend-mode:screen; opacity:0.6; border-radius:999px;"></div>
-    </div>
-
     <!-- ============= NAV ============= -->
-    <header class="absolute top-0 left-0 right-0 z-40 px-6 md:px-10 py-7 flex items-center justify-between">
-      <a href="#hero" class="flex items-center gap-2 text-white tracking-[0.18em] text-[14px] font-medium uppercase">
-        <span class="text-lg">✱</span><span>Shikha Murali</span>
-      </a>
+    <nav class="absolute top-0 left-0 right-0 z-40">
+      <div class="max-w-7xl mx-auto px-6 lg:px-10 py-5 flex items-center justify-between gap-6">
+        <!-- Logo -->
+        <a href="#hero" class="flex items-center gap-3 text-white font-medium">
+          <span class="inline-flex items-center justify-center w-8 h-8 rounded-full border-2 border-white">
+            <span class="block w-3 h-3 rounded-full bg-white"></span>
+          </span>
+          <span class="text-base tracking-tight">Shikha&nbsp;Murali</span>
+        </a>
 
-      <nav class="hidden md:flex items-center gap-10 text-[12px] tracking-[0.22em] uppercase font-medium">
-        <a href="#what-i-do" class="hover:opacity-80 transition-opacity">What I do</a>
-        <a href="#projects" class="hover:opacity-80 transition-opacity">Work</a>
-        <a href="#stack"    class="hover:opacity-80 transition-opacity">Stack</a>
-        <a href="#how"      class="hover:opacity-80 transition-opacity">How I work</a>
-      </nav>
+        <!-- Pill nav -->
+        <div class="hidden lg:flex items-center pill-nav px-2 py-2 gap-1 text-sm">
+          <a href="#hero" class="px-4 py-2 rounded-full text-white/80 hover:text-white hover:bg-white/5 transition-colors">Home</a>
+          <a href="#about" class="px-4 py-2 rounded-full text-white/80 hover:text-white hover:bg-white/5 transition-colors">About</a>
+          <a href="#what-i-do" class="px-4 py-2 rounded-full text-white/80 hover:text-white hover:bg-white/5 transition-colors">What I Do</a>
+          <a href="#projects" class="px-4 py-2 rounded-full text-white/80 hover:text-white hover:bg-white/5 transition-colors">Work</a>
+          <a href="#stack" class="px-4 py-2 rounded-full text-white/80 hover:text-white hover:bg-white/5 transition-colors">Stack</a>
+          <a href="#how" class="px-4 py-2 rounded-full text-white/80 hover:text-white hover:bg-white/5 transition-colors">How I Work</a>
+          <a href="#contact" class="px-4 py-2 rounded-full text-white/80 hover:text-white hover:bg-white/5 transition-colors inline-flex items-center gap-1.5">
+            Contact
+            <svg class="w-3.5 h-3.5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="7" y1="17" x2="17" y2="7"></line>
+              <polyline points="7 7 17 7 17 17"></polyline>
+            </svg>
+          </a>
+        </div>
 
-      <a href="#contact" class="hire-link hidden md:flex items-center gap-3 text-[12px] tracking-[0.22em] uppercase font-medium">
-        <span>// Say&nbsp;Hello</span>
-        <span class="arrow-circle text-white">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="7" y1="17" x2="17" y2="7"></line>
-            <polyline points="7 7 17 7 17 17"></polyline>
+        <!-- Mobile burger -->
+        <button id="menu-btn" class="lg:hidden p-2" aria-label="Open menu">
+          <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round">
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
           </svg>
-        </span>
-      </a>
-
-      <button id="menu-btn" class="md:hidden flex flex-col gap-[5px] p-2" aria-label="Open menu">
-        <span class="block w-6 h-[2px] bg-white"></span>
-        <span class="block w-6 h-[2px] bg-white"></span>
-      </button>
-    </header>
+        </button>
+      </div>
+    </nav>
 
     <div class="mobile-menu" id="mobile-menu">
       <button id="menu-close" class="absolute top-7 right-6 text-white text-3xl leading-none" aria-label="Close menu">×</button>
-      <a href="#what-i-do" data-mobile-link>What I do</a>
-      <a href="#projects" data-mobile-link>Work</a>
-      <a href="#stack"    data-mobile-link>Stack</a>
-      <a href="#how"      data-mobile-link>How I work</a>
-      <a href="#contact"  data-mobile-link>Say hello ↗</a>
+      <a href="#hero" data-mlink>Home</a>
+      <a href="#about" data-mlink>About</a>
+      <a href="#what-i-do" data-mlink>What I Do</a>
+      <a href="#projects" data-mlink>Work</a>
+      <a href="#stack" data-mlink>Stack</a>
+      <a href="#how" data-mlink>How I Work</a>
+      <a href="#contact" data-mlink>Contact ↗</a>
     </div>
 
-    <!-- ============= HERO ============= -->
-    <section id="hero" class="relative z-10 min-h-screen overflow-hidden">
+    <!-- ============= HERO (full screen with video bg) ============= -->
+    <section id="hero" class="relative h-screen min-h-[760px] w-full overflow-hidden bg-black">
 
-      <div class="absolute inset-0 z-10 flex items-center justify-center px-6">
-        <h1 class="anton text-white text-center uppercase leading-[0.85] tracking-[0.01em]"
-            style="font-size: clamp(72px, 12vw, 180px);">
-          <span class="block md:inline reveal-up">SPEAKS</span>
-          <span class="block md:inline md:ml-6 reveal-up delay-150">FLUENT</span>
-          <span class="block md:inline md:ml-6 reveal-up delay-300">DATA</span>
-        </h1>
+      <!-- Video bg -->
+      <video
+        class="absolute inset-0 w-full h-full object-cover z-0"
+        autoplay muted loop playsinline preload="auto" aria-hidden="true">
+        <source src="https://d8j0ntlcm91z4.cloudfront.net/user_38xzZboKViGWJOttwIXH07lWA1P/hf_20260328_105406_16f4600d-7a92-4292-b96e-b19156c7830a.mp4" type="video/mp4" />
+      </video>
+
+      <!-- Dark overlay for legibility -->
+      <div class="absolute inset-0 z-[1] pointer-events-none"
+           style="background:
+             radial-gradient(ellipse at center, rgba(0,0,0,0.35) 0%, rgba(0,0,0,0.55) 65%, rgba(0,0,0,0.85) 100%),
+             linear-gradient(180deg, rgba(0,0,0,0.5) 0%, rgba(0,0,0,0.0) 18%, rgba(0,0,0,0.0) 70%, rgba(0,0,0,0.85) 100%);">
       </div>
 
-      <!-- Portrait -->
-      <div class="absolute inset-0 z-20 flex items-center justify-center pointer-events-none">
-        <div class="portrait-shadow relative" style="width: clamp(280px, 36vw, 520px); height: clamp(380px, 50vw, 700px);">
-          <img id="portrait"
-               class="portrait-img w-full h-full object-contain"
-               style="object-position: 50% 100%;"
-               src="assets/shikha.png"
-               alt="Shikha Murali — portrait" />
+      <!-- Hero content -->
+      <div class="relative z-10 h-full max-w-7xl mx-auto px-6 lg:px-10 pt-28 lg:pt-32 pb-10 lg:pb-12 flex flex-col">
+
+        <!-- Top two-column intro -->
+        <div class="grid lg:grid-cols-2 gap-6 lg:gap-12 reveal-up">
+          <p class="text-white/80 text-sm md:text-base leading-relaxed max-w-md">
+            I build and lead the data work behind the decisions — pipelines that
+            don't break overnight, models that hold up under questioning, and a
+            team with the autonomy to keep it all standing up.
+          </p>
+          <p class="text-white/80 text-sm md:text-base leading-relaxed max-w-md lg:text-right lg:ml-auto">
+            10+ Years &middot; Financial Services &middot; Two 2026 certifications &middot; One very calm Monday morning.
+          </p>
         </div>
-      </div>
 
-      <!-- Floating intro -->
-      <div class="hidden md:block absolute bottom-12 left-10 z-30 max-w-[320px] reveal-up delay-700">
-        <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-2">// Hello</div>
-        <p class="text-[15px] leading-[1.55] pl-3 border-l border-white/40">
-          <span class="font-medium">I'm Shikha</span> — Deputy Manager &amp; Data Engineer
-          in Business Intelligence. I build the pipes, shape the models, and lead
-          the team that turns ten million rows into one good decision.
-        </p>
-      </div>
+        <!-- Center hero block -->
+        <div class="flex-1 flex flex-col items-center justify-center text-center">
+          <p class="text-white/80 text-xs md:text-sm tracking-tight uppercase mb-6 reveal-up delay-150">
+            Currently — Deputy Manager, Business Intelligence
+          </p>
 
-      <!-- Floating tagline -->
-      <div class="hidden md:block absolute right-10 top-1/2 -translate-y-1/2 z-30 text-right reveal-up delay-900">
-        <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-3">// Tagline</div>
-        <h2 class="anton text-white text-[28px] leading-[1.05] uppercase tracking-[0.01em]">
-          DATA ENGINEERING<br/>WITH A HUMAN EAR
-        </h2>
-      </div>
+          <h1 class="font-medium tracking-tighter leading-[0.85] reveal-up delay-300"
+              style="font-size: clamp(48px, 11vw, 144px);">
+            <span class="block text-white">Speaks</span>
+            <span class="block shiny-text">Fluent Data.</span>
+          </h1>
 
-      <!-- Scroll cue -->
-      <div class="absolute left-1/2 -translate-x-1/2 bottom-6 z-30 text-[10px] tracking-[0.32em] uppercase opacity-80 flex flex-col items-center gap-2 reveal-up delay-700">
-        <span>scroll</span>
-        <span class="block w-px h-8 bg-white/60"></span>
-      </div>
+          <a href="#contact" class="cta-btn group mt-10 md:mt-14 inline-flex items-center gap-3 bg-black hover:bg-gray-900 border border-white/20 hover:border-white/40 rounded-full px-6 md:px-8 py-3 md:py-4 text-sm md:text-base font-medium transition-colors reveal-up delay-500">
+            <span>Let's Work Together</span>
+            <svg class="arrow w-4 h-4 md:w-5 md:h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
+          </a>
+        </div>
 
-      <!-- Mobile floating block -->
-      <div class="md:hidden absolute bottom-10 left-0 right-0 z-30 px-6 flex flex-col gap-6 items-center text-center reveal-up delay-700">
-        <p class="text-[14px] leading-[1.55] max-w-xs">
-          <span class="font-medium">I'm Shikha</span> — Deputy Manager &amp; Data Engineer
-          in Business Intelligence. The pipes, the models, the team behind the dashboard.
-        </p>
-        <h2 class="anton text-white text-[26px] leading-[1.05] uppercase tracking-[0.01em]">
-          DATA ENGINEERING<br/>WITH A HUMAN EAR
-        </h2>
+        <!-- Bottom marker -->
+        <div class="flex items-center justify-between text-[10px] md:text-xs tracking-[0.22em] uppercase text-white/50 pb-2 reveal-up delay-500">
+          <span>Scroll</span>
+          <span>SHK / 2026</span>
+        </div>
       </div>
     </section>
 
-    <!-- ============= INTRO / MANIFESTO ============= -->
-    <section class="relative z-10 px-6 md:px-10 pt-28 md:pt-44 pb-20">
-      <div class="max-w-5xl mx-auto reveal-up">
-        <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-8">// Why I do this</div>
-        <p class="font-serif" style="font-size: clamp(28px, 4vw, 56px); line-height: 1.18; letter-spacing: -0.01em;">
-          Most of what gets called <em>data</em> is just numbers waiting for a translator.
-          I spend my days making sure the right ones reach the right person at the right
-          time — usually <span class="anton uppercase tracking-[0.02em]">before</span>
-          someone has to ask.
-        </p>
-        <p class="mt-10 max-w-3xl text-[16px] leading-[1.7] opacity-95">
-          That means a lot of unglamorous work that nobody sees: pipelines that don't
-          break overnight, models that hold up under questioning, dashboards that are
-          quietly accurate on a Monday morning, and a team that has the autonomy and
-          the standards to keep it all standing up. Most days, the kindest thing I can
-          deliver is <strong>a boring dashboard</strong> — because boring means trusted.
-        </p>
+    <!-- ============= ABOUT (with portrait) ============= -->
+    <section id="about" class="relative bg-black px-6 lg:px-10 py-24 lg:py-36">
+      <div class="max-w-7xl mx-auto grid lg:grid-cols-12 gap-10 lg:gap-16 items-center">
+
+        <div class="lg:col-span-5 reveal-up">
+          <div class="portrait-shadow relative mx-auto" style="max-width: 460px;">
+            <!-- Soft glow halo behind portrait -->
+            <div class="absolute -inset-8 -z-10 rounded-full"
+                 style="background: radial-gradient(circle at 50% 40%, rgba(100,206,251,0.18) 0%, rgba(100,206,251,0) 65%); filter: blur(12px);"></div>
+            <img src="assets/shikha.png"
+                 alt="Shikha Murali"
+                 class="w-full h-auto block"
+                 loading="lazy" />
+          </div>
+        </div>
+
+        <div class="lg:col-span-7 reveal-up delay-150">
+          <span class="eyebrow">// About</span>
+          <h2 class="mt-6 font-medium tracking-tight" style="font-size: clamp(36px, 5.6vw, 76px); line-height: 1.02; letter-spacing: -0.02em;">
+            <span class="text-white">A translator for the </span>
+            <span class="serif italic" style="color: var(--shiny-base);">numbers</span>
+            <span class="text-white"> behind the decisions.</span>
+          </h2>
+
+          <p class="mt-8 text-white/70 text-base lg:text-lg leading-relaxed max-w-2xl">
+            I'm Shikha — Deputy Manager and Data Engineer in Business Intelligence.
+            For the last decade in financial services I've been the person quietly
+            making sure the right numbers reach the right person at the right time,
+            usually before someone has to ask.
+          </p>
+          <p class="mt-5 text-white/70 text-base lg:text-lg leading-relaxed max-w-2xl">
+            That means a lot of unglamorous work nobody sees: pipelines that don't
+            break overnight, models that hold up under questioning, dashboards that
+            are quietly accurate on a Monday morning, and a team that has the
+            autonomy and the standards to keep it all standing up.
+          </p>
+
+          <div class="hairline mt-12"></div>
+
+          <div class="grid grid-cols-3 gap-6 mt-10">
+            <div>
+              <div class="stat-num">10<span style="color: var(--shiny-base);">+</span></div>
+              <div class="text-xs uppercase tracking-[0.22em] text-white/50 mt-3">Years · Fin Svcs</div>
+            </div>
+            <div>
+              <div class="stat-num">02</div>
+              <div class="text-xs uppercase tracking-[0.22em] text-white/50 mt-3">Certs · 2026</div>
+            </div>
+            <div>
+              <div class="stat-num">∞</div>
+              <div class="text-xs uppercase tracking-[0.22em] text-white/50 mt-3">Boring Mondays</div>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 
     <!-- ============= WHAT I DO ============= -->
-    <section id="what-i-do" class="relative z-10 px-6 md:px-10 py-20 md:py-28">
+    <section id="what-i-do" class="relative bg-black px-6 lg:px-10 py-24 lg:py-32">
       <div class="max-w-7xl mx-auto">
-        <div class="flex items-end justify-between mb-12 md:mb-16 reveal-up">
+        <div class="flex items-end justify-between mb-12 lg:mb-16 reveal-up">
           <div>
-            <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-3">// What I do</div>
-            <h2 class="anton uppercase leading-[0.92]" style="font-size: clamp(56px, 10vw, 140px);">
-              SIX HATS,<br/>ONE PERSON.
+            <span class="eyebrow">// What I do</span>
+            <h2 class="mt-6 font-medium tracking-tighter" style="font-size: clamp(48px, 8vw, 110px); line-height: 0.92;">
+              <span class="text-white">Six hats,</span><br/>
+              <span class="shiny-text">one person.</span>
             </h2>
           </div>
-          <div class="hidden md:block text-[11px] tracking-[0.22em] uppercase opacity-80 max-w-xs text-right">
+          <p class="hidden lg:block text-sm text-white/60 max-w-xs text-right leading-relaxed">
             On any given day, the work moves between engineering, modelling,
             storytelling, governance, leadership, and the quiet, careful art of
             keeping things working.
-          </div>
+          </p>
         </div>
 
-        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5 md:gap-6">
-          <div class="discipline reveal-up">
-            <div class="num">i.</div>
-            <h3>I BUILD<br/>THE PIPES</h3>
-            <p>
+        <div class="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
+          <article class="card border border-white/10 rounded-3xl p-7 reveal-up">
+            <div class="serif italic text-white/50 text-base mb-6">i.</div>
+            <h3 class="text-2xl lg:text-[28px] font-medium tracking-tight leading-[1.05]">I build the pipes.</h3>
+            <p class="mt-4 text-white/65 text-[14px] leading-relaxed">
               Data engineering is plumbing with opinions. Ingestion from a dozen
               source systems, transformations that survive a re-run, orchestration
-              that nobody has to baby-sit, and lineage you can actually trace.
-              Mostly Microsoft Fabric and Azure these days; SQL all the way down.
+              that nobody has to babysit, lineage you can actually trace.
             </p>
-          </div>
-          <div class="discipline reveal-up delay-150">
-            <div class="num">ii.</div>
-            <h3>I SHAPE<br/>THE MODEL</h3>
-            <p>
-              The semantic layer is where the business meets the data. Clean
-              fact and dimension tables, careful slowly-changing logic, DAX
-              that performs, row-level security that doesn't quietly leak.
-              The bit a good viz can't fake.
+          </article>
+
+          <article class="card border border-white/10 rounded-3xl p-7 reveal-up delay-150">
+            <div class="serif italic text-white/50 text-base mb-6">ii.</div>
+            <h3 class="text-2xl lg:text-[28px] font-medium tracking-tight leading-[1.05]">I shape the model.</h3>
+            <p class="mt-4 text-white/65 text-[14px] leading-relaxed">
+              The semantic layer is where the business meets the data. Clean fact
+              and dimension tables, careful slowly-changing logic, DAX that
+              performs, security that doesn't quietly leak.
             </p>
-          </div>
-          <div class="discipline reveal-up delay-300">
-            <div class="num">iii.</div>
-            <h3>I TELL<br/>THE STORY</h3>
-            <p>
-              Reports nobody asked twice about. Dashboards designed for the
+          </article>
+
+          <article class="card border border-white/10 rounded-3xl p-7 reveal-up delay-300">
+            <div class="serif italic text-white/50 text-base mb-6">iii.</div>
+            <h3 class="text-2xl lg:text-[28px] font-medium tracking-tight leading-[1.05]">I tell the story.</h3>
+            <p class="mt-4 text-white/65 text-[14px] leading-relaxed">
+              Reports nobody asks twice about. Dashboards designed for the
               decision, not the demo. The ten-second answer for the executive
               and the ten-page answer for the analyst, on the same page.
             </p>
-          </div>
-          <div class="discipline reveal-up">
-            <div class="num">iv.</div>
-            <h3>I KEEP<br/>IT HONEST</h3>
-            <p>
-              Catalogue, lineage, classification, quality rules, stewardship.
-              The unsexy infrastructure that keeps regulated data trustworthy
-              and audit-ready. Informatica CDGC certified — and a believer.
+          </article>
+
+          <article class="card border border-white/10 rounded-3xl p-7 reveal-up">
+            <div class="serif italic text-white/50 text-base mb-6">iv.</div>
+            <h3 class="text-2xl lg:text-[28px] font-medium tracking-tight leading-[1.05]">I keep it honest.</h3>
+            <p class="mt-4 text-white/65 text-[14px] leading-relaxed">
+              Catalogue, lineage, classification, quality rules, stewardship —
+              the unsexy infrastructure that keeps regulated data trustworthy
+              and audit-ready.
             </p>
-          </div>
-          <div class="discipline reveal-up delay-150">
-            <div class="num">v.</div>
-            <h3>I LEAD<br/>THE TEAM</h3>
-            <p>
+          </article>
+
+          <article class="card border border-white/10 rounded-3xl p-7 reveal-up delay-150">
+            <div class="serif italic text-white/50 text-base mb-6">v.</div>
+            <h3 class="text-2xl lg:text-[28px] font-medium tracking-tight leading-[1.05]">I lead the team.</h3>
+            <p class="mt-4 text-white/65 text-[14px] leading-relaxed">
               Deputy Manager means the people are part of the product. Hiring
-              with care, mentoring with patience, defending focus, and making
-              sure good work is seen. I lead by listening, not by volume.
+              with care, mentoring with patience, defending focus, making sure
+              good work is seen.
             </p>
-          </div>
-          <div class="discipline reveal-up delay-300">
-            <div class="num">vi.</div>
-            <h3>I MAKE IT<br/>BORING</h3>
-            <p>
+          </article>
+
+          <article class="card border border-white/10 rounded-3xl p-7 reveal-up delay-300">
+            <div class="serif italic text-white/50 text-base mb-6">vi.</div>
+            <h3 class="text-2xl lg:text-[28px] font-medium tracking-tight leading-[1.05]">I make it boring.</h3>
+            <p class="mt-4 text-white/65 text-[14px] leading-relaxed">
               The highest compliment a dashboard gets is silence on Monday
-              morning. Predictable, reproducible, well-documented work — so
-              the team can spend its weekends actually resting.
+              morning. Predictable, reproducible, well-documented work — so the
+              team can spend its weekends actually resting.
             </p>
-          </div>
+          </article>
         </div>
       </div>
     </section>
 
     <!-- ============= MARQUEE ============= -->
-    <section class="relative z-10 py-10 border-y border-white/15 bg-black/5">
+    <section class="relative bg-black border-y border-white/10 py-8">
       <div class="marquee">
         <div class="marquee-track">
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">DATA ENGINEER</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">BI DEPUTY MGR</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">FABRIC · AZURE</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">SQL · DAX · PYTHON</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">DATA GOVERNANCE</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">PEOPLE LEADER</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white">Data Engineer</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white/30">/</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 shiny-text">BI Deputy Manager</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white/30">/</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white">Microsoft Fabric · Azure</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white/30">/</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white">SQL · DAX · Python</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white/30">/</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 shiny-text">Governance · Lineage</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white/30">/</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white">People Leader</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white/30">/</span>
         </div>
         <div class="marquee-track" aria-hidden="true">
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">DATA ENGINEER</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">BI DEPUTY MGR</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">FABRIC · AZURE</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">SQL · DAX · PYTHON</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">DATA GOVERNANCE</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-90">PEOPLE LEADER</span>
-          <span class="anton text-5xl md:text-7xl uppercase mx-8 opacity-30">/</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white">Data Engineer</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white/30">/</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 shiny-text">BI Deputy Manager</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white/30">/</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white">Microsoft Fabric · Azure</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white/30">/</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white">SQL · DAX · Python</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white/30">/</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 shiny-text">Governance · Lineage</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white/30">/</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white">People Leader</span>
+          <span class="text-3xl md:text-5xl font-medium tracking-tight mx-8 text-white/30">/</span>
         </div>
       </div>
     </section>
 
     <!-- ============= PROJECTS ============= -->
-    <section id="projects" class="relative z-10 px-6 md:px-10 py-24 md:py-36">
+    <section id="projects" class="relative bg-black px-6 lg:px-10 py-24 lg:py-32">
       <div class="max-w-7xl mx-auto">
-        <div class="flex items-end justify-between mb-12 md:mb-16 reveal-up">
+        <div class="flex items-end justify-between mb-12 lg:mb-16 reveal-up">
           <div>
-            <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-3">// Some things I've made</div>
-            <h2 class="anton uppercase leading-[0.92]" style="font-size: clamp(56px, 10vw, 140px);">
-              THE WORK<br/>BEHIND THE WORK.
+            <span class="eyebrow">// Some things I've made</span>
+            <h2 class="mt-6 font-medium tracking-tighter" style="font-size: clamp(48px, 8vw, 110px); line-height: 0.92;">
+              <span class="text-white">The work</span><br/>
+              <span class="shiny-text">behind the work.</span>
             </h2>
-          </div>
-          <div class="hidden md:block text-[11px] tracking-[0.22em] uppercase opacity-80 max-w-sm text-right">
-            A handful of stories from the last few years — the ones I'm still
-            proud of, including the parts that didn't go to plan.
           </div>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-6 md:gap-8">
-          <a class="reveal-up group block relative overflow-hidden rounded-3xl bg-white/8 backdrop-blur-md border border-white/15 p-8 md:p-10 hover:bg-white/12 transition-colors" href="#contact">
-            <div class="flex items-start justify-between">
-              <span class="chip">01 — Platform</span>
-              <span class="arrow-circle text-white group-hover:bg-white group-hover:text-brand-red transition-colors">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+        <div class="grid lg:grid-cols-2 gap-5">
+          <a href="#contact" class="card group block border border-white/10 rounded-3xl p-8 lg:p-10 reveal-up">
+            <div class="flex items-start justify-between text-xs tracking-[0.22em] uppercase text-white/60">
+              <span>01 · Platform</span>
+              <span class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/30 group-hover:bg-white group-hover:text-black transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline>
                 </svg>
               </span>
             </div>
-            <h3 class="anton uppercase mt-12 leading-[0.95]" style="font-size: clamp(40px, 5vw, 72px);">
-              CLAIMS,<br/>CONSOLIDATED
+            <h3 class="mt-12 font-medium tracking-tight" style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.02;">
+              Claims, <span class="serif italic">consolidated.</span>
             </h3>
-            <p class="mt-6 text-[14px] leading-[1.6] opacity-90 max-w-md">
+            <p class="mt-5 text-white/65 text-[15px] leading-relaxed max-w-md">
               Eight P&amp;C claims systems, four reporting standards, no single
               source of truth. We rebuilt the whole reporting stack on Fabric
               with a clean star schema and proper lineage — and then handed
               executives one dashboard instead of forty emails.
             </p>
-            <div class="mt-8 flex flex-wrap gap-2 text-[10px] tracking-[0.22em] uppercase">
-              <span class="chip">Fabric</span><span class="chip">Power BI</span><span class="chip">Star Schema</span>
+            <div class="mt-7 flex flex-wrap gap-2 text-[10px] tracking-[0.22em] uppercase text-white/60">
+              <span class="border border-white/20 rounded-full px-3 py-1.5">Fabric</span>
+              <span class="border border-white/20 rounded-full px-3 py-1.5">Power BI</span>
+              <span class="border border-white/20 rounded-full px-3 py-1.5">Star Schema</span>
             </div>
           </a>
 
-          <a class="reveal-up delay-150 group block relative overflow-hidden rounded-3xl bg-white/8 backdrop-blur-md border border-white/15 p-8 md:p-10 hover:bg-white/12 transition-colors" href="#contact">
-            <div class="flex items-start justify-between">
-              <span class="chip">02 — Migration</span>
-              <span class="arrow-circle text-white group-hover:bg-white group-hover:text-brand-red transition-colors">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <a href="#contact" class="card group block border border-white/10 rounded-3xl p-8 lg:p-10 reveal-up delay-150">
+            <div class="flex items-start justify-between text-xs tracking-[0.22em] uppercase text-white/60">
+              <span>02 · Migration</span>
+              <span class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/30 group-hover:bg-white group-hover:text-black transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline>
                 </svg>
               </span>
             </div>
-            <h3 class="anton uppercase mt-12 leading-[0.95]" style="font-size: clamp(40px, 5vw, 72px);">
-              FROM WAREHOUSE<br/>TO LAKEHOUSE
+            <h3 class="mt-12 font-medium tracking-tight" style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.02;">
+              Warehouse to <span class="serif italic">lakehouse.</span>
             </h3>
-            <p class="mt-6 text-[14px] leading-[1.6] opacity-90 max-w-md">
+            <p class="mt-5 text-white/65 text-[15px] leading-relaxed max-w-md">
               Lifting a decade of legacy SQL warehouses into a modern Fabric
               lakehouse — Bronze, Silver, Gold layers; Notebooks where they
               earned their place; Pipelines where they didn't. No analyst lost
-              a Monday morning report.
+              a Monday-morning report.
             </p>
-            <div class="mt-8 flex flex-wrap gap-2 text-[10px] tracking-[0.22em] uppercase">
-              <span class="chip">Lakehouse</span><span class="chip">Pipelines</span><span class="chip">Notebooks</span>
+            <div class="mt-7 flex flex-wrap gap-2 text-[10px] tracking-[0.22em] uppercase text-white/60">
+              <span class="border border-white/20 rounded-full px-3 py-1.5">Lakehouse</span>
+              <span class="border border-white/20 rounded-full px-3 py-1.5">Pipelines</span>
+              <span class="border border-white/20 rounded-full px-3 py-1.5">Spark</span>
             </div>
           </a>
 
-          <a class="reveal-up delay-300 group block relative overflow-hidden rounded-3xl bg-white/8 backdrop-blur-md border border-white/15 p-8 md:p-10 hover:bg-white/12 transition-colors" href="#contact">
-            <div class="flex items-start justify-between">
-              <span class="chip">03 — Governance</span>
-              <span class="arrow-circle text-white group-hover:bg-white group-hover:text-brand-red transition-colors">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <a href="#contact" class="card group block border border-white/10 rounded-3xl p-8 lg:p-10 reveal-up delay-300">
+            <div class="flex items-start justify-between text-xs tracking-[0.22em] uppercase text-white/60">
+              <span>03 · Governance</span>
+              <span class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/30 group-hover:bg-white group-hover:text-black transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline>
                 </svg>
               </span>
             </div>
-            <h3 class="anton uppercase mt-12 leading-[0.95]" style="font-size: clamp(40px, 5vw, 72px);">
-              THE CATALOGUE<br/>THAT GOT USED
+            <h3 class="mt-12 font-medium tracking-tight" style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.02;">
+              The catalogue <span class="serif italic">that got used.</span>
             </h3>
-            <p class="mt-6 text-[14px] leading-[1.6] opacity-90 max-w-md">
+            <p class="mt-5 text-white/65 text-[15px] leading-relaxed max-w-md">
               Most data catalogues quietly die. This one didn't, because we
               wrote it for the people who actually open Power BI on a Tuesday.
               Plain-English glossaries, automatic lineage, certified datasets,
               named stewards — and a slow campaign of trust.
             </p>
-            <div class="mt-8 flex flex-wrap gap-2 text-[10px] tracking-[0.22em] uppercase">
-              <span class="chip">Informatica</span><span class="chip">Lineage</span><span class="chip">Stewardship</span>
+            <div class="mt-7 flex flex-wrap gap-2 text-[10px] tracking-[0.22em] uppercase text-white/60">
+              <span class="border border-white/20 rounded-full px-3 py-1.5">Informatica</span>
+              <span class="border border-white/20 rounded-full px-3 py-1.5">Lineage</span>
+              <span class="border border-white/20 rounded-full px-3 py-1.5">Stewardship</span>
             </div>
           </a>
 
-          <a class="reveal-up delay-500 group block relative overflow-hidden rounded-3xl bg-white/8 backdrop-blur-md border border-white/15 p-8 md:p-10 hover:bg-white/12 transition-colors" href="#contact">
-            <div class="flex items-start justify-between">
-              <span class="chip">04 — Team</span>
-              <span class="arrow-circle text-white group-hover:bg-white group-hover:text-brand-red transition-colors">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <a href="#contact" class="card group block border border-white/10 rounded-3xl p-8 lg:p-10 reveal-up delay-500">
+            <div class="flex items-start justify-between text-xs tracking-[0.22em] uppercase text-white/60">
+              <span>04 · Team</span>
+              <span class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/30 group-hover:bg-white group-hover:text-black transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline>
                 </svg>
               </span>
             </div>
-            <h3 class="anton uppercase mt-12 leading-[0.95]" style="font-size: clamp(40px, 5vw, 72px);">
-              THE TEAM<br/>I GREW UP
+            <h3 class="mt-12 font-medium tracking-tight" style="font-size: clamp(28px, 3.6vw, 44px); line-height: 1.02;">
+              The team <span class="serif italic">I grew up.</span>
             </h3>
-            <p class="mt-6 text-[14px] leading-[1.6] opacity-90 max-w-md">
-              The work I'm proudest of has names attached. Two analysts I
-              hired now run their own squads. Code reviews that became
-              learning sessions. A culture where asking is faster than
-              guessing. The dashboards came after.
+            <p class="mt-5 text-white/65 text-[15px] leading-relaxed max-w-md">
+              The work I'm proudest of has names attached. Two analysts I hired
+              now run their own squads. Code reviews that became learning
+              sessions. A culture where asking is faster than guessing. The
+              dashboards came after.
             </p>
-            <div class="mt-8 flex flex-wrap gap-2 text-[10px] tracking-[0.22em] uppercase">
-              <span class="chip">Hiring</span><span class="chip">Mentorship</span><span class="chip">Throughput</span>
+            <div class="mt-7 flex flex-wrap gap-2 text-[10px] tracking-[0.22em] uppercase text-white/60">
+              <span class="border border-white/20 rounded-full px-3 py-1.5">Hiring</span>
+              <span class="border border-white/20 rounded-full px-3 py-1.5">Mentorship</span>
+              <span class="border border-white/20 rounded-full px-3 py-1.5">Throughput</span>
             </div>
           </a>
         </div>
@@ -593,22 +587,23 @@
     </section>
 
     <!-- ============= STACK ============= -->
-    <section id="stack" class="relative z-10 px-6 md:px-10 py-24 md:py-32">
+    <section id="stack" class="relative bg-black px-6 lg:px-10 py-24 lg:py-32">
       <div class="max-w-7xl mx-auto">
-        <div class="reveal-up mb-12 md:mb-16">
-          <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-3">// The stack I keep close</div>
-          <h2 class="anton uppercase leading-[0.92]" style="font-size: clamp(56px, 10vw, 140px);">
-            TOOLS,<br/>NOT TROPHIES.
+        <div class="reveal-up mb-12 lg:mb-16">
+          <span class="eyebrow">// The stack I keep close</span>
+          <h2 class="mt-6 font-medium tracking-tighter" style="font-size: clamp(48px, 8vw, 110px); line-height: 0.92;">
+            <span class="text-white">Tools, not</span>
+            <span class="shiny-text">trophies.</span>
           </h2>
-          <p class="mt-6 max-w-2xl text-[15px] leading-[1.6] opacity-90">
-            A list isn't a personality, but people ask. Here's what I reach for first,
-            grouped by what it actually does.
+          <p class="mt-6 max-w-2xl text-white/60 text-base leading-relaxed">
+            A list isn't a personality, but people ask. Here's what I reach
+            for first, grouped by what it actually does.
           </p>
         </div>
 
-        <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8 reveal-up">
+        <div class="grid sm:grid-cols-2 lg:grid-cols-4 gap-x-10 gap-y-12 reveal-up">
           <div class="cluster">
-            <div class="cluster-title">Engineering</div>
+            <div class="text-sm font-medium mb-4" style="color: var(--shiny-base);">Engineering</div>
             <ul>
               <li>Microsoft Fabric (Lakehouse, Warehouse)</li>
               <li>Azure Data Factory · Synapse</li>
@@ -619,7 +614,7 @@
             </ul>
           </div>
           <div class="cluster">
-            <div class="cluster-title">Modelling &amp; querying</div>
+            <div class="text-sm font-medium mb-4" style="color: var(--shiny-base);">Modelling &amp; querying</div>
             <ul>
               <li>SQL — T-SQL, complex joins, CTEs, windows</li>
               <li>Performance tuning &amp; query plans</li>
@@ -630,18 +625,18 @@
             </ul>
           </div>
           <div class="cluster">
-            <div class="cluster-title">Reporting &amp; storytelling</div>
+            <div class="text-sm font-medium mb-4" style="color: var(--shiny-base);">Reporting &amp; storytelling</div>
             <ul>
-              <li>Power BI (workspaces, deployment pipelines)</li>
+              <li>Power BI workspaces &amp; pipelines</li>
               <li>Tableau (legacy &amp; migrations)</li>
               <li>Excel · Power Query · Power Automate</li>
               <li>Paginated reports</li>
               <li>Executive dashboards · scorecards</li>
-              <li>Data storytelling &amp; viz craft</li>
+              <li>Data viz craft &amp; storytelling</li>
             </ul>
           </div>
           <div class="cluster">
-            <div class="cluster-title">Governance &amp; people</div>
+            <div class="text-sm font-medium mb-4" style="color: var(--shiny-base);">Governance &amp; people</div>
             <ul>
               <li>Informatica IICS · CDGC</li>
               <li>Catalogue · lineage · classification</li>
@@ -652,122 +647,107 @@
             </ul>
           </div>
         </div>
-
-        <div class="hairline mt-16"></div>
-
-        <div class="grid md:grid-cols-3 gap-10 mt-12 reveal-up">
-          <div>
-            <div class="anton text-5xl md:text-6xl">10<span class="text-3xl">+</span></div>
-            <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mt-2">years across financial services</div>
-          </div>
-          <div>
-            <div class="anton text-5xl md:text-6xl">02</div>
-            <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mt-2">active 2026 certifications</div>
-          </div>
-          <div>
-            <div class="anton text-5xl md:text-6xl">∞</div>
-            <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mt-2">monday-morning dashboards</div>
-          </div>
-        </div>
       </div>
     </section>
 
     <!-- ============= HOW I WORK ============= -->
-    <section id="how" class="relative z-10 px-6 md:px-10 py-24 md:py-32">
-      <div class="max-w-6xl mx-auto">
-        <div class="reveal-up mb-12 md:mb-16">
-          <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-3">// How I work</div>
-          <h2 class="anton uppercase leading-[0.92]" style="font-size: clamp(56px, 10vw, 140px);">
-            FOUR THINGS<br/>I BELIEVE.
+    <section id="how" class="relative bg-black px-6 lg:px-10 py-24 lg:py-32">
+      <div class="max-w-7xl mx-auto">
+        <div class="reveal-up mb-12 lg:mb-16">
+          <span class="eyebrow">// How I work</span>
+          <h2 class="mt-6 font-medium tracking-tighter" style="font-size: clamp(48px, 8vw, 110px); line-height: 0.92;">
+            <span class="text-white">Four things</span><br/>
+            <span class="shiny-text">I believe.</span>
           </h2>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-x-16 gap-y-2">
-          <div class="principle reveal-up">
-            <span class="pnum"></span>
-            <h4>START WITH THE QUESTION,<br/>NOT THE DATA.</h4>
-            <p>
+        <div class="grid lg:grid-cols-2 gap-x-16 gap-y-10">
+          <div class="principle border-l-2 pl-6 reveal-up" style="border-color: var(--shiny-base);">
+            <div class="text-xs tracking-[0.22em] uppercase text-white/50 mb-3">i.</div>
+            <h4>Start with the question, not the data.</h4>
+            <p class="mt-3 text-[15px] leading-relaxed">
               Every good dashboard begins with someone trying to make a
               decision. If I can't write that decision down in one sentence,
               I'm not ready to build anything yet.
             </p>
           </div>
-          <div class="principle reveal-up delay-150">
-            <span class="pnum"></span>
-            <h4>IF IT NEEDS<br/>EXPLAINING, IT'S NOT DONE.</h4>
-            <p>
+          <div class="principle border-l-2 pl-6 reveal-up delay-150" style="border-color: var(--shiny-base);">
+            <div class="text-xs tracking-[0.22em] uppercase text-white/50 mb-3">ii.</div>
+            <h4>If it needs explaining, it isn't done.</h4>
+            <p class="mt-3 text-[15px] leading-relaxed">
               A report that comes with a footnote, a caveat, and a 20-minute
               walkthrough is just an unfinished report. The work of clarity
               happens before the share button, not after.
             </p>
           </div>
-          <div class="principle reveal-up delay-300">
-            <span class="pnum"></span>
-            <h4>DEFAULT TO TEACHING.</h4>
-            <p>
+          <div class="principle border-l-2 pl-6 reveal-up delay-300" style="border-color: var(--shiny-base);">
+            <div class="text-xs tracking-[0.22em] uppercase text-white/50 mb-3">iii.</div>
+            <h4>Default to teaching.</h4>
+            <p class="mt-3 text-[15px] leading-relaxed">
               Every shortcut I take alone is a shortcut my team can't take
               tomorrow. Documentation, code reviews, pair sessions — they
               cost time once and save it forever.
             </p>
           </div>
-          <div class="principle reveal-up delay-500">
-            <span class="pnum"></span>
-            <h4>BORING IS<br/>A FEATURE.</h4>
-            <p>
+          <div class="principle border-l-2 pl-6 reveal-up delay-500" style="border-color: var(--shiny-base);">
+            <div class="text-xs tracking-[0.22em] uppercase text-white/50 mb-3">iv.</div>
+            <h4>Boring is a feature.</h4>
+            <p class="mt-3 text-[15px] leading-relaxed">
               Production data work shouldn't be exciting. Surprises mean
-              somebody is about to have a long Monday. I aim for predictable,
-              reproducible, well-documented — and I save the excitement for
-              the discovery work.
+              somebody is about to have a long Monday. Predictable,
+              reproducible, well-documented — and we save the excitement
+              for the discovery work.
             </p>
           </div>
         </div>
       </div>
     </section>
 
-    <!-- ============= CREDENTIALS (compact) ============= -->
-    <section class="relative z-10 px-6 md:px-10 py-24 md:py-32">
+    <!-- ============= CREDENTIALS ============= -->
+    <section class="relative bg-black px-6 lg:px-10 py-24 lg:py-32">
       <div class="max-w-7xl mx-auto">
-        <div class="reveal-up mb-12">
-          <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-3">// Recently certified</div>
-          <h2 class="anton uppercase leading-[0.92]" style="font-size: clamp(40px, 6vw, 80px);">
-            STILL LEARNING,<br/>ON PURPOSE.
+        <div class="reveal-up mb-10 lg:mb-14">
+          <span class="eyebrow">// Recently certified</span>
+          <h2 class="mt-6 font-medium tracking-tighter" style="font-size: clamp(36px, 6vw, 80px); line-height: 0.95;">
+            <span class="text-white">Still learning,</span>
+            <span class="shiny-text">on purpose.</span>
           </h2>
         </div>
 
-        <div class="grid md:grid-cols-2 gap-6">
+        <div class="grid lg:grid-cols-2 gap-5">
           <a href="https://learn.microsoft.com/en-us/credentials/certifications/fabric-analytics-engineer-associate/" target="_blank" rel="noopener"
-             class="reveal-up group block rounded-3xl bg-white/8 backdrop-blur-md border border-white/15 p-8 md:p-10 hover:bg-white/12 transition-colors">
-            <div class="flex items-start justify-between">
-              <span class="chip">Microsoft · 2026</span>
-              <span class="arrow-circle text-white group-hover:bg-white group-hover:text-brand-red transition-colors">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+             class="card group block border border-white/10 rounded-3xl p-8 lg:p-10 reveal-up">
+            <div class="flex items-start justify-between text-xs tracking-[0.22em] uppercase text-white/60">
+              <span>Microsoft · 2026</span>
+              <span class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/30 group-hover:bg-white group-hover:text-black transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline>
                 </svg>
               </span>
             </div>
-            <h3 class="anton uppercase mt-10 leading-[0.95]" style="font-size: clamp(28px, 3.6vw, 48px);">
-              FABRIC ANALYTICS<br/>ENGINEER ASSOCIATE
+            <h3 class="mt-10 font-medium tracking-tight" style="font-size: clamp(26px, 3vw, 36px); line-height: 1.05;">
+              Fabric Analytics<br/>Engineer Associate
             </h3>
-            <p class="mt-5 text-[14px] leading-[1.65] opacity-90 max-w-md">
-              The end-to-end of Fabric — lakehouses, warehouses, semantic models,
-              and the storytelling layer on top.
+            <p class="mt-4 text-white/60 text-[14px] leading-relaxed max-w-md">
+              The end-to-end of Fabric — lakehouses, warehouses, semantic
+              models, and the storytelling layer on top.
             </p>
           </a>
 
           <a href="https://www.informatica.com/" target="_blank" rel="noopener"
-             class="reveal-up delay-150 group block rounded-3xl bg-white/8 backdrop-blur-md border border-white/15 p-8 md:p-10 hover:bg-white/12 transition-colors">
-            <div class="flex items-start justify-between">
-              <span class="chip">Informatica · 2026</span>
-              <span class="arrow-circle text-white group-hover:bg-white group-hover:text-brand-red transition-colors">
-                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+             class="card group block border border-white/10 rounded-3xl p-8 lg:p-10 reveal-up delay-150">
+            <div class="flex items-start justify-between text-xs tracking-[0.22em] uppercase text-white/60">
+              <span>Informatica · 2026</span>
+              <span class="inline-flex items-center justify-center w-9 h-9 rounded-full border border-white/30 group-hover:bg-white group-hover:text-black transition-colors">
+                <svg class="w-4 h-4" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
                   <line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline>
                 </svg>
               </span>
             </div>
-            <h3 class="anton uppercase mt-10 leading-[0.95]" style="font-size: clamp(28px, 3.6vw, 48px);">
-              CLOUD DATA<br/>GOVERNANCE &amp; CATALOG
+            <h3 class="mt-10 font-medium tracking-tight" style="font-size: clamp(26px, 3vw, 36px); line-height: 1.05;">
+              Cloud Data Governance<br/>&amp; Catalog Foundation
             </h3>
-            <p class="mt-5 text-[14px] leading-[1.65] opacity-90 max-w-md">
+            <p class="mt-4 text-white/60 text-[14px] leading-relaxed max-w-md">
               Foundation in the principles and platform behind serious data
               stewardship — for organisations where regulators read first.
             </p>
@@ -777,72 +757,73 @@
     </section>
 
     <!-- ============= CONTACT ============= -->
-    <section id="contact" class="relative z-10 px-6 md:px-10 py-24 md:py-44">
+    <section id="contact" class="relative bg-black px-6 lg:px-10 py-24 lg:py-44">
       <div class="max-w-7xl mx-auto reveal-up">
-        <div class="text-[11px] tracking-[0.22em] uppercase opacity-80 mb-6">// Say hello</div>
-        <h2 class="anton uppercase leading-[0.88]" style="font-size: clamp(64px, 13vw, 200px);">
-          GOT A DATA<br/>PROBLEM WORTH<br/>SOLVING?
+        <span class="eyebrow">// Say hello</span>
+        <h2 class="mt-6 font-medium tracking-tighter" style="font-size: clamp(56px, 12vw, 180px); line-height: 0.88;">
+          <span class="text-white">Got a data</span><br/>
+          <span class="text-white">problem worth</span><br/>
+          <span class="shiny-text">solving?</span>
         </h2>
-        <p class="mt-8 max-w-xl text-[16px] leading-[1.6] opacity-90">
+        <p class="mt-8 max-w-xl text-white/65 text-base lg:text-lg leading-relaxed">
           I'm not always looking for the next thing — but I'm always up for a
           good conversation. Reporting, governance, hiring, what to do about
-          that one report that nobody trusts. Find me here.
+          that one report nobody trusts. Find me here.
         </p>
 
-        <div class="mt-12 flex flex-col md:flex-row md:items-center gap-6 md:gap-10">
+        <div class="mt-12 flex flex-col md:flex-row gap-4">
           <a href="https://www.linkedin.com/" target="_blank" rel="noopener"
-             class="hire-link inline-flex items-center gap-4 self-start" data-magnet>
-            <span class="text-[14px] tracking-[0.22em] uppercase font-medium">// Connect on LinkedIn</span>
-            <span class="arrow-circle text-white" style="width:56px; height:56px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
-            </span>
+             class="cta-btn group inline-flex items-center gap-3 bg-white text-black hover:bg-white/90 rounded-full px-7 py-4 text-base font-medium transition-colors">
+            <span>Connect on LinkedIn</span>
+            <svg class="arrow w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
           </a>
-          <a href="mailto:hello@example.com" class="hire-link inline-flex items-center gap-4 self-start" data-magnet>
-            <span class="text-[14px] tracking-[0.22em] uppercase font-medium">// Send a Note</span>
-            <span class="arrow-circle text-white" style="width:56px; height:56px;">
-              <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
-                <line x1="7" y1="17" x2="17" y2="7"></line><polyline points="7 7 17 7 17 17"></polyline>
-              </svg>
-            </span>
+          <a href="mailto:hello@example.com"
+             class="cta-btn group inline-flex items-center gap-3 bg-black border border-white/30 hover:border-white/60 hover:bg-white/5 rounded-full px-7 py-4 text-base font-medium transition-colors">
+            <span>Send a Note</span>
+            <svg class="arrow w-5 h-5" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+              <polyline points="12 5 19 12 12 19"></polyline>
+            </svg>
           </a>
         </div>
       </div>
     </section>
 
-    <footer class="relative z-10 px-6 md:px-10 py-10 border-t border-white/15">
-      <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 justify-between text-[10px] tracking-[0.22em] uppercase opacity-80">
+    <footer class="relative bg-black px-6 lg:px-10 py-10 border-t border-white/10">
+      <div class="max-w-7xl mx-auto flex flex-col md:flex-row gap-4 justify-between text-[10px] tracking-[0.22em] uppercase text-white/40">
         <span>© <span id="year"></span> Shikha Murali · Designed &amp; built with affection by Kristom Robert</span>
-        <span>Voice · Stack · Story · v3.0</span>
+        <span>v4.0 — Dark, with shine</span>
       </div>
     </footer>
 
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      const menuBtn = document.getElementById('menu-btn');
-      const menu = document.getElementById('mobile-menu');
-      const closeBtn = document.getElementById('menu-close');
-      menuBtn?.addEventListener('click', () => menu.classList.add('open'));
-      closeBtn?.addEventListener('click', () => menu.classList.remove('open'));
-      document.querySelectorAll('[data-mobile-link]').forEach(a =>
-        a.addEventListener('click', () => menu.classList.remove('open'))
+      // Mobile menu
+      const mb = document.getElementById('menu-btn');
+      const mn = document.getElementById('mobile-menu');
+      const mc = document.getElementById('menu-close');
+      mb?.addEventListener('click', () => mn.classList.add('open'));
+      mc?.addEventListener('click', () => mn.classList.remove('open'));
+      document.querySelectorAll('[data-mlink]').forEach(a =>
+        a.addEventListener('click', () => mn.classList.remove('open'))
       );
 
+      // Smooth scroll
       document.querySelectorAll('a[href^="#"]').forEach(a => {
         a.addEventListener('click', (e) => {
           const id = a.getAttribute('href');
           if (id.length > 1) {
-            const target = document.querySelector(id);
-            if (target) {
-              e.preventDefault();
-              target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }
+            const t = document.querySelector(id);
+            if (t) { e.preventDefault(); t.scrollIntoView({ behavior: 'smooth', block: 'start' }); }
           }
         });
       });
 
+      // Reveal-on-scroll
       const io = new IntersectionObserver((entries) => {
         entries.forEach(en => {
           if (en.isIntersecting) {
@@ -852,36 +833,6 @@
         });
       }, { threshold: 0.12 });
       document.querySelectorAll('.reveal-up').forEach(el => io.observe(el));
-
-      document.querySelectorAll('[data-magnet]').forEach(el => {
-        el.addEventListener('mousemove', (e) => {
-          const r = el.getBoundingClientRect();
-          const x = e.clientX - (r.left + r.width / 2);
-          const y = e.clientY - (r.top + r.height / 2);
-          el.style.transition = 'transform 0.2s ease-out';
-          el.style.transform = `translate(${x * 0.18}px, ${y * 0.25}px)`;
-        });
-        el.addEventListener('mouseleave', () => {
-          el.style.transition = 'transform 0.6s cubic-bezier(0.22, 1, 0.36, 1)';
-          el.style.transform = 'translate(0, 0)';
-        });
-      });
-
-      const portrait = document.getElementById('portrait');
-      if (portrait && matchMedia('(pointer: fine)').matches) {
-        let tx = 0, ty = 0, cx = 0, cy = 0;
-        addEventListener('mousemove', (e) => {
-          tx = ((e.clientX / innerWidth) - 0.5) * 14;
-          ty = ((e.clientY / innerHeight) - 0.5) * 14;
-        });
-        const tick = () => {
-          cx += (tx - cx) * 0.06;
-          cy += (ty - cy) * 0.06;
-          portrait.style.transform = `translate3d(${cx}px, ${cy}px, 0)`;
-          requestAnimationFrame(tick);
-        };
-        tick();
-      }
     </script>
   </body>
 </html>
