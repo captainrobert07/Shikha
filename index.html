@@ -9,8 +9,11 @@
 
     <link rel="icon" type="image/svg+xml" href="assets/logo.svg" />
     <link rel="apple-touch-icon" href="assets/logo.svg" />
-    <link rel="preload" as="image" href="assets/shikha.png" />
+    <link rel="preload" as="image" href="assets/shikha-540.png" media="(max-width: 720px)" />
+    <link rel="preload" as="image" href="assets/shikha-720.png" media="(min-width: 721px)" />
 
+    <link rel="dns-prefetch" href="https://fonts.googleapis.com" />
+    <link rel="dns-prefetch" href="https://fonts.gstatic.com" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link href="https://fonts.googleapis.com/css2?family=Sora:wght@400;500;600;700;800&family=DM+Sans:wght@400;500;600&display=swap" rel="stylesheet" />
@@ -621,84 +624,118 @@
       @media (max-width: 880px) { .impact-grid { grid-template-columns: 1fr 1fr; } }
       @media (max-width: 520px) { .impact-grid { grid-template-columns: 1fr; } }
 
-      /* ============= TIMELINE (Experience) ============= */
-      .timeline {
-        position: relative;
-        margin-top: 56px;
-        padding-left: 30px;
+      /* ============= DECADE ARC (Experience) ============= */
+      .arc-grid {
+        display: grid;
+        grid-template-columns: 0.85fr 1.15fr;
+        gap: 64px;
+        align-items: start;
+        margin-top: 64px;
       }
-      .timeline::before {
-        content: "";
-        position: absolute;
-        left: 8px; top: 4px; bottom: 4px;
-        width: 2px;
-        background: linear-gradient(180deg, var(--blue), var(--violet) 60%, transparent);
+      @media (max-width: 880px) { .arc-grid { grid-template-columns: 1fr; gap: 40px; } }
+
+      .arc-marquee {
+        position: sticky;
+        top: 100px;
       }
-      .tl-item {
-        position: relative;
-        margin-bottom: 44px;
-        padding-left: 28px;
+      .arc-marquee .big {
+        font-family: 'Sora', sans-serif;
+        font-weight: 800;
+        font-size: clamp(5rem, 11vw, 11rem);
+        letter-spacing: -0.07em;
+        line-height: 0.9;
+        background: linear-gradient(135deg, #1d4ed8 0%, #6d28d9 50%, #db2777 100%);
+        -webkit-background-clip: text;
+                background-clip: text;
+        -webkit-text-fill-color: transparent;
       }
-      .tl-item:last-child { margin-bottom: 0; }
-      .tl-item::before {
-        content: "";
-        position: absolute;
-        left: -30px; top: 6px;
-        width: 18px; height: 18px;
-        border-radius: 999px;
-        background: #fff;
-        border: 3px solid var(--accent);
-        box-shadow: 0 0 0 4px rgba(37,99,235,0.10);
+      .arc-marquee .lab {
+        margin-top: 12px;
+        font-family: 'DM Sans', sans-serif;
+        font-size: 0.95rem;
+        line-height: 1.6;
+        color: var(--muted);
+        max-width: 24ch;
       }
-      .tl-head {
+      .arc-marquee .lab strong { color: var(--ink); font-weight: 600; }
+
+      .arc-list {
         display: flex;
-        flex-wrap: wrap;
-        align-items: baseline;
-        gap: 10px 16px;
-        margin-bottom: 6px;
+        flex-direction: column;
+        gap: 18px;
       }
-      .tl-role {
+      .chapter {
+        position: relative;
+        padding: 32px 36px;
+      }
+      .chapter::before {
+        content: attr(data-chapter);
+        position: absolute;
+        top: 32px;
+        left: 36px;
+        font-family: 'Sora', sans-serif;
+        font-size: 0.74rem;
+        font-weight: 700;
+        letter-spacing: 0.18em;
+        text-transform: uppercase;
+        color: var(--accent);
+      }
+      .chapter::after {
+        content: "";
+        position: absolute;
+        top: 38px;
+        left: 130px;
+        right: 36px;
+        height: 1px;
+        background: linear-gradient(90deg, var(--rule-2), transparent);
+      }
+      .chapter .role {
+        margin-top: 32px;
         font-family: 'Sora', sans-serif;
         font-weight: 700;
-        font-size: 1.15rem;
-        letter-spacing: -0.025em;
+        font-size: 1.5rem;
+        letter-spacing: -0.035em;
+        line-height: 1.1;
         color: var(--ink);
       }
-      .tl-company {
-        font-size: 0.78rem;
-        font-weight: 600;
-        letter-spacing: 0.04em;
-        padding: 4px 10px;
-        border-radius: 999px;
-        background: rgba(37,99,235,0.10);
-        color: var(--accent);
+      .chapter .role em {
+        font-family: 'Sora', sans-serif;
+        font-style: normal;
+        font-weight: 500;
+        color: var(--muted);
       }
-      .tl-date {
+      .chapter .meta {
+        margin-top: 6px;
         font-size: 0.82rem;
         color: var(--muted-2);
-        margin-left: auto;
       }
-      .tl-item p {
-        color: var(--muted);
+      .chapter .body {
+        margin-top: 16px;
         font-size: 0.95rem;
         line-height: 1.75;
-        margin-bottom: 8px;
-      }
-      .tl-item ul { list-style: none; padding-left: 0; }
-      .tl-item ul li {
-        position: relative;
-        padding-left: 22px;
         color: var(--muted);
-        font-size: 0.93rem;
-        line-height: 1.75;
-        margin-bottom: 4px;
+        max-width: 50ch;
       }
-      .tl-item ul li::before {
-        content: "→";
-        position: absolute;
-        left: 0;
+      .chapter .body strong { color: var(--ink); font-weight: 600; }
+      .chapter ul {
+        list-style: none;
+        padding: 0;
+        margin-top: 16px;
+        display: flex;
+        flex-wrap: wrap;
+        gap: 8px;
+      }
+      .chapter ul li {
+        font-size: 0.78rem;
+        font-weight: 500;
+        padding: 5px 12px;
+        border-radius: 999px;
+        background: rgba(37, 99, 235, 0.08);
         color: var(--accent);
-        font-weight: 700;
+      }
+      @media (max-width: 880px) {
+        .arc-marquee { position: static; }
+        .chapter::after { display: none; }
       }
 
       /* ============= SKILLS ============= */
@@ -941,6 +978,47 @@
         *, *::before, *::after { animation-duration: 0.01ms !important; transition-duration: 0.01ms !important; }
         .reveal { opacity: 1; transform: none; }
       }
+
+      /* ========== MOBILE PERFORMANCE ========== */
+      @media (max-width: 720px) {
+        section { padding: 70px 20px; }
+        .hero { padding: 110px 20px 60px; }
+        .nav { top: 12px; padding: 0 12px; }
+        .nav-pill { padding: 8px 8px 8px 18px; }
+
+        /* Soften heaviest blurs on mobile (biggest paint cost) */
+        .gcard, .photo-card, .data-card, .nav-pill, .hero-stat, .hero-eyebrow, .btn-ghost, .pill, footer {
+          backdrop-filter: blur(10px);
+          -webkit-backdrop-filter: blur(10px);
+        }
+        /* Stop the floating blob animations on mobile to save GPU */
+        .blob { animation: none; opacity: 0.5; }
+        /* Pause data-card wobble */
+        .data-card { animation: none; }
+        /* Reduce shadow blur */
+        .gcard, .photo-card { box-shadow: 0 1px 1px rgba(13,17,23,0.04), 0 8px 22px rgba(13,17,23,0.06); }
+        .gcard:hover { transform: none; }
+        /* Smaller hero meta cards on mobile */
+        .data-card { padding: 9px 13px; }
+        .data-card .label { font-size: 0.6rem; }
+        .data-card .value { font-size: 0.78rem; }
+        .data-card.card-a { right: 0; top: 4%; }
+        .data-card.card-b { left: 0; bottom: 12%; }
+
+        /* Tame the giant gradient number on mobile */
+        .arc-marquee .big { font-size: clamp(4rem, 18vw, 7rem); }
+
+        /* Cap aurora intensity to reduce overdraw */
+        body::before { background:
+          radial-gradient(800px 500px at 12% 18%, rgba(79, 142, 247, 0.18) 0%, transparent 60%),
+          radial-gradient(700px 500px at 88% 14%, rgba(167, 139, 250, 0.16) 0%, transparent 60%),
+          linear-gradient(175deg, #f8faff 0%, #f0f3fb 100%);
+        }
+      }
+
+      /* Don't pay paint cost when content is offscreen */
+      section { content-visibility: auto; contain-intrinsic-size: 800px; }
+      #hero { content-visibility: visible; }
     </style>
   </head>
 
@@ -1034,17 +1112,25 @@
 
             <div class="photo-card">
               <div class="frame">
-                <img src="assets/shikha.png" alt="Shikha Murali" />
+                <img
+                  src="assets/shikha-720.png"
+                  srcset="assets/shikha-540.png 540w, assets/shikha-720.png 720w"
+                  sizes="(max-width: 720px) 360px, 480px"
+                  width="720" height="1131"
+                  alt="Shikha Murali — Deputy Manager, Business Intelligence"
+                  fetchpriority="high"
+                  decoding="async"
+                />
               </div>
             </div>
 
             <div class="data-card card-a">
-              <div class="label">Current focus</div>
-              <div class="value"><span class="pip"></span>Microsoft Fabric</div>
+              <div class="label">Current role</div>
+              <div class="value"><span class="pip"></span>Deputy Manager</div>
             </div>
             <div class="data-card card-b">
-              <div class="label">Strength</div>
-              <div class="value">Data + People</div>
+              <div class="label">Function</div>
+              <div class="value">Business Intelligence</div>
             </div>
           </div>
         </div>
@@ -1135,58 +1221,76 @@
         </div>
       </section>
 
-      <!-- ============= EXPERIENCE (Timeline) ============= -->
+      <!-- ============= DECADE ARC (Experience) ============= -->
       <section id="experience">
         <div class="container">
           <div class="reveal">
             <div class="eyebrow">Experience</div>
-            <h2 class="section-title">A decade across financial services.</h2>
+            <h2 class="section-title">A decade in financial-services data.</h2>
             <p class="section-lede">
-              Each role pushed the work a little further — from analyst on
-              the spreadsheet to engineer on the platform to manager of the
-              team that owns it.
+              Three chapters. Each one pushed the work a little further —
+              from spreadsheet to platform to people.
             </p>
           </div>
 
-          <div class="timeline">
-            <div class="tl-item reveal">
-              <div class="tl-head">
-                <span class="tl-role">Deputy Manager · Data Engineer</span>
-                <span class="tl-company">Business Intelligence</span>
-                <span class="tl-date">Present</span>
-              </div>
-              <p>Owning the BI &amp; data engineering function — pipelines, semantic models, governance, hiring, and the team's standards.</p>
-              <ul>
-                <li>Lifted legacy SQL warehouses into Microsoft Fabric (Bronze · Silver · Gold)</li>
-                <li>Stood up the data catalogue and lineage program with Informatica CDGC</li>
-                <li>Hired and mentored analysts who now run their own squads</li>
-              </ul>
+          <div class="arc-grid">
+            <div class="arc-marquee reveal">
+              <div class="big">10+</div>
+              <p class="lab"><strong>Years in financial services.</strong>
+                Mostly in P&amp;C insurance — claims, reporting, and the
+                BI work that holds it together.</p>
             </div>
-            <div class="tl-item reveal">
-              <div class="tl-head">
-                <span class="tl-role">Senior BI Developer</span>
-                <span class="tl-company">P&amp;C Insurance</span>
-                <span class="tl-date">Earlier</span>
-              </div>
-              <p>End-to-end ownership of claims reporting — from raw operational extracts to executive-ready KPIs.</p>
-              <ul>
-                <li>Consolidated eight claims source systems into one star schema</li>
-                <li>Built the Power BI semantic model still in use today</li>
-                <li>Migrated reports from legacy paginated tools to modern dashboards</li>
-              </ul>
-            </div>
-            <div class="tl-item reveal">
-              <div class="tl-head">
-                <span class="tl-role">BI Analyst</span>
-                <span class="tl-company">Financial Services</span>
-                <span class="tl-date">Beginning</span>
-              </div>
-              <p>The years of Excel, SQL, Power Query, and the careful art of asking the right question of the right number.</p>
-              <ul>
-                <li>Audit-ready reporting workbooks the business actually trusted</li>
-                <li>First passes at SQL performance tuning that still pay dividends</li>
-                <li>Learned that clarity beats cleverness, and dashboards can be quiet</li>
-              </ul>
+
+            <div class="arc-list">
+              <article class="gcard chapter reveal" data-chapter="Now">
+                <div class="role">Deputy Manager <em>· Data Engineer</em></div>
+                <div class="meta">Business Intelligence · Present</div>
+                <p class="body">
+                  Owns the BI platform end-to-end — <strong>pipelines,
+                  semantic models, governance, hiring,</strong> and the
+                  team's standards. Quietly migrated the warehouse into
+                  Fabric without breaking a Monday-morning report.
+                </p>
+                <ul>
+                  <li>Microsoft Fabric</li>
+                  <li>Lakehouse</li>
+                  <li>Power BI</li>
+                  <li>Hiring · Mentorship</li>
+                </ul>
+              </article>
+
+              <article class="gcard chapter reveal" data-chapter="Then">
+                <div class="role">Senior BI <em>Developer</em></div>
+                <div class="meta">P&amp;C Insurance Reporting · Earlier</div>
+                <p class="body">
+                  Built the claims reporting layer that's still in use
+                  today. <strong>Consolidated eight source systems</strong>
+                  into one trustworthy star schema and the Power BI
+                  semantic model behind every executive dashboard.
+                </p>
+                <ul>
+                  <li>SQL · DAX</li>
+                  <li>Star Schema</li>
+                  <li>Power BI</li>
+                  <li>Tableau</li>
+                </ul>
+              </article>
+
+              <article class="gcard chapter reveal" data-chapter="Beginning">
+                <div class="role">BI <em>Analyst</em></div>
+                <div class="meta">Financial Services · The early years</div>
+                <p class="body">
+                  Excel, SQL, Power Query, and the careful art of asking
+                  the right question of the right number. Where she
+                  learned that <strong>clarity beats cleverness</strong>,
+                  and dashboards can be quiet.
+                </p>
+                <ul>
+                  <li>Excel · Power Query</li>
+                  <li>SQL fundamentals</li>
+                  <li>Audit-ready reporting</li>
+                </ul>
+              </article>
             </div>
           </div>
         </div>
@@ -1431,22 +1535,21 @@
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
 
-      // Hide nav on scroll down, show on up
+      // Combined scroll handler — single rAF, both nav hide + progress bar
       const nav = document.getElementById('nav');
-      let lastY = 0;
-      addEventListener('scroll', () => {
+      const sp = document.getElementById('scroll-progress');
+      let lastY = 0, ticking = false;
+      const onScroll = () => {
         const y = scrollY;
         if (y > 80 && y > lastY) nav.classList.add('hidden');
         else nav.classList.remove('hidden');
-        lastY = y;
-      }, { passive: true });
-
-      // Scroll progress
-      const sp = document.getElementById('scroll-progress');
-      addEventListener('scroll', () => {
         const max = document.documentElement.scrollHeight - innerHeight;
-        const pct = max > 0 ? (scrollY / max) * 100 : 0;
+        const pct = max > 0 ? (y / max) * 100 : 0;
         sp.style.setProperty('--p', pct + '%');
+        lastY = y; ticking = false;
+      };
+      addEventListener('scroll', () => {
+        if (!ticking) { requestAnimationFrame(onScroll); ticking = true; }
       }, { passive: true });
 
       // Mobile menu
