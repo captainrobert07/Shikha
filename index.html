@@ -1599,6 +1599,66 @@
       }
 
       /* (content-visibility removed — was causing scroll jank from paint deferral) */
+
+      /* ========== TABLET ==========
+         Refines the 720-1024px range so things don't look "almost mobile". */
+      @media (min-width: 721px) and (max-width: 1024px) {
+        section { padding: 90px 28px; }
+        .container { max-width: 100%; padding: 0 12px; }
+        h1 { font-size: clamp(2.4rem, 5.4vw, 4.4rem); }
+        h2 { font-size: clamp(1.7rem, 3.2vw, 2.6rem); }
+        .nav-pill { padding: 8px 12px 8px 18px; }
+        .pill { font-size: 0.78rem; padding: 7px 12px; }
+      }
+
+      /* ========== SMALL PHONES ==========
+         Sub-480px, the difficult zone. */
+      @media (max-width: 480px) {
+        section { padding: 64px 18px; }
+        .hero { padding: 100px 18px 50px; }
+        h1 { font-size: clamp(2.4rem, 11vw, 3.2rem); letter-spacing: -0.04em; }
+        h2 { font-size: clamp(1.7rem, 7vw, 2.2rem); }
+        .nav { top: 10px; padding: 0 10px; }
+        .nav-pill { padding: 7px 8px 7px 14px; }
+        .nav-brand { font-size: 0.85rem; gap: 8px; }
+        .nav-brand img { width: 22px; height: 22px; }
+        .hero-eyebrow { font-size: 0.72rem; padding: 7px 12px 7px 10px; }
+        .hero-lead { font-size: 1rem; }
+        .btn { padding: 12px 18px; font-size: 0.86rem; }
+        .gcard, .glass-card { padding: 24px; border-radius: 22px; }
+        .photo-card { padding: 12px; border-radius: 32px; }
+        .photo-card .frame { border-radius: 22px; }
+        .data-card { padding: 9px 12px; }
+        .data-card .label { font-size: 0.6rem; }
+        .data-card .value { font-size: 0.78rem; }
+        .ed-item { padding: 18px 20px; gap: 16px; }
+        .ed-icon { width: 44px; height: 44px; }
+        .marquee { padding: 24px 0; margin-top: 40px; }
+        .marquee-track { font-size: 1.3rem; gap: 28px; padding-left: 28px; }
+        .channel { padding: 18px 14px; }
+        .pill { font-size: 0.78rem; padding: 7px 12px; }
+        .impact-grid, .stack-grid, .projects-grid, .ed-list { gap: 12px; }
+      }
+
+      /* Narrow strip of features that need full-bleed on mobile */
+      @media (max-width: 720px) {
+        .hero { padding-top: 96px; }
+        .hero-grid { gap: 40px; }
+        .visual-wrap { max-width: 360px; }
+        .photo-card { padding: 14px; }
+        .blob { transform: scale(0.85); }
+      }
+
+      /* High DPR sharpening — Retina/HiDPI screens */
+      @media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 2dppx) {
+        body { -webkit-font-smoothing: antialiased; }
+      }
+
+      /* iOS safe-area awareness */
+      @supports (padding: max(0px)) {
+        .nav { padding-left: max(20px, env(safe-area-inset-left)); padding-right: max(20px, env(safe-area-inset-right)); }
+        footer { padding-bottom: max(32px, env(safe-area-inset-bottom)); }
+      }
     </style>
   </head>
 
@@ -2232,6 +2292,15 @@
     <script>
       document.getElementById('year').textContent = new Date().getFullYear();
 
+      // Pause CSS animations when tab is hidden (saves CPU/GPU)
+      document.addEventListener('visibilitychange', () => {
+        document.documentElement.style.animationPlayState = document.hidden ? 'paused' : 'running';
+        document.querySelectorAll('.blob, .data-card, .photo-card, .marquee-track, body, body::before').forEach(el => {
+          // CSS-class based pause for elements with running animations
+          el.style.animationPlayState = document.hidden ? 'paused' : 'running';
+        });
+      });
+
       // Theme toggle
       const themeBtn = document.getElementById('theme-toggle');
       themeBtn?.addEventListener('click', () => {
@@ -2342,27 +2411,55 @@
         });
       }, loaderEnd);
 
-      // ============= MAGNETIC BUTTONS =============
+      // ============= MAGNETIC BUTTONS — rAF-throttled =============
       if (matchMedia('(pointer: fine)').matches) {
         document.querySelectorAll('.btn, .nav-brand, .channel').forEach(el => {
+          let pending = false, ex = 0, ey = 0;
+          el.style.willChange = 'transform';
           el.addEventListener('mousemove', (e) => {
-            const r = el.getBoundingClientRect();
-            const x = e.clientX - (r.left + r.width / 2);
-            const y = e.clientY - (r.top + r.height / 2);
-            el.style.transition = 'transform 0.2s ease-out';
-            el.style.transform = `translate(${x * 0.18}px, ${y * 0.22}px)`;
+            ex = e.clientX; ey = e.clientY;
+            if (pending) return;
+            pending = true;
+            requestAnimationFrame(() => {
+              const r = el.getBoundingClientRect();
+              const x = ex - (r.left + r.width / 2);
+              const y = ey - (r.top + r.height / 2);
+              el.style.transition = 'transform 0.2s ease-out';
+              el.style.transform = `translate3d(${(x * 0.18).toFixed(1)}px, ${(y * 0.22).toFixed(1)}px, 0)`;
+              pending = false;
+            });
           });
           el.addEventListener('mouseleave', () => {
             el.style.transition = 'transform 0.6s cubic-bezier(0.22,1,0.36,1)';
-            el.style.transform = 'translate(0, 0)';
+            el.style.transform = 'translate3d(0, 0, 0)';
           });
         });
       }
 
-      // ============= 3D TILT =============
+      // ============= 3D TILT (event-driven, only ticks while hovered) =============
       if (matchMedia('(pointer: fine)').matches) {
         document.querySelectorAll('[data-tilt]').forEach(card => {
           let rx = 0, ry = 0, trx = 0, tryy = 0;
+          let active = false;
+          let raf = 0;
+          card.style.willChange = 'transform';
+
+          const tick = () => {
+            rx += (trx - rx) * 0.12;
+            ry += (tryy - ry) * 0.12;
+            const lift = active ? -4 : 0;
+            card.style.transform = `perspective(1400px) rotateX(${rx.toFixed(2)}deg) rotateY(${ry.toFixed(2)}deg) translateY(${lift}px)`;
+            // Stop ticking when settled and not active
+            if (!active && Math.abs(trx - rx) < 0.05 && Math.abs(tryy - ry) < 0.05) {
+              card.style.transform = '';
+              raf = 0;
+              return;
+            }
+            raf = requestAnimationFrame(tick);
+          };
+          const start = () => { if (!raf) raf = requestAnimationFrame(tick); };
+
+          card.addEventListener('mouseenter', () => { active = true; start(); });
           card.addEventListener('mousemove', (e) => {
             const r = card.getBoundingClientRect();
             const cx = (e.clientX - r.left) / r.width - 0.5;
@@ -2370,24 +2467,23 @@
             tryy = cx * 5;
             trx = -cy * 4;
           });
-          card.addEventListener('mouseleave', () => { trx = 0; tryy = 0; });
-          const tickT = () => {
-            rx += (trx - rx) * 0.08;
-            ry += (tryy - ry) * 0.08;
-            const lift = card.matches(':hover') ? -4 : 0;
-            card.style.transform = `perspective(1400px) rotateX(${rx}deg) rotateY(${ry}deg) translateY(${lift}px)`;
-            requestAnimationFrame(tickT);
-          };
-          requestAnimationFrame(tickT);
+          card.addEventListener('mouseleave', () => { active = false; trx = 0; tryy = 0; start(); });
         });
       }
 
-      // ============= GLASS CARD SPOTLIGHT =============
+      // ============= GLASS CARD SPOTLIGHT — rAF-throttled =============
       document.querySelectorAll('.gcard').forEach(card => {
+        let pending = false, ex = 0, ey = 0;
         card.addEventListener('mousemove', (e) => {
-          const r = card.getBoundingClientRect();
-          card.style.setProperty('--cx', ((e.clientX - r.left) / r.width * 100) + '%');
-          card.style.setProperty('--cy', ((e.clientY - r.top) / r.height * 100) + '%');
+          ex = e.clientX; ey = e.clientY;
+          if (pending) return;
+          pending = true;
+          requestAnimationFrame(() => {
+            const r = card.getBoundingClientRect();
+            card.style.setProperty('--cx', ((ex - r.left) / r.width * 100) + '%');
+            card.style.setProperty('--cy', ((ey - r.top) / r.height * 100) + '%');
+            pending = false;
+          });
         });
       });
 
@@ -2529,16 +2625,20 @@
         let dx = mx, dy = my;
         const trail = [];
         const TRAIL_MAX = 22;
+        let raf = 0, lastMove = 0;
+
+        const start = () => { if (!raf) raf = requestAnimationFrame(tickC); };
 
         addEventListener('mousemove', (e) => {
           mx = e.clientX; my = e.clientY;
-          // Snap dot directly to cursor — feels responsive
           dx = mx; dy = my;
           trail.push({ x: mx, y: my, t: performance.now() });
           if (trail.length > TRAIL_MAX) trail.shift();
+          lastMove = performance.now();
+          start();
         });
 
-        const tickC = () => {
+        function tickC() {
           dot.style.transform = `translate(${dx}px, ${dy}px) translate(-50%, -50%)`;
 
           ctx.clearRect(0, 0, innerWidth, innerHeight);
@@ -2564,7 +2664,6 @@
 
               ctx.beginPath();
               ctx.strokeStyle = `rgba(37, 99, 235, ${fade * 0.85})`;
-              // Taper: thicker at the head, hairline at the tail
               ctx.lineWidth = 1 + u * 6;
 
               if (i === 0) {
@@ -2573,16 +2672,17 @@
                 const pp = trail[i - 1];
                 ctx.moveTo((pp.x + p.x) / 2, (pp.y + p.y) / 2);
               }
-              // Curve through this point to the midpoint of the next pair
               const midX = (p.x + np.x) / 2;
               const midY = (p.y + np.y) / 2;
               ctx.quadraticCurveTo(p.x, p.y, midX, midY);
               ctx.stroke();
             }
           }
-          requestAnimationFrame(tickC);
-        };
-        requestAnimationFrame(tickC);
+          // Stop the loop when trail is fully faded and there's been no move in a while
+          if (trail.length === 0 && (now - lastMove) > 700) { raf = 0; return; }
+          raf = requestAnimationFrame(tickC);
+        }
+        start();
 
         document.querySelectorAll('a, button, .channel, .gcard, [data-tilt]').forEach(el => {
           el.addEventListener('mouseenter', () => dot.classList.add('hover'));
@@ -2590,31 +2690,42 @@
         });
       }
 
-      // Hero parallax: floating cards/blobs follow mouse (desktop only)
+      // Hero parallax: floating cards/blobs follow mouse (desktop only, hover-gated)
       if (matchMedia('(min-width: 769px) and (pointer: fine)').matches) {
         const wrap = document.querySelector('.visual-wrap');
         if (wrap) {
           let tx = 0, ty = 0, cx = 0, cy = 0;
+          let active = false, raf = 0;
+          const blobs = wrap.querySelectorAll('.blob');
+          const dcards = wrap.querySelectorAll('.data-card');
+
+          const tick = () => {
+            cx += (tx - cx) * 0.10;
+            cy += (ty - cy) * 0.10;
+            blobs.forEach((b, i) => {
+              const m = 1 + i * 0.4;
+              b.style.transform = `translate3d(${(cx * m).toFixed(1)}px, ${(cy * m).toFixed(1)}px, 0)`;
+            });
+            dcards.forEach((d, i) => {
+              const m = 1.4 + i * 0.5;
+              d.style.transform = `translate3d(${(cx * m).toFixed(1)}px, ${(cy * m).toFixed(1)}px, 0)`;
+            });
+            if (!active && Math.abs(tx - cx) < 0.1 && Math.abs(ty - cy) < 0.1) {
+              blobs.forEach(b => b.style.transform = '');
+              dcards.forEach(d => d.style.transform = '');
+              raf = 0;
+              return;
+            }
+            raf = requestAnimationFrame(tick);
+          };
+          const start = () => { if (!raf) raf = requestAnimationFrame(tick); };
+          wrap.addEventListener('mouseenter', () => { active = true; start(); });
           wrap.addEventListener('mousemove', (e) => {
             const r = wrap.getBoundingClientRect();
             tx = ((e.clientX - r.left) / r.width - 0.5) * 16;
             ty = ((e.clientY - r.top) / r.height - 0.5) * 12;
           });
-          wrap.addEventListener('mouseleave', () => { tx = 0; ty = 0; });
-          const tick = () => {
-            cx += (tx - cx) * 0.06;
-            cy += (ty - cy) * 0.06;
-            wrap.querySelectorAll('.blob').forEach((b, i) => {
-              const m = 1 + i * 0.4;
-              b.style.transform = `translate(${cx * m}px, ${cy * m}px)`;
-            });
-            wrap.querySelectorAll('.data-card').forEach((d, i) => {
-              const m = 1.4 + i * 0.5;
-              d.style.transform = `translate(${cx * m}px, ${cy * m}px)`;
-            });
-            requestAnimationFrame(tick);
-          };
-          requestAnimationFrame(tick);
+          wrap.addEventListener('mouseleave', () => { active = false; tx = 0; ty = 0; start(); });
         }
       }
     </script>

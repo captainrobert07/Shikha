@@ -22,21 +22,18 @@
   <!-- Top sheen -->
   <rect x="0" y="0" width="1024" height="1024" rx="229" ry="229" fill="url(#sheen)"/>
 
-  <!-- Bold, optically-balanced S, centered -->
-  <g filter="url(#markShadow)">
-    <path
-      d="M 712 360
-         C 692 296, 624 268, 528 268
-         C 432 268, 360 320, 360 396
-         C 360 460, 416 492, 504 516
-         L 568 534
-         C 624 552, 656 580, 656 624
-         C 656 680, 600 716, 520 716
-         C 432 716, 376 684, 356 620"
-      fill="none"
-      stroke="#FFFFFF"
-      stroke-width="104"
-      stroke-linecap="round"
-      stroke-linejoin="round"/>
+  <!-- Geometric S: filled shape, two stacked rectangles + a diagonal connector.
+       Reads as an architectural / typographic S, not a snake. -->
+  <g filter="url(#markShadow)" fill="#FFFFFF">
+    <!-- Top horizontal bar -->
+    <rect x="296" y="280" width="432" height="104" rx="52" ry="52"/>
+    <!-- Bottom horizontal bar -->
+    <rect x="296" y="640" width="432" height="104" rx="52" ry="52"/>
+    <!-- Middle horizontal (the waist) -->
+    <rect x="296" y="460" width="432" height="104" rx="52" ry="52"/>
+    <!-- Left vertical (top-left to middle) -->
+    <rect x="296" y="280" width="104" height="284" rx="52" ry="52"/>
+    <!-- Right vertical (middle to bottom-right) -->
+    <rect x="624" y="460" width="104" height="284" rx="52" ry="52"/>
   </g>
 </svg>
