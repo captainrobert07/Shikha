@@ -2645,40 +2645,36 @@
           ctx.lineCap = 'round';
           ctx.lineJoin = 'round';
           const now = performance.now();
-          // Drop expired points
           while (trail.length && (now - trail[0].t) > 600) trail.shift();
 
-          // Draw the trail as one smooth quadratic-bezier polyline,
-          // segment by segment so each can have its own width + alpha.
-          if (trail.length >= 2) {
-            for (let i = 0; i < trail.length - 1; i++) {
+          // Draw the trail as a SINGLE continuous quadratic-bezier path,
+          // then stroke once with a linear-gradient fade. No segmented
+          // beads where individual strokes meet.
+          if (trail.length >= 3) {
+            ctx.beginPath();
+            ctx.moveTo(trail[0].x, trail[0].y);
+            for (let i = 1; i < trail.length - 1; i++) {
               const p = trail[i];
               const np = trail[i + 1];
-              const age = (now - p.t) / 600;
-              if (age > 1) continue;
-
-              // Position along the trail, 0 = oldest tail, 1 = newest near cursor
-              const u = i / (trail.length - 1);
-              const fade = (1 - age) * u;
-              if (fade <= 0) continue;
-
-              ctx.beginPath();
-              ctx.strokeStyle = `rgba(37, 99, 235, ${fade * 0.85})`;
-              ctx.lineWidth = 1 + u * 6;
-
-              if (i === 0) {
-                ctx.moveTo(p.x, p.y);
-              } else {
-                const pp = trail[i - 1];
-                ctx.moveTo((pp.x + p.x) / 2, (pp.y + p.y) / 2);
-              }
               const midX = (p.x + np.x) / 2;
               const midY = (p.y + np.y) / 2;
               ctx.quadraticCurveTo(p.x, p.y, midX, midY);
-              ctx.stroke();
             }
+            const last = trail[trail.length - 1];
+            ctx.lineTo(last.x, last.y);
+
+            // Gradient from tail (transparent) to head (full color)
+            const head = last;
+            const tail = trail[0];
+            const grad = ctx.createLinearGradient(tail.x, tail.y, head.x, head.y);
+            grad.addColorStop(0,    'rgba(37, 99, 235, 0)');
+            grad.addColorStop(0.55, 'rgba(37, 99, 235, 0.35)');
+            grad.addColorStop(1,    'rgba(37, 99, 235, 0.85)');
+            ctx.strokeStyle = grad;
+            ctx.lineWidth = 5;
+            ctx.stroke();
           }
-          // Stop the loop when trail is fully faded and there's been no move in a while
+
           if (trail.length === 0 && (now - lastMove) > 700) { raf = 0; return; }
           raf = requestAnimationFrame(tickC);
         }
